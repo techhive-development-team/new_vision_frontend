@@ -21,8 +21,8 @@ const MainCourses = () => {
   return (
     <div className="px-6">
       <div className="w-11/12 md:w-4/5 mx-auto py-6 space-y-4">
-        <h3 className="font-semibold text-2xl">Overview of our study programs</h3>
-        <p className="font-light">
+        <h3 className="font-semibold text-2xl text-white">Overview of our study programs</h3>
+        <p className="font-light text-white">
           We offer a wide range of state-recognised and accredited undergraduate
           and postgraduate study programmes.
         </p>

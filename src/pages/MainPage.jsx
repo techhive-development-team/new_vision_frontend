@@ -8,10 +8,12 @@ import MainPartnerInstitute from "../components/main/MainPartnerInstitute";
 import Footer from "../components/common/Footer";
 import MainPartnerUniversity from "../components/main/MainPartnerUniversity";
 import MainReview from "../components/main/MainReview";
+import StarsCanvas from "../components/common/StarBackground";
 
 const MainPage = () => {
   return (
     <>
+      <StarsCanvas />
       <Navbar />
       <MainSlider />
       <MainContext />

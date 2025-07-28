@@ -82,9 +82,9 @@ const PartnerCard = ({ image, logo, name, classType, type, earning }) => {
 
 const MainPartnerInstitute = () => {
   return (
-    <div className="px-6 py-10 bg-gray-50 relative">
+    <div className="px-6 py-10 relative">
       <div className="w-11/12 md:w-4/5 mx-auto space-y-8">
-        <h2 className="text-2xl font-semibold text-center">Our Partner Institutes</h2>
+        <h2 className="text-2xl font-semibold text-center text-white">Our Partner Institutes</h2>
         <div className="relative">
           <Swiper
             spaceBetween={20}

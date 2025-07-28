@@ -39,10 +39,10 @@ const ReviewCard = ({ review }) => (
 
 const MainReview = () => {
   return (
-    <div className="px-6 py-12 bg-gray-50">
+    <div className="px-6 py-12 text-white">
       <div className="w-11/12 md:w-4/5 mx-auto text-center mb-8">
         <h2 className="text-3xl font-bold">What Our Students Say</h2>
-        <p className="text-gray-600 mt-2">The best choice to connect with us</p>
+        <p className="text-gray-100 mt-2">The best choice to connect with us</p>
       </div>
 
       <Swiper
