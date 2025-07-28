@@ -1,10 +1,10 @@
 import "./App.css";
-import MainArchievement from "./components/MainArchievement";
-import MainContext from "./components/MainContext";
-import MainCourses from "./components/MainCourses";
-import MainPartner from "./components/MainPartner";
-import MainSlider from "./components/MainSlider";
-import Navbar from "./components/Navbar";
+import MainArchievement from "./components/main/MainArchievement";
+import MainContext from "./components/main/MainContext";
+import MainCourses from "./components/main/MainCourses";
+import MainPartner from "./components/main/MainPartner";
+import MainSlider from "./components/main/MainSlider";
+import Navbar from "./components/common/Navbar";
 import Waves from "react-animated-waves";
 
 function App() {
