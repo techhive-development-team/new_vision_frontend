@@ -4,8 +4,10 @@ import MainSlider from "../components/main/MainSlider";
 import MainContext from "../components/main/MainContext";
 import MainCourses from "../components/main/MainCourses";
 import MainArchievement from "../components/main/MainArchievement";
-import MainPartner from "../components/main/MainPartner";
+import MainPartnerInstitute from "../components/main/MainPartnerInstitute";
 import Footer from "../components/common/Footer";
+import MainPartnerUniversity from "../components/main/MainPartnerUniversity";
+import MainReview from "../components/main/MainReview";
 
 const MainPage = () => {
   return (
@@ -15,7 +17,9 @@ const MainPage = () => {
       <MainContext />
       <MainCourses />
       <MainArchievement />
-      <MainPartner />
+      <MainPartnerInstitute />
+      <MainPartnerUniversity />
+      <MainReview />
       <Footer />
     </>
   );

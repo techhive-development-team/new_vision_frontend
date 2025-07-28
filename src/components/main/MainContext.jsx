@@ -28,7 +28,7 @@ const MainContext = () => {
       {cards.map((card, index) => (
         <div
           key={index}
-          className="border border-e-gray-500 relative bg-white rounded-3xl shadow-xl overflow-hidden transition-transform hover:scale-[1.02]"
+          className="relative bg-white rounded-3xl shadow-xl overflow-hidden transition-transform hover:scale-[1.02]"
         >
           <div className={`bg-gradient-to-r  p-4 flex items-center gap-3`}>
             {card.icon}
