@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/logo.png";
+import logo from "../../assets/logo.png";
 
 const Navbar = () => {
   return (
@@ -13,7 +13,7 @@ const Navbar = () => {
         </div>
         <div className="hidden md:flex space-x-6 items-center">
           <a
-            href="#"
+            href="/"
             className="border-b-2 border-transparent hover:border-new-vision-yellow transition"
           >
             Home
@@ -37,7 +37,7 @@ const Navbar = () => {
             About Us
           </a>
           <a
-            href="#"
+            href="/contact"
             className="text-black bg-new-vision-yellow px-4 py-1 rounded-2xl border border-new-vision-yellow hover:bg-transparent hover:text-white transition"
           >
             Enquiry
