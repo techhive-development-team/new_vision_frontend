@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+@theme {
+  --color-new-vision-yellow: #FBFF18; 
+  --color-new-vision-green: #36F265; 
+}
