@@ -11,7 +11,7 @@ const studentShowcases = [
       {
         id: "2",
         name: "Student Showcase 1",
-        image: "src/assets/a1.jpeg",
+        image: "/images/a1.jpeg",
         description: "Brief description of the showcase event 1.",
         postedDate: "2023-10-01",
       },
@@ -19,7 +19,7 @@ const studentShowcases = [
       {
         id: "2",
         name: "Student Showcase 2",
-        image: "src/assets/a4.jpeg",
+        image: "/images/a4.jpeg",
         description: "Brief description of the showcase event 2.",
         postedDate: "2023-10-01",
       },
@@ -27,7 +27,7 @@ const studentShowcases = [
       {
         id: "3",
         name: "Student Showcase 3",
-        image: "src/assets/a5.jpeg",
+        image: "/images/a5.jpeg",
         description: "Brief description of the showcase event 3.",
         postedDate: "2023-10-01",
       },
@@ -40,7 +40,7 @@ const studentShowcases = [
       {
         id: "2",
         name: "Student Showcase 1",
-        image: "src/assets/a1.jpeg",
+        image: "/images/a1.jpeg",
         description: "Brief description of the showcase event 1.",
         postedDate: "2023-10-01",
       },
@@ -48,7 +48,7 @@ const studentShowcases = [
       {
         id: "2",
         name: "Student Showcase 2",
-        image: "src/assets/a4.jpeg",
+        image: "/images/a4.jpeg",
         description: "Brief description of the showcase event 2.",
         postedDate: "2023-10-01",
       },
@@ -56,7 +56,7 @@ const studentShowcases = [
       {
         id: "3",
         name: "Student Showcase 3",
-        image: "src/assets/a5.jpeg",
+        image: "/images/a5.jpeg",
         description: "Brief description of the showcase event 3.",
         postedDate: "2023-10-01",
       },
@@ -69,7 +69,7 @@ const studentShowcases = [
       {
         id: "2",
         name: "Student Showcase 1",
-        image: "src/assets/a1.jpeg",
+        image: "/images/a1.jpeg",
         description: "Brief description of the showcase event 1.",
         postedDate: "2023-10-01",
       },
@@ -77,7 +77,7 @@ const studentShowcases = [
       {
         id: "2",
         name: "Student Showcase 2",
-        image: "src/assets/a4.jpeg",
+        image: "/images/a4.jpeg",
         description: "Brief description of the showcase event 2.",
         postedDate: "2023-10-01",
       },
@@ -85,7 +85,7 @@ const studentShowcases = [
       {
         id: "3",
         name: "Student Showcase 3",
-        image: "src/assets/a5.jpeg",
+        image: "/images/a5.jpeg",
         description: "Brief description of the showcase event 3.",
         postedDate: "2023-10-01",
       },

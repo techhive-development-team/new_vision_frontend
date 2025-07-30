@@ -3,7 +3,7 @@ import React from "react";
 const CourseBackground = () => {
   return (
     <div className="bg-gray-200">
-      <div className="relative bg-[url('src/assets/a1.jpeg')] bg-cover bg-center text-white">
+      <div className="relative bg-[url('/images/a1.jpeg')] bg-cover bg-center text-white">
         <div className="container mx-auto">
           <div className="absolute inset-0 bg-black opacity-70 z-0"></div>
           <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start justify-between p-8 space-y-6 md:space-y-0 md:space-x-8 min-h-[20rem]">
@@ -72,7 +72,7 @@ const CourseBackground = () => {
           <div className="flex flex-col max-w-sm border border-black rounded-2xl bg-white shadow-md p-6 space-y-4">
             <img
               className="w-full h-48 object-cover rounded-xl"
-              src="src/assets/a4.jpeg"
+              src="/images/a4.jpeg"
               alt="Architecture Level 1"
             />
             <h1 className="text-2xl font-semibold text-gray-800">

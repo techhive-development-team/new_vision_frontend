@@ -8,7 +8,7 @@ const HappeningDetail = () => {
         {/* Hero Image */}
         <div className="w-full h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden">
           <img
-            src="/src/assets/a1.jpeg"
+            src="//images/a1.jpeg"
             alt="Happening Detail"
             className="w-full h-full object-cover"
           />
@@ -33,7 +33,7 @@ const HappeningDetail = () => {
             {[...Array(8)].map((_, index) => (
               <img
                 key={index}
-                src={`/src/assets/${index + 1}.jpeg`}
+                src={`//images/${index + 1}.jpeg`}
                 alt={`Gallery ${index + 1}`}
                 className="w-full h-40 object-cover shadow-md"
               />

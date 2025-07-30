@@ -3,7 +3,7 @@ import React from "react";
 const ContactUsForm = () => {
   return (
     <section
-      className={`relative flex items-center justify-between bg-cover bg-center h-[80vh] text-white px-10 lg:px-20 bg-[url('src/assets/a1.jpeg')]`}
+      className={`relative flex items-center justify-between bg-cover bg-center h-[80vh] text-white px-10 lg:px-20 bg-[url('/images/a1.jpeg')]`}
     >
       <div className="absolute inset-0 bg-black opacity-70 z-0" />
 
@@ -21,7 +21,7 @@ const ContactUsForm = () => {
         <div className="flex items-center space-x-4 mb-6">
           <img
             className="w-12 h-12"
-            src="src/assets/new_vision_logo_nobg.png"
+            src="/images/new_vision_logo_nobg.png"
             alt="logo"
           />
           <h2 className="text-xl font-semibold">
