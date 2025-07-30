@@ -5,16 +5,13 @@ const HappeningDetail = () => {
   return (
     <Layout>
       <div className="bg-white">
-        {/* Hero Image */}
         <div className="w-full h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden">
           <img
-            src="//images/a1.jpeg"
+            src="/images/a1.jpeg"
             alt="Happening Detail"
             className="w-full h-full object-cover"
           />
         </div>
-
-        {/* Content Section */}
         <div className="container mx-auto p-6 md:p-10 max-w-5xl">
           <h3 className="font-bold text-3xl md:text-4xl mb-4 text-gray-800">
             Digital Campus Day
@@ -33,7 +30,7 @@ const HappeningDetail = () => {
             {[...Array(8)].map((_, index) => (
               <img
                 key={index}
-                src={`//images/${index + 1}.jpeg`}
+                src={`/images/${index + 1}.jpeg`}
                 alt={`Gallery ${index + 1}`}
                 className="w-full h-40 object-cover shadow-md"
               />
