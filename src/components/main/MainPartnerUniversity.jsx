@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const universities = [
   {
@@ -67,12 +68,12 @@ const MainPartnerUniversity = () => {
             <h3 className="text-2xl font-bold">{uni.name}</h3>
             <p className="text-lg text-gray-500">{uni.location}</p>
             <p className="text-md text-gray-700">{uni.description}</p>
-            <a
-              href="#"
+            <Link
+              to="#"
               className="inline-block border border-new-vision-yellow text-new-vision-yellow bg-black font-base px-6 py-2 rounded-2xl hover:opacity-90 hover:bg-transparent transition"
             >
               Learn More
-            </a>
+            </Link>
           </div>
         </div>
       </div>

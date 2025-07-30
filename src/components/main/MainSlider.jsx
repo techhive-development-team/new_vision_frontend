@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 const EmptyArrow = () => <div></div>;
 //apply now
@@ -78,12 +79,12 @@ const MainSlider = () => {
                   </p>
                 )}
                 {slide.link && (
-                  <a
-                    href={slide.link}
+                  <Link
+                    to={slide.link}
                     className="inline-block border border-new-vision-yellow text-new-vision-yellow font-semibold px-6 py-2 rounded-2xl hover:opacity-90 hover:bg-black hover:text-white transition"
                   >
                     Learn More
-                  </a>
+                  </Link>
                 )}
               </div>
             </div>

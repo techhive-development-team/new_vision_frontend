@@ -7,8 +7,8 @@ const ContactUsForm = () => {
     >
       <div className="absolute inset-0 bg-black opacity-70 z-0" />
 
-      <div className="z-10 w-1/2 pr-6 hidden md:block">
-        <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
+      <div className="z-10 w-1/2 pr-6">
+        <h1 className="text-sm md:text-lg lg:text-4xl font-bold mb-6">Contact Us</h1>
         <p className="text-xl max-w-xl">
           New Vision Art & Science Institute would be delighted to discuss your
           requirements and help you find the right programme to enable you to

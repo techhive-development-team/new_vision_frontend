@@ -9,20 +9,20 @@ import Footer from "../components/common/Footer";
 import MainPartnerUniversity from "../components/main/MainPartnerUniversity";
 import MainReview from "../components/main/MainReview";
 import StarsCanvas from "../components/common/StarBackground";
+import Layout from "../components/common/Layout";
 
 const MainPage = () => {
   return (
     <>
-      <StarsCanvas />
-      <Navbar />
-      <MainSlider />
-      <MainContext />
-      <MainCourses />
-      <MainArchievement />
-      <MainPartnerInstitute />
-      <MainPartnerUniversity />
-      <MainReview />
-      <Footer />
+      <Layout>
+        <MainSlider />
+        <MainContext />
+        <MainCourses />
+        <MainArchievement />
+        <MainPartnerInstitute />
+        <MainPartnerUniversity />
+        <MainReview />
+      </Layout>
     </>
   );
 };
