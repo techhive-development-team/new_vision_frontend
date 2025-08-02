@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "../../assets/logo.png";
 
 const ContactUsForm = () => {
   return (
@@ -19,7 +20,7 @@ const ContactUsForm = () => {
           <div className="flex items-center space-x-2 justify-center mb-8">
             <img
               className="w-10 h-10"
-              src="src/assets/new_vision_logo_nobg.png"
+              src={logo}
               alt="logo"
             />
             <h2 className="text-xl sm:text-2xl font-semibold bg-gradient-to-r from-new-vision-yellow to-new-vision-green bg-clip-text text-transparent">
