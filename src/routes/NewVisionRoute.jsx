@@ -7,6 +7,7 @@ import Happenings from "../pages/happenings/Happenings";
 import HappeningByCategory from "../pages/happenings/HappeningByCategory";
 import HappeningDetail from "../pages/happenings/HappeningDetail";
 import Quiz from "../pages/Quiz";
+import CourseDetail from "../pages/CourseDetail";
 
 const NewVisionRoute = () => {
   return (
@@ -19,6 +20,7 @@ const NewVisionRoute = () => {
       <Route path="/happening/category" element={<HappeningByCategory />} />
       <Route path="/happening/:id" element={<HappeningDetail />} />
       <Route path="/quiz/:id" element={<Quiz />} />
+      <Route path="/courses/:id" element={<CourseDetail />} />
     </Routes>
   );
 };

@@ -1,15 +1,11 @@
-import React from "react";
-import Navbar from "../components/common/Navbar";
-import Footer from "../components/common/Footer";
 import ContactUsForm from "../components/contact-us/ContactUsForm";
+import Layout from "../components/common/Layout";
 
 const ContactUs = () => {
   return (
-    <>
-      <Navbar />
+    <Layout>
       <ContactUsForm />
-      <Footer />
-    </>
+    </Layout>
   );
 };
 

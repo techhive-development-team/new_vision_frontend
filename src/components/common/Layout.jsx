@@ -1,13 +1,20 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Loader from "./Loader";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, isLoading }) => {
   return (
     <div>
-      <Navbar />
-      {children}
-      <Footer />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div>
+          <Navbar />
+          {children}
+          <Footer />
+        </div>
+      )}
     </div>
   );
 };

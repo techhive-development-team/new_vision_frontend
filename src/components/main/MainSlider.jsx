@@ -1,50 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
+import { supabase } from "../../client/supabaseClient";
 
 const EmptyArrow = () => <div></div>;
-//apply now
-//learn more
-//class info
-const data = [
-  {
-    id: 1,
-    mainText: "Welcome to New Vision Art & Science Institute",
-    subText:
-      "Blending artistic excellence with modern science and global education standards to empower the next generation of creators, thinkers, and leaders.",
-    link: "#",
-    backgroundImage:
-      "https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    id: 2,
-    mainText: "Academic Excellence & Creative Innovation",
-    subText: "On a Global Scale",
-    link: "#",
-    backgroundImage:
-      "https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    id: 3,
-    mainText: "Come see the amazing art our students have created",
-    subText: "Don’t miss this inspiring event",
-    link: "#",
-    backgroundImage:
-      "https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    id: 4,
-    mainText: "Transformative Learning Journey",
-    subText: "Guided by passion, personalised mentorship, and purpose",
-    link: "#",
-    backgroundImage:
-      "https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80",
-  },
-];
 
-const MainSlider = () => {
+const MainSlider = ({ notifyLoading }) => {
+  const [data, setData] = useState([]);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
+
+  useEffect(() => {
+    const loadData = async () => {
+      notifyLoading(true);
+      const { data, error } = await supabase.from("main_slider_tbl").select("*");
+
+      if (data && Array.isArray(data)) {
+        setData(data);
+        if (data.length === 0) {
+          notifyLoading(false);
+        }
+      } else {
+        notifyLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  useEffect(() => {
+    if (data.length > 0 && imagesLoaded === data.length) {
+      notifyLoading(false);
+    }
+  }, [imagesLoaded, data.length]);
+
+  const handleImageLoad = () => {
+    setImagesLoaded((prev) => prev + 1);
+  };
+
   const settings = {
     dots: false,
     infinite: true,
@@ -60,36 +54,42 @@ const MainSlider = () => {
   return (
     <div className="w-full relative">
       <Slider {...settings}>
-        {data.map((slide, index) => (
-          <div key={index} className="relative h-[600px] w-full">
-            <img
-              src={slide.backgroundImage}
-              className="h-full w-full object-cover"
-              alt={`Slide ${index + 1}`}
-            />
-            <div className="absolute inset-0 flex items-center justify-start">
-              <div className="absolute inset-0 bg-black opacity-50"></div>
-              <div className="relative text-left px-6 sm:px-12 max-w-3xl">
-                <h2 className="text-new-vision-yellow text-2xl sm:text-4xl font-bold mb-4">
-                  {slide.mainText}
-                </h2>
-                {slide.subText && (
-                  <p className="text-new-vision-yellow text-base sm:text-lg mb-6">
-                    {slide.subText}
-                  </p>
-                )}
-                {slide.link && (
-                  <Link
-                    to={slide.link}
-                    className="inline-block border border-new-vision-yellow text-new-vision-yellow font-semibold px-6 py-2 rounded-2xl hover:opacity-90 hover:bg-black hover:text-white transition"
-                  >
-                    Learn More
-                  </Link>
-                )}
+        {data.map((slide, index) => {
+          const imageUrl = `https://hcecytohzglqkfrcrzox.supabase.co/storage/v1/object/public/mainpage/${slide.main_bg_img}`;
+
+          return (
+            <div key={index} className="relative h-[600px] w-full">
+              <img
+                src={imageUrl}
+                alt="Slide background"
+                className="w-full h-full object-cover transition-opacity duration-500"
+                onLoad={handleImageLoad}
+              />
+
+              <div className="absolute inset-0 flex items-center justify-start">
+                <div className="absolute inset-0 bg-black opacity-20"></div>
+                <div className="relative text-left px-6 sm:px-12 max-w-3xl">
+                  <h2 className="text-new-vision-yellow text-2xl sm:text-4xl font-bold mb-4">
+                    {slide.main_text}
+                  </h2>
+                  {slide.sub_text && (
+                    <p className="text-new-vision-yellow text-base sm:text-lg mb-6">
+                      {slide.sub_text}
+                    </p>
+                  )}
+                  {slide.main_link && (
+                    <Link
+                      to={slide.main_link}
+                      className="inline-block border border-new-vision-yellow text-new-vision-yellow font-semibold px-6 py-2 rounded-2xl hover:opacity-90 hover:bg-black hover:text-white transition"
+                    >
+                      Learn More
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </Slider>
     </div>
   );
