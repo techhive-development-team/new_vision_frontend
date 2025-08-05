@@ -1,5 +1,6 @@
 import React from "react";
 import { Sparkles, Calendar } from "lucide-react"; 
+import { Link } from "react-router-dom";
 
 const MainContext = () => {
   const cards = [
@@ -41,12 +42,12 @@ const MainContext = () => {
               className="w-full h-48 object-cover rounded-xl shadow-md bg-gray-200"
             />
             <p className="text-gray-700 text-base">{card.description}</p>
-            <a
-              href={card.linkHref}
+            <Link
+              to={card.linkHref}
               className="inline-block text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
             >
               {card.linkText} →
-            </a>
+            </Link>
           </div>
         </div>
       ))}
