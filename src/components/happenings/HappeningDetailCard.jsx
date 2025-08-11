@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const HappeningDetailCard = ({ item, itemIndex }) => {
   return (
-    <div key={itemIndex} className="bg-white rounded-lg shadow-lg p-4">
+    <div key={itemIndex} className="bg-white rounded-lg shadow-lg p-4 border-gray-200 border">
       <img
         src={item.image}
         alt={item.title}

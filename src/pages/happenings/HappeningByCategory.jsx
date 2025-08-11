@@ -60,8 +60,8 @@ const HappeningByCategory = () => {
         <div className="container mx-auto p-4">
           <div className="py-6">
             <div className="pb-4">
-              <div className="inline-block border-b-2 border-new-vision-yellow">
-                <h2 className="text-2xl font-bold text-white mb-2">
+              <div className="inline-block border-b-2 border-black dark:border-new-vision-yellow">
+                <h2 className="text-2xl font-bold text-black dark:text-white mb-2">
                   Students Showcase
                 </h2>
               </div>

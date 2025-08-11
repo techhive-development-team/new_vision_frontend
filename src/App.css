@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-new-vision-yellow: #FBFF18; 
-  --color-new-vision-green: #36F265; 
+  --color-new-vision-yellow: #fbff18;
+  --color-new-vision-green: #36f265;
+  --color-new-vision-latte: #dbd9a9;
 }

@@ -115,13 +115,18 @@ const CourseBackground = () => {
         </div>
       </div>
       <section className="container mx-auto p-4">
-        <div className="inline-block border-b-2 border-new-vision-yellow mb-4">
-          <h2 className="text-2xl font-bold text-white mb-2">Filter By</h2>
+        <div className="inline-block border-b-2 dark:border-new-vision-yellow mb-4 border-black">
+          <h2 className="text-2xl font-bold text-black dark:text-white mb-2">
+            Filter By
+          </h2>
         </div>
 
         <div className="flex flex-col justify-center md:flex-row md:items-end md:space-x-4 gap-4">
           <div className="w-full md:w-1/3">
-            <label className="block text-white font-medium mb-1" name="program">
+            <label
+              className="block text-black dark:text-white font-medium mb-1"
+              name="program"
+            >
               Program
             </label>
             <select className="w-full rounded-lg border border-gray-300 p-2 bg-white">
@@ -133,7 +138,7 @@ const CourseBackground = () => {
           </div>
 
           <div className="w-full md:w-1/3">
-            <label className="block text-white font-medium mb-1">
+            <label className="block text-black dark:text-white font-medium mb-1">
               Language
             </label>
             <select
@@ -147,7 +152,9 @@ const CourseBackground = () => {
           </div>
 
           <div className="w-full md:w-1/3">
-            <label className="block text-white font-medium mb-1">Level</label>
+            <label className="block text-black dark:text-white font-medium mb-1">
+              Level
+            </label>
             <select
               className="w-full rounded-lg border border-gray-300 p-2 bg-white"
               name="level"
@@ -160,15 +167,15 @@ const CourseBackground = () => {
           </div>
 
           <div className="w-full md:w-auto">
-            <button className="bg-new-vision-yellow text-black mt-2 md:mt-6 px-6 py-2 rounded-xl border border-black transition duration-300 w-full md:w-auto hover:bg-black hover:text-white">
+            <button className="bg-new-vision-yellow text-black mt-2 md:mt-6 px-6 py-2 rounded-xl border border-gray-300 transition duration-300 w-full md:w-auto">
               Search
             </button>
           </div>
         </div>
       </section>
       <section className="container mx-auto p-4">
-        <div className="inline-block border-b-2 border-new-vision-yellow mb-4">
-          <h2 className="text-2xl font-bold text-white mb-2">
+        <div className="inline-block border-b-2 dark:border-new-vision-yellow mb-4 border-black">
+          <h2 className="text-2xl font-bold text-black dark:text-white mb-2 ">
             Opening Courses
           </h2>
         </div>
@@ -176,26 +183,22 @@ const CourseBackground = () => {
           {openingCourses.map((course) => (
             <div
               key={course.id}
-              className="flex flex-col space-y-3 border border-black rounded-2xl p-6 md:p-5 lg:p-6 shadow-md bg-white hover:shadow-xl transition-all duration-300"
+              className="flex flex-col space-y-3 border border-gray-300 rounded-2xl p-6 md:p-5 lg:p-6 shadow-md bg-white hover:shadow-xl transition-all duration-300"
             >
               <img
                 className="w-full h-48 object-cover rounded-xl"
                 src={course.image}
                 alt={course.title}
               />
-              <h1 className="text-xl md:text-2xl lg:text-3xl font-bold pl-1">
-                {course.title}
-              </h1>
-              <p className="text-base md:text-lg lg:text-xl pl-1">
-                {course.description}
-              </p>
-              <p className="text-base md:text-lg lg:text-xl pl-1">
+              <h1 className="text-xl font-semibold">{course.title}</h1>
+              <p className="text-base">{course.description}</p>
+              <p className="text-base">
                 <strong>Price:</strong> {course.fees} MMK
               </p>
-              <p className="text-base md:text-lg lg:text-xl pl-1">
+              <p className="text-base">
                 • {course.level} • {course.duration} • {course.location}
               </p>
-              <p className="text-base md:text-lg lg:text-xl pl-1">
+              <p className="text-base">
                 <strong>Expire Date:</strong> {course.expireDate}
               </p>
             </div>
@@ -203,27 +206,28 @@ const CourseBackground = () => {
         </div>
       </section>
       <section className="container mx-auto p-4">
-        <div className="inline-block border-b-2 border-new-vision-yellow mb-4">
-          <h2 className="text-2xl font-bold text-white mb-2">Courses</h2>
+        <div
+          className="inline-block border-b-2 border-black
+        dark:border-new-vision-yellow mb-4"
+        >
+          <h2 className="text-2xl font-bold text-black dark:text-white mb-2">
+            Courses
+          </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {courses.map((course) => (
             <div
               key={course.id}
-              className="flex flex-col space-y-3 border border-black rounded-2xl p-6 md:p-5 lg:p-6 shadow-md bg-white hover:shadow-xl transition-all duration-300"
+              className="flex flex-col space-y-3 border border-gray-300 rounded-2xl p-6 md:p-5 lg:p-6 shadow-md bg-white hover:shadow-xl transition-all duration-300"
             >
               <img
                 className="w-full h-48 object-cover rounded-xl"
                 src={course.image}
                 alt={course.title}
               />
-              <h1 className="text-xl md:text-xl lg:text-2xl font-bold pl-1">
-                {course.title}
-              </h1>
-              <p className="text-base md:text-md lg:text-lg pl-1">
-                {course.description}
-              </p>
-              <p className="text-base md:text-md lg:text-lg pl-1">
+              <h1 className="text-xl font-semibold">{course.title}</h1>
+              <p className="text-base">{course.description}</p>
+              <p className="text-base">
                 • {course.level} • {course.duration} • {course.location}
               </p>
             </div>

@@ -5,10 +5,10 @@ const MissionVision = () => {
     <>
       <div className="grid lg:grid-cols-2 gap-3 lg:gap-16 items-center">
         <div className="p-8">
-          <h3 className="text-2xl font-semibold text-white mb-6">
+          <h3 className="text-2xl font-semibold text-black dark:text-white mb-6">
             Our Unique Edge
           </h3>
-          <p className="text-white text-base leading-relaxed">
+          <p className="text-black dark:text-white text-base leading-relaxed">
             New Vision Art & Science Institute is a forward-thinking educational
             institute in Myanmar, dedicated to blending creative arts and
             applied sciences to prepare students for global success. Our mission
@@ -44,8 +44,10 @@ const MissionVision = () => {
           />
         </div>
         <div className="p-8">
-          <h3 className="text-2xl font-semibold text-white mb-6">Our Mission</h3>
-          <p className="text-white text-base leading-relaxed">
+          <h3 className="text-2xl font-semibold text-black dark:text-white mb-6">
+            Our Mission
+          </h3>
+          <p className="text-black dark:text-white text-base leading-relaxed">
             At New Vision Art & Science Institute, our mission is to provide
             personalized, world-class education in the creative arts, empowering
             students to achieve their academic and professional dreams. Through
@@ -63,8 +65,8 @@ const MissionVision = () => {
 
       <div className="grid lg:grid-cols-2 gap-3 lg:gap-16 items-center">
         <div className="p-8">
-          <h3 className="text-2xl font-semibold text-white mb-6">Our Vision</h3>
-          <p className="text-white text-base leading-relaxed">
+          <h3 className="text-2xl font-semibold text-black dark:text-white mb-6">Our Vision</h3>
+          <p className="text-black dark:text-white text-base leading-relaxed">
             Our vision is to redefine creative education in Myanmar by equipping
             students with the skills, confidence, and global mindset needed to
             thrive in the fields of art, design, architecture, and applied

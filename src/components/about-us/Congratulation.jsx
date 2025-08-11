@@ -1,9 +1,8 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import { Autoplay, Pagination } from "swiper/modules";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 import { Link } from "react-router-dom";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const congratulations = [
   {
@@ -55,6 +54,24 @@ const congratulations = [
   },
 ];
 
+const NextArrow = ({ onClick }) => (
+  <button
+    className="absolute top-1/2 -right-6 transform -translate-y-1/2 z-10 text-gray-800 hover:text-gray-500 dark:text-white pointer text-2xl"
+    onClick={onClick}
+  >
+    <FaChevronRight />
+  </button>
+);
+
+const PrevArrow = ({ onClick }) => (
+  <button
+    className="absolute top-1/2 -left-6 transform -translate-y-1/2 z-10 text-gray-800 hover:text-gray-500 dark:text-white pointer text-2xl"
+    onClick={onClick}
+  >
+    <FaChevronLeft />
+  </button>
+);
+
 const CongratulationCard = ({
   image,
   universityLogo,
@@ -64,27 +81,27 @@ const CongratulationCard = ({
   batch,
 }) => {
   return (
-    <div className="rounded-3xl shadow-xl bg-white overflow-hidden text-center">
+    <div className="rounded-xl shadow bg-white overflow-hidden text-center border border-gray-200 w-full max-w-[280px] mx-auto">
       <img
         src={image}
         alt="Partner Banner"
-        className="w-full h-60 object-cover"
+        className="w-full h-48 md:h-56 lg:h-60 object-cover"
       />
       <div className="p-4 flex flex-col space-y-2">
-        <h3 className="text-2xl font-semibold">{studentName}</h3>
-        <p className="text-sm font-light">{batch}</p>
-        <div className="flex items-center space-x-4 justify-center">
+        <h3 className="text-lg md:text-xl font-semibold">{studentName}</h3>
+        <p className="text-xs md:text-sm font-light">{batch}</p>
+        <div className="flex items-center space-x-3 justify-center">
           <img
             src={universityLogo}
             alt="University Logo"
-            className="w-12 h-12 object-contain rounded-xl"
+            className="w-10 h-10 md:w-12 md:h-12 object-contain rounded-xl"
           />
-          <p className="text-sm font-light">{universityName}</p>
+          <p className="text-xs md:text-sm font-light">{universityName}</p>
         </div>
-        <p className="text-sm font-light">{bachelor}</p>
+        <p className="text-xs md:text-sm font-light">{bachelor}</p>
         <Link
           to="#"
-          className="inline-block border border-black text-black font-base px-6 py-2 rounded-2xl hover:opacity-90 hover:bg-black hover:text-new-vision-yellow transition"
+          className="inline-block border border-gray-400 text-black font-base px-4 py-2 rounded-2xl hover:opacity-90 hover:bg-black hover:text-yellow-400 transition text-sm md:text-base"
         >
           Learn More
         </Link>
@@ -94,38 +111,44 @@ const CongratulationCard = ({
 };
 
 const Congratulations = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    centerMode: true,
+    centerPadding: "0px",
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024, // tablet
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 640, // mobile
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
   return (
-    <div className="p-8">
-      <h3 className="text-2xl font-semibold text-white mb-6 text-center">
+    <div className="px-4 md:px-8 py-8 max-w-6xl mx-auto relative">
+      <h3 className="text-xl md:text-2xl font-semibold text-black dark:text-white mb-6 text-center">
         Congratulations
       </h3>
-      <div className="relative">
-        <Swiper
-          spaceBetween={10}
-          slidesPerView={1}
-          breakpoints={{
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-          }}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          pagination={{ clickable: true }}
-          modules={[Pagination, Autoplay]}
-          className="!pb-10"
-          loop
-        >
-          {congratulations.map((congrate, index) => (
-            <SwiperSlide key={index}>
-              <div className="max-w-sm mx-auto">
-                <CongratulationCard {...congrate} />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      <Slider {...settings}>
+        {congratulations.map((congrate, index) => (
+          <div key={index} className="px-2">
+            <CongratulationCard {...congrate} />
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 };
