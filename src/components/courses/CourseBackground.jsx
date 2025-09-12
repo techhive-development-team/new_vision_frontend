@@ -1,96 +1,49 @@
 import React from "react";
-
-const openingCourses = [
-  {
-    id: 1,
-    title: "Architecture Level 1",
-    location: "Online",
-    fees: "365000",
-    duration: "3 months",
-    level: "Beginner",
-    description:
-      "Skill you'll gain: Point, Line, Shape, Form, Texture, Pattern, Color Theory, Composition.",
-    image: "/images/a4.jpeg",
-    expireDate: "13th Dec 2025",
-  },
-  {
-    id: 2,
-    title: "Architecture Level 2",
-    location: "Campus",
-    fees: "765000",
-    duration: "3 months",
-    level: "Advanced",
-    description:
-      "Skill you'll gain: Point, Line, Shape, Form, Texture, Pattern, Color Theory, Composition.",
-    image: "/images/a5.jpeg",
-    expireDate: "13th Sep 2025",
-  },
-];
-
-const courses = [
-  {
-    id: 1,
-    title: "Architecture Level 1",
-    location: "Online",
-    fees: "365000",
-    duration: "3 months",
-    level: "Beginner",
-    description:
-      "Skill you'll gain: Point, Line, Shape, Form, Texture, Pattern, Color Theory, Composition.",
-    image: "/images/a4.jpeg",
-    expireDate: "13th Dec 2025",
-  },
-  {
-    id: 2,
-    title: "Architecture Level 2",
-    location: "Campus",
-    fees: "765000",
-    duration: "3 months",
-    level: "Advanced",
-    description:
-      "Skill you'll gain: Point, Line, Shape, Form, Texture, Pattern, Color Theory, Composition.",
-    image: "/images/a5.jpeg",
-    expireDate: "13th Sep 2025",
-  },
-  {
-    id: 3,
-    title: "Lumion",
-    location: "Campus",
-    fees: "765000",
-    duration: "3 months",
-    level: "Advanced",
-    description:
-      "Skill you'll gain: Point, Line, Shape, Form, Texture, Pattern, Color Theory, Composition.",
-    image: "/images/a5.jpeg",
-    expireDate: "13th Sep 2025",
-  },
-  {
-    id: 4,
-    title: "Portfolio Preparation",
-    location: "Campus",
-    fees: "765000",
-    duration: "3 months",
-    level: "Advanced",
-    description:
-      "Skill you'll gain: Point, Line, Shape, Form, Texture, Pattern, Color Theory, Composition.",
-    image: "/images/a5.jpeg",
-    expireDate: "13th Sep 2025",
-  },
-  {
-    id: 5,
-    title: "Sketchup",
-    location: "Campus",
-    fees: "765000",
-    duration: "3 months",
-    level: "Advanced",
-    description:
-      "Skill you'll gain: Point, Line, Shape, Form, Texture, Pattern, Color Theory, Composition.",
-    image: "/images/a5.jpeg",
-    expireDate: "13th Sep 2025",
-  },
-];
+import { useGetCourse } from "../../hooks/useGetImage";
+import { API_URLS, baseUrl } from "../../client/url";
 
 const CourseBackground = () => {
+  const { data, isLoading, error } = useGetCourse();
+
+  if (isLoading) return <p className="text-center py-10">Loading...</p>;
+  if (error)
+    return <p className="text-center py-10 text-red-500">Error loading data</p>;
+  if (!data) return null;
+
+  const { opened = [], closed = [] } = data;
+
+  const renderCourses = (courses) => (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {courses.map((course) => (
+        <div
+          key={course.id}
+          className="flex flex-col space-y-3 border border-gray-300 rounded-2xl p-6 md:p-5 lg:p-6 shadow-md bg-white hover:shadow-xl transition-all duration-300"
+        >
+          <img
+            className="w-full h-48 object-cover rounded-xl"
+            src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.IMAGE}/${course.image}`}
+            alt={course.name}
+          />
+          <h1 className="text-xl font-semibold">{course.name}</h1>
+          <p className="text-base">{course.programOverview}</p>
+          <p className="text-base">
+            <strong>Price:</strong>{" "}
+            {course.price ? `${course.price} MMK` : "N/A"}
+          </p>
+          <p className="text-base">
+            • {course.level} • {course.duration} • {course.location}
+          </p>
+          {course.expireDate && (
+            <p className="text-base">
+              <strong>Expire Date:</strong>{" "}
+              {new Date(course.expireDate).toLocaleDateString()}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <div className="">
       <div className="relative bg-[url('/images/a1.jpeg')] bg-cover bg-center text-white">
@@ -105,135 +58,35 @@ const CourseBackground = () => {
             <div className="md:w-1/2 flex justify-end mt-6 md:mt-0">
               <p className="text-lg md:text-xl text-yellow-300 leading-relaxed">
                 Explore the rich history of New Vision Art & Science Institute
-                through our past events. From insightful workshops to inspiring
-                guest lectures, our archives showcase the knowledge and
-                experiences shared by our vibrant community. Dive into the
-                highlights and relive the moments that have shaped our college.
+                through our courses. From beginner to advanced, our programs are
+                designed to enhance your skills and knowledge.
               </p>
             </div>
           </div>
         </div>
       </div>
-      <section className="container mx-auto p-4">
-        <div className="inline-block border-b-2 dark:border-new-vision-yellow mb-4 border-black">
-          <h2 className="text-2xl font-bold text-black dark:text-white mb-2">
-            Filter By
-          </h2>
-        </div>
 
-        <div className="flex flex-col justify-center md:flex-row md:items-end md:space-x-4 gap-4">
-          <div className="w-full md:w-1/3">
-            <label
-              className="block text-black dark:text-white font-medium mb-1"
-              name="program"
-            >
-              Program
-            </label>
-            <select className="w-full rounded-lg border border-gray-300 p-2 bg-white">
-              <option value="">Programs</option>
-              <option value="kidart">Art & Design Classes for Kids</option>
-              <option value="adultart">Art & Design Classes for Adults</option>
-              <option value="software">Software Classes</option>
-            </select>
+      {opened.length > 0 && (
+        <section className="px-6 w-11/12 md:w-4/5 mx-auto py-6">
+          <div className="inline-block border-b-2 dark:border-new-vision-yellow mb-4 border-black">
+            <h2 className="font-semibold text-2xl text-black dark:text-white mb-2">
+              Opening Courses
+            </h2>
           </div>
-
-          <div className="w-full md:w-1/3">
-            <label className="block text-black dark:text-white font-medium mb-1">
-              Language
-            </label>
-            <select
-              className="w-full rounded-lg border border-gray-300 p-2 bg-white"
-              name="language"
-            >
-              <option value="">Language</option>
-              <option value="burmese">Burmese</option>
-              <option value="english">English</option>
-            </select>
+          {renderCourses(opened)}
+        </section>
+      )}
+      
+      {closed.length > 0 && (
+        <section className="px-6 w-11/12 md:w-4/5 mx-auto py-6">
+          <div className="inline-block border-b-2 dark:border-new-vision-yellow mb-4 border-black">
+            <h2 className="font-semibold text-2xl text-black dark:text-white mb-2">
+              Closed Courses
+            </h2>
           </div>
-
-          <div className="w-full md:w-1/3">
-            <label className="block text-black dark:text-white font-medium mb-1">
-              Level
-            </label>
-            <select
-              className="w-full rounded-lg border border-gray-300 p-2 bg-white"
-              name="level"
-            >
-              <option value="">Level</option>
-              <option value="level_1">Level 1</option>
-              <option value="level_2">Level 2</option>
-              <option value="level_3">Level 3</option>
-            </select>
-          </div>
-
-          <div className="w-full md:w-auto">
-            <button className="bg-new-vision-yellow text-black mt-2 md:mt-6 px-6 py-2 rounded-xl border border-gray-300 transition duration-300 w-full md:w-auto">
-              Search
-            </button>
-          </div>
-        </div>
-      </section>
-      <section className="container mx-auto p-4">
-        <div className="inline-block border-b-2 dark:border-new-vision-yellow mb-4 border-black">
-          <h2 className="text-2xl font-bold text-black dark:text-white mb-2 ">
-            Opening Courses
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {openingCourses.map((course) => (
-            <div
-              key={course.id}
-              className="flex flex-col space-y-3 border border-gray-300 rounded-2xl p-6 md:p-5 lg:p-6 shadow-md bg-white hover:shadow-xl transition-all duration-300"
-            >
-              <img
-                className="w-full h-48 object-cover rounded-xl"
-                src={course.image}
-                alt={course.title}
-              />
-              <h1 className="text-xl font-semibold">{course.title}</h1>
-              <p className="text-base">{course.description}</p>
-              <p className="text-base">
-                <strong>Price:</strong> {course.fees} MMK
-              </p>
-              <p className="text-base">
-                • {course.level} • {course.duration} • {course.location}
-              </p>
-              <p className="text-base">
-                <strong>Expire Date:</strong> {course.expireDate}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className="container mx-auto p-4">
-        <div
-          className="inline-block border-b-2 border-black
-        dark:border-new-vision-yellow mb-4"
-        >
-          <h2 className="text-2xl font-bold text-black dark:text-white mb-2">
-            Courses
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {courses.map((course) => (
-            <div
-              key={course.id}
-              className="flex flex-col space-y-3 border border-gray-300 rounded-2xl p-6 md:p-5 lg:p-6 shadow-md bg-white hover:shadow-xl transition-all duration-300"
-            >
-              <img
-                className="w-full h-48 object-cover rounded-xl"
-                src={course.image}
-                alt={course.title}
-              />
-              <h1 className="text-xl font-semibold">{course.title}</h1>
-              <p className="text-base">{course.description}</p>
-              <p className="text-base">
-                • {course.level} • {course.duration} • {course.location}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+          {renderCourses(closed)}
+        </section>
+      )}
     </div>
   );
 };

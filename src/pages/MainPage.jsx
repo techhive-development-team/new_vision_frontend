@@ -9,18 +9,10 @@ import MainReview from "../components/main/MainReview";
 import Layout from "../components/common/Layout";
 
 const MainPage = () => {
-  const [loadingCount, setLoadingCount] = useState(0);
-
-  const notifyLoading = (isLoading) => {
-    loadingCount
-    setLoadingCount((count) => count + (isLoading ? 1 : -1));
-  };
-
-  const isLoading = loadingCount < 0;
   return (
     <>
-      <Layout isLoading={isLoading}>
-        <MainSlider notifyLoading={notifyLoading} />
+      <Layout>
+        <MainSlider />
         <MainContext />
         <MainCourses />
         <MainArchievement />

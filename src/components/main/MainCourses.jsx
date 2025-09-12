@@ -1,52 +1,46 @@
-import React from "react";
+import { useGetImageById } from "../../hooks/useGetImage";
+import { API_URLS, baseUrl } from "../../client/url";
+import { getGridCols } from "../common/getGridCols";
 
-const courses = [
-  {
-    imgSrc:
-      "https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80",
-    description: "Art & Design Programs",
-  },
-  {
-    imgSrc:
-      "https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80",
-    description: "Technology Programs",
-  },
-  {
-    imgSrc:
-      "https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80",
-    description: "Children’s Creative Programs",
-  },
-];
 const MainCourses = () => {
+  const { data, isLoading, error } = useGetImageById(1);
+
+  if (isLoading) return <p className="text-center py-10">Loading...</p>;
+  if (error)
+    return <p className="text-center py-10 text-red-500">Error loading data</p>;
+  if (!Array.isArray(data?.images) || data.images.length === 0)
+    return (
+      <p className="text-center py-10 text-gray-500">No courses available</p>
+    );
+
   return (
-    <div className="px-6">
-      <div className="w-11/12 md:w-4/5 mx-auto py-6 space-y-4">
-        <h3 className="font-semibold text-2xl text-black dark:text-white">Overview of our study programs</h3>
-        <p className="font-light text-black dark:text-white">
-          We offer a wide range of state-recognised and accredited undergraduate
-          and postgraduate study programmes.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {courses.map((card, index) => (
-            <div
-              key={index}
-              className="relative bg-white rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-[1.02]"
-            >
-              <div>
-                <img
-                  src={card.imgSrc}
-                  alt={card.imgAlt}
-                  className="w-full h-48 object-cover rounded-t-md shadow-md bg-gray-200"
-                />
-                <div className="p-5">
-                  <p className="text-gray-700 text-base text-center">
-                    {card.description}
-                  </p>
-                </div>
-              </div>
+    <div className="px-6 w-11/12 md:w-4/5 mx-auto py-6">
+      <h3 className="font-semibold text-2xl text-black dark:text-white mb-2">
+        Overview of our study programs
+      </h3>
+      <p className="font-light text-black dark:text-white mb-6">
+        We offer a wide range of state-recognised and accredited undergraduate
+        and postgraduate study programmes.
+      </p>
+
+      <div className={`grid gap-8 ${getGridCols(data.images.length)}`}>
+        {data.images.map((card, index) => (
+          <div
+            key={index}
+            className="relative bg-white rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-[1.02]"
+          >
+            <img
+              src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.IMAGE}/${card.bg_img}`}
+              alt={card.mainText || "Course image"}
+              className="w-full h-48 object-cover rounded-t-xl shadow-md bg-gray-200"
+            />
+            <div className="p-5">
+              <p className="text-gray-700 text-base text-center">
+                {card.mainText}
+              </p>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );
