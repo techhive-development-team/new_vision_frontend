@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../components/common/Layout";
-import { Calendar, CircleDollarSign, Clock } from "lucide-react";
+import { Calendar, ChartColumnStacked, CircleDollarSign, Clock, MapPin } from "lucide-react";
 import { useGetCourseById } from "../hooks/useGetImage";
 import { Link, useParams } from "react-router-dom";
 import { API_URLS, baseUrl } from "../client/url";
@@ -13,119 +13,133 @@ const CourseDetail = () => {
   if (error) return <p>Error loading course.</p>;
   if (!data) return <p>No course found.</p>;
 
-  const course = data; // already unwrapped in your hook
+  const course = data;
 
   return (
     <Layout>
-      <div>
-        {/* Banner Section */}
-        <div
-          className="relative md:h-auto bg-cover bg-center text-white"
-          style={{
-            backgroundImage: `url(${
-              course?.image
-                ? `${baseUrl}${API_URLS.UPLOAD}${API_URLS.COURSE}/${course.image}`
-                : "/images/a1.jpeg"
-            })`,
-          }}
-        >
-          <div className="absolute inset-0 bg-black opacity-70 z-0"></div>
+      <div className="relative h-64 md:h-96 w-full">
+        <img
+          src={
+            course?.image
+              ? `${baseUrl}${API_URLS.UPLOAD}${API_URLS.COURSE}/${course.image}`
+              : "/images/a1.jpeg"
+          }
+          alt={course?.name}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
+          <h1 className="text-3xl md:text-5xl font-bold text-new-vision-yellow drop-shadow-lg">
+            {course?.name || "Course Detail"}
+          </h1>
+        </div>
+      </div>
+      <div className="max-w-6xl mx-auto mt-6 grid grid-cols-1 md:grid-cols-5 gap-4 px-6">
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 hover:border-new-vision-yellow transition-colors">
+          <Clock className="w-6 h-6 text-black dark:text-new-vision-yellow mb-2" />
+          <p className="font-medium text-gray-700 dark:text-gray-200 mb-1">
+            Duration
+          </p>
+          <p className="font-semibold text-gray-900 dark:text-white">
+            {course?.duration || "N/A"}
+          </p>
+        </div>
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 hover:border-new-vision-yellow transition-colors">
+          <CircleDollarSign className="w-6 h-6 text-black dark:text-new-vision-yellow mb-2" />
+          <p className="font-medium text-gray-700 dark:text-gray-200 mb-1">
+            Fees
+          </p>
+          <p className="font-semibold text-gray-900 dark:text-white">
+            {course?.price ? `${course.price} MMK` : "To be announced"}
+          </p>
+        </div>
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 hover:border-new-vision-yellow transition-colors">
+          <Calendar className="w-6 h-6 text-black dark:text-new-vision-yellow mb-2" />
+          <p className="font-medium text-gray-700 dark:text-gray-200 mb-1">
+            Application Deadline
+          </p>
+          <p className="font-semibold text-gray-900 dark:text-white">
+            {course?.expireDate
+              ? new Date(course.expireDate).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })
+              : "Not set"}
+          </p>
+        </div>
+        {course?.location && (
+          <div className="flex flex-col items-center p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 hover:border-new-vision-yellow transition-colors">
+            <MapPin className="w-6 h-6 text-black dark:text-new-vision-yellow mb-2" />
+            <p className="font-medium text-gray-700 dark:text-gray-200 mb-1">
+              Level
+            </p>
+            <p className="font-semibold text-gray-900 dark:text-white">
+              {course.location}
+            </p>
+          </div>
+        )}
+        <div className="flex flex-col items-center p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 hover:border-new-vision-yellow transition-colors">
+          <ChartColumnStacked className="w-6 h-6 text-black dark:text-new-vision-yellow mb-2" />
+          <p className="font-medium text-gray-700 dark:text-gray-200 mb-1">
+            Level
+          </p>
+          <p className="font-semibold text-gray-900 dark:text-white">
+            {course?.level || "N/A"}
+          </p>
+        </div>
+      </div>
+      <div className="flex flex-col md:flex-row justify-center gap-4 mt-6 px-6 md:px-0">
+        {course?.quiz && (
+          <Link
+            to={course.quiz}
+            target="_blank"
+            className="py-3 px-6 bg-new-vision-yellow text-black font-medium rounded-2xl hover:bg-black hover:text-new-vision-yellow border border-new-vision-yellow transition-colors duration-200 text-center"
+          >
+            Check My Level
+          </Link>
+        )}
+        {course?.isOpened && (
+          <Link
+            to={`/courses/${course.id}/apply`}
+            className="py-3 px-6 bg-new-vision-yellow text-black font-medium rounded-2xl hover:bg-black hover:text-new-vision-yellow border border-new-vision-yellow transition-colors duration-200 text-center"
+          >
+            Apply Now
+          </Link>
+        )}
+      </div>
 
-          <div className="relative z-10 flex flex-col items-center justify-center py-12 px-4">
-            {/* Course Name */}
-            <h1 className="text-yellow-300 font-bold text-center text-2xl md:text-4xl mb-8">
-              {course?.name || "Course Detail"}
-            </h1>
+      <section className="max-w-6xl mx-auto mt-6 px-6 ">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+          <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+            Program Overview
+          </h3>
+          <p className="text-base md:text-lg text-gray-700 dark:text-gray-200">
+            {course?.programOverview}
+          </p>
+        </div>
+      </section>
 
-            {/* Info Cards */}
-            <div className="flex flex-col md:flex-row m-6 p-4 md:p-6 bg-black bg-opacity-70 border rounded-xl w-full md:w-auto">
-              {/* Duration */}
-              <div className="flex flex-col space-y-4 pb-6 md:pb-0 md:mx-6 md:px-4 border-b md:border-r md:border-b-0 border-white text-sm md:text-xl">
-                <div className="flex flex-row items-center space-x-4 pt-2">
-                  <Clock className="w-6 h-6" />
-                  <p>Duration</p>
-                </div>
-                <p>{course?.duration || "N/A"}</p>
-              </div>
-
-              {/* Price */}
-              <div className="flex flex-col space-y-4 pb-6 md:pb-0 md:mx-6 md:px-4 border-b md:border-r md:border-b-0 border-white text-sm md:text-xl">
-                <div className="flex flex-row items-center space-x-4 pt-2">
-                  <CircleDollarSign className="w-6 h-6" />
-                  <p>Fees</p>
-                </div>
-                <p>
-                  {course?.price ? `${course.price} MMK` : "To be announced"}
-                </p>
-              </div>
-
-              {/* Expiry Date */}
-              <div className="flex flex-col space-y-4 md:mx-6 md:px-4 text-sm md:text-xl">
-                <div className="flex flex-row items-center space-x-4 pt-2">
-                  <Calendar className="w-6 h-6" />
-                  <h2>Application Deadline</h2>
-                </div>
-                <p>
-                  {course?.expireDate
-                    ? new Date(course.expireDate).toLocaleDateString("en-GB", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                      })
-                    : "Not set"}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-4 flex-col md:flex-row">
-              {/* Quiz Button */}
-              {course?.quiz && (
-                <div className="mt-6 text-center">
-                  <Link
-                    to={course.quiz}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="py-4 px-6 bg-new-vision-yellow border rounded-2xl text-black text-md font-medium hover:bg-black hover:text-white hover:border-new-vision-yellow"
-                  >
-                    Check My Level
-                  </Link>
-                </div>
-              )}
-              {course?.isOpened && (
-                <div className="mt-6 text-center">
-                  <Link
-                    to={course?.id ? `/courses/${course.id}/apply` : "#"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="py-4 px-6 bg-new-vision-yellow border rounded-2xl text-black text-md font-medium hover:bg-black hover:text-white hover:border-new-vision-yellow"
-                  >
-                    Apply Now
-                  </Link>
-                </div>
-              )}
+      {/* Skills */}
+      {course?.skills?.length > 0 && (
+        <section className="max-w-6xl mx-auto mt-6 p-6 mb-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+              Skill Development
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {course.skills.map((skill, idx) => (
+                <span
+                  key={idx}
+                  className="bg-new-vision-yellow/20 text-yellow-800 dark:text-yellow-200 px-3 py-1 rounded-md text-sm font-medium"
+                >
+                  {skill}
+                </span>
+              ))}
             </div>
           </div>
-        </div>
-
-        {/* Details Section */}
-        <section className="px-6 md:px-10 py-6 bg-white">
-          {/* Program Overview */}
-          <h3 className="text-2xl font-medium py-2">PROGRAM OVERVIEW</h3>
-          <p className="text-base md:text-lg">{course?.programOverview}</p>
-
-          {/* Skills */}
-          {course?.skills?.length > 0 && (
-            <div className="py-8">
-              <h3 className="font-medium text-2xl">SKILL DEVELOPMENT</h3>
-              <ul className="list-disc p-4 text-base md:text-lg">
-                {course.skills.map((skill, idx) => (
-                  <li key={idx}>{skill}</li>
-                ))}
-              </ul>
-            </div>
-          )}
         </section>
-      </div>
+      )}
     </Layout>
   );
 };

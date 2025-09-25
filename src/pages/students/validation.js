@@ -26,8 +26,6 @@ export const studentRegistrationSchema = z.object({
   phone: z.string().min(1, "Phone number is required"),
   studentImage: fileValidation,
   school: z.enum(["GOVERNMENT", "INTERNATIONAL", "BOTH", "NOTHING"]),
-
-  // Future Plans
   studyAbroad: z.boolean().default(false),
   futurePlan: z.string().optional(),
   futureCountryId: z.string().optional(),
@@ -41,7 +39,4 @@ export const studentRegistrationSchema = z.object({
   }),
   status: z.enum(["NONE", "PENDING", "COMPLETED", "FAILED"]).default("NONE"),
   transactionId: z.string().optional(),
-
-  // Courses
-  courseIds: z.array(z.string()).optional(),
 });

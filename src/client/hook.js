@@ -43,7 +43,7 @@ const useGetCourseById = async (id) => {
 };
 
 const getStudentReview = async () => {
-  const response = await client.exec(`${API_URLS.STUDENTREVIEW}/front`, {
+  const response = await client.exec(`${API_URLS.STUDENTREVIEW}`, {
     method: "get",
   });
   return response;

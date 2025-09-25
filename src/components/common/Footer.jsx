@@ -9,6 +9,7 @@ import {
   Youtube,
 } from "lucide-react";
 import logo from "../../assets/logo.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -64,6 +65,15 @@ const Footer = () => {
             loading="lazy"
           ></iframe>
         </div>
+      </div>
+      <div className="text-center text-sm text-new-vision-green mt-2">
+        Powered by{" "}
+        <Link
+          to="https://techhive-innovation.io/"
+          className="font-semibold text-new-vision-yellow underline"
+        >
+          TechHive Innovation
+        </Link>
       </div>
     </footer>
   );
