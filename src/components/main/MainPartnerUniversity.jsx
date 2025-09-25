@@ -1,38 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-const universities = [
-  {
-    name: "Harvard University",
-    location: "Cambridge, Massachusetts, USA",
-    description:
-      "At New Vision Art & Science Institute, we are proud of our students' academic success and global recognition. Our graduates have earned admissions — many with scholarships and prestigious government grants — to top institutions around the world...",
-    image:
-      "https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    name: "University of Tokyo",
-    location: "Tokyo, Japan",
-    description:
-      "The University of Tokyo was established in 1877 as the first national university in Japan. As a leading research university, UTokyo offers courses in essentially all academic disciplines...",
-    image:
-      "https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    name: "Oxford University",
-    location: "Oxford, United Kingdom",
-    description:
-      "The University of Yangon, founded in 1920, is the earliest university in Myanmar and has played an important role in the life of the nation through educating future leaders...",
-    image:
-      "https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80",
-  },
-];
+import { useGetEducationPartnerUniversity } from "../../hooks/useGetImage";
+import { API_URLS, baseUrl } from "../../client/url";
 
 const MainPartnerUniversity = () => {
+  // Hooks must always be called first
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true);
 
+  const {
+    data: universities,
+    isLoading,
+    error,
+  } = useGetEducationPartnerUniversity();
+
+  // Only after hooks, handle conditional UI
   useEffect(() => {
+    if (!universities || universities.length === 0) return;
+
     const interval = setInterval(() => {
       setFade(false);
       setTimeout(() => {
@@ -42,7 +27,12 @@ const MainPartnerUniversity = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [universities]);
+
+  if (isLoading) return <p className="text-center py-10">Loading...</p>;
+  if (error) return <p className="text-center py-10 text-red-500">Error loading data</p>;
+  if (!universities || universities.length === 0)
+    return <p className="text-center py-10">No universities found</p>;
 
   const uni = universities[currentIndex];
 
@@ -59,7 +49,7 @@ const MainPartnerUniversity = () => {
           } flex flex-col items-center justify-center md:flex-row md:items-center md:justify-center gap-10`}
         >
           <img
-            src={uni.image}
+            src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${uni.bg_img}`}
             alt={uni.name}
             className="h-44 md:h-72 w-full max-w-md object-cover rounded-xl shadow-md"
           />
@@ -67,7 +57,7 @@ const MainPartnerUniversity = () => {
           <div className="max-w-xl text-left md:text-left space-y-4">
             <h3 className="text-2xl font-bold">{uni.name}</h3>
             <p className="text-lg text-gray-500">{uni.location}</p>
-            <p className="text-md text-gray-700">{uni.description}</p>
+            <p className="text-md text-gray-700">{uni.overview}</p>
             <Link
               to="#"
               className="inline-block border border-new-vision-yellow text-new-vision-yellow bg-black font-base px-6 py-2 rounded-2xl hover:opacity-90 hover:bg-transparent transition"

@@ -4,8 +4,12 @@ export const API_URLS = {
   UPLOAD: "/uploads",
   COURSE: "/courses",
   IMAGETYPE: "/imageType",
-  HAPPENINGTYPE: "/happeningType",
-  AUTH: "/auth"
+  HAPPENINGTYPE: "/happeningTypes",
+  EDUCATION_PARTNER: "/education-partners",
+  STUDENTREVIEW: "/studentReview",
+  AUTH: "/auth",
+  HAPPENING: "/happenings",
+  FUTURECOUNTRY: "/futureCountry",
 };
 
 export const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;

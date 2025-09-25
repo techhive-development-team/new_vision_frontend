@@ -1,121 +1,129 @@
 import React from "react";
 import Layout from "../components/common/Layout";
 import { Calendar, CircleDollarSign, Clock } from "lucide-react";
+import { useGetCourseById } from "../hooks/useGetImage";
+import { Link, useParams } from "react-router-dom";
+import { API_URLS, baseUrl } from "../client/url";
 
 const CourseDetail = () => {
+  const { id } = useParams();
+  const { data, isLoading, error } = useGetCourseById(id);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error loading course.</p>;
+  if (!data) return <p>No course found.</p>;
+
+  const course = data; // already unwrapped in your hook
+
   return (
     <Layout>
       <div>
-        <div className="relative lg:h-auto bg-[url('/images/a1.jpeg')] bg-cover bg-center text-white">
+        {/* Banner Section */}
+        <div
+          className="relative md:h-auto bg-cover bg-center text-white"
+          style={{
+            backgroundImage: `url(${
+              course?.image
+                ? `${baseUrl}${API_URLS.UPLOAD}${API_URLS.COURSE}/${course.image}`
+                : "/images/a1.jpeg"
+            })`,
+          }}
+        >
           <div className="absolute inset-0 bg-black opacity-70 z-0"></div>
 
-          <div className="relative z-10 flex  md:flex-col lg:flex-row  xl:flex-row 2xl:flex-row justify-center items-center">
-            <div className="lg:px-6 xl:px-2 2xl:px-6 pb-14">
-              <div className="flex-row justify-center md:flex-row lg:flex-col pt-20 lg:pl-5 xl:pt-10 2xl:pt-20 ">
-                <h1 className="text-2xl text-yellow-300 font-bold lg:text-2xl xl:text-2xl 2xl:text-4xl text-center  md:text-center md:text-4xl 2xl:pt-20 ">
-                  Art & Design Program
-                </h1>
+          <div className="relative z-10 flex flex-col items-center justify-center py-12 px-4">
+            {/* Course Name */}
+            <h1 className="text-yellow-300 font-bold text-center text-2xl md:text-4xl mb-8">
+              {course?.name || "Course Detail"}
+            </h1>
 
-                <div className="flex flex-col lg:flex-row m-12 p-4 lg:space-between  lg:p-6 lg:m-10 bg-black opacity-70 border rounded-xl">
-                  <div className="flex-col space-y-6 pb-6  lg:mx-6 lg:px-4 border-b md:border-b lg:border-r lg:border-b-0  2xl:border-r border-white text-sm md:text-3xl lg:text-xl lg:space-x-12">
-                    <div className="flex flex-row space-x-6 pt-6">
-                      <Clock className="w-6 h-6" />
-                      <p>Duration</p>
-                    </div>
-
-                    <p>1 Year</p>
-                  </div>
-                  <div className="flex-col space-y-6 pb-6  lg:mx-6 lg:px-4 border-b md:border-b lg:border-r lg:border-b-0  border-white text-sm md:text-3xl lg:text-xl lg:space-x-12">
-                    <div className="flex flex-row space-x-6 pt-6">
-                      <CircleDollarSign className="w-6 h-6" />
-                      <p>Fees</p>
-                    </div>
-
-                    <p>Fees will be announced on each in take</p>
-                  </div>
-
-                  <div className="flex-col space-y-6 pb-6  lg:mx-6 lg:px-4  border-white text-sm md:text-3xl lg:text-xl lg:space-x-12">
-                    <div className="flex flex-row space-x-6 pt-6">
-                      <Calendar className="w-6 h-6" />
-                      <h2>Application Deadline</h2>
-                    </div>
-
-                    <p>20th December 2025</p>
-                  </div>
+            {/* Info Cards */}
+            <div className="flex flex-col md:flex-row m-6 p-4 md:p-6 bg-black bg-opacity-70 border rounded-xl w-full md:w-auto">
+              {/* Duration */}
+              <div className="flex flex-col space-y-4 pb-6 md:pb-0 md:mx-6 md:px-4 border-b md:border-r md:border-b-0 border-white text-sm md:text-xl">
+                <div className="flex flex-row items-center space-x-4 pt-2">
+                  <Clock className="w-6 h-6" />
+                  <p>Duration</p>
                 </div>
-                <div className="p-3 mx-12 lg:ml-10 lg:mb-8 text-center bg-new-vision-yellow border items-center rounded-xl">
-                  <button className="text-black text-md text-center">
-                    Check My Level
-                  </button>
-                </div>
+                <p>{course?.duration || "N/A"}</p>
               </div>
+
+              {/* Price */}
+              <div className="flex flex-col space-y-4 pb-6 md:pb-0 md:mx-6 md:px-4 border-b md:border-r md:border-b-0 border-white text-sm md:text-xl">
+                <div className="flex flex-row items-center space-x-4 pt-2">
+                  <CircleDollarSign className="w-6 h-6" />
+                  <p>Fees</p>
+                </div>
+                <p>
+                  {course?.price ? `${course.price} MMK` : "To be announced"}
+                </p>
+              </div>
+
+              {/* Expiry Date */}
+              <div className="flex flex-col space-y-4 md:mx-6 md:px-4 text-sm md:text-xl">
+                <div className="flex flex-row items-center space-x-4 pt-2">
+                  <Calendar className="w-6 h-6" />
+                  <h2>Application Deadline</h2>
+                </div>
+                <p>
+                  {course?.expireDate
+                    ? new Date(course.expireDate).toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })
+                    : "Not set"}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-4 flex-col md:flex-row">
+              {/* Quiz Button */}
+              {course?.quiz && (
+                <div className="mt-6 text-center">
+                  <Link
+                    to={course.quiz}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-4 px-6 bg-new-vision-yellow border rounded-2xl text-black text-md font-medium hover:bg-black hover:text-white hover:border-new-vision-yellow"
+                  >
+                    Check My Level
+                  </Link>
+                </div>
+              )}
+              {course?.isOpened && (
+                <div className="mt-6 text-center">
+                  <Link
+                    to={course?.id ? `/courses/${course.id}/apply` : "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-4 px-6 bg-new-vision-yellow border rounded-2xl text-black text-md font-medium hover:bg-black hover:text-white hover:border-new-vision-yellow"
+                  >
+                    Apply Now
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
 
-        <section className="px-10 py-6 bg-white">
-          <h3 className="text-2xl md:text-2xl lg:text-2xl lg:font-medium text-bold py-2">
-            PROGRAM OVERVIEW
-          </h3>
-          <div>
-            <p className="text-base md:text-xl lg:text-lg">
-              If you’re planning to study Architecture abroad with a
-              scholarship, it's essential to prepare a strong and complete
-              portfolio. To support that goal, New Vision Art & Science
-              Institute has launched new Architecture classNamees designed to
-              help you build a comprehensive portfolio. You can choose to attend
-              the classNamees as Campus (in-person), Online, or Offline
-              sessions, and there’s also an option to pay the course fees in
-              installments. Since className sizes are limited, we highly
-              encourage you to register as soon as possible to secure your spot.
-            </p>
-            <p className="text-base  md:text-xl lg:text-lg py-2">
-              These classNamees are ideal for anyone who wants to study
-              Architecture systematically from the basics. You’ll start by
-              learning the fundamentals—Point, Line, Shape, and Form—which are
-              essential in architectural design. Got plenty of design ideas but
-              struggling with the drawing side? No worries—if you feel you’re
-              lacking in sketching skills, we’ll guide you step-by-step through
-              the fundamentals of sketching, so you can build up your
-              confidence. To help you prepare a portfolio that's crucial for
-              applying to foreign universities, we’ll also teach you
-              step-by-step architectural modeling techniques that you can
-              execute yourself. This is a className you definitely don’t want to
-              miss!
-            </p>
-          </div>
+        {/* Details Section */}
+        <section className="px-6 md:px-10 py-6 bg-white">
+          {/* Program Overview */}
+          <h3 className="text-2xl font-medium py-2">PROGRAM OVERVIEW</h3>
+          <p className="text-base md:text-lg">{course?.programOverview}</p>
 
-          <div className="py-8">
-            <h3 className="font-medium text-2xl md:text-2xl lg:text-2xl text-bold">
-              SKILL DEVELOPMENT
-            </h3>
-            <ul className="list-disc p-4 text-base  md:text-xl lg:text-lg">
-              <li>Basic Art</li>
-              <li>Sketching skills</li>
-              <li>Color Theory</li>
-              <li>Texture and Pattern</li>
-              <li>Linear Perspective</li>
-              <li>Curvilinear Perspective</li>
-              <li>Perspective in Meterials</li>
-              <li>Interior Design</li>
-              <li>Exterior Design</li>
-            </ul>
-          </div>
-
-          <div className="py-2">
-            <h3 className="font-medium text-2xl md:text-2xl lg:text-2xl text-bold pb-2">
-              ARCHITECTURE CLASSNameES
-            </h3>
-            <ul className="list-disc p-4 text-base  md:text-xl lg:text-lg">
-              <li>Architecture ClassName Level 1 (Beginner)</li>
-              <li>Architecture ClassName Level 2 (Intermediate)</li>
-              <li>Architecture ClassName Level 3 (Advanced)</li>
-              <li>Model Building</li>
-              <li>Sketchup</li>
-              <li>AutoCAD</li>
-              <li>Architectural Paintings</li>
-            </ul>
-          </div>
+          {/* Skills */}
+          {course?.skills?.length > 0 && (
+            <div className="py-8">
+              <h3 className="font-medium text-2xl">SKILL DEVELOPMENT</h3>
+              <ul className="list-disc p-4 text-base md:text-lg">
+                {course.skills.map((skill, idx) => (
+                  <li key={idx}>{skill}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </section>
       </div>
     </Layout>

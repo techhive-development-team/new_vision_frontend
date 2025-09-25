@@ -5,7 +5,7 @@ import { API_URLS, baseUrl } from "../../client/url";
 import { getGridCols } from "../common/getGridCols";
 
 const MainContext = () => {
-  const { data, isLoading, error } = useGetImageById(1);
+  const { data, isLoading, error } = useGetImageById(2);
 
   if (isLoading) return <p className="text-center py-10">Loading...</p>;
   if (error)
