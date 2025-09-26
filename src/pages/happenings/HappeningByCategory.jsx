@@ -1,80 +1,71 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/common/Layout";
-import HappeningContext from "../../components/happenings/HappeningContext";
 import HappeningDetailCard from "../../components/happenings/HappeningDetailCard";
-
-const items = [
-  {
-    id: "2",
-    name: "Student Showcase 1",
-    image: "/images/a1.jpeg",
-    description: "Brief description of the showcase event 1.",
-    postedDate: "2023-10-01",
-  },
-
-  {
-    id: "2",
-    name: "Student Showcase 2",
-    image: "/images/a4.jpeg",
-    description: "Brief description of the showcase event 2.",
-    postedDate: "2023-10-01",
-  },
-
-  {
-    id: "3",
-    name: "Student Showcase 3",
-    image: "/images/a5.jpeg",
-    description: "Brief description of the showcase event 3.",
-    postedDate: "2023-10-01",
-  },
-  {
-    id: "2",
-    name: "Student Showcase 1",
-    image: "/images/a1.jpeg",
-    description: "Brief description of the showcase event 1.",
-    postedDate: "2023-10-01",
-  },
-
-  {
-    id: "2",
-    name: "Student Showcase 2",
-    image: "/images/a4.jpeg",
-    description: "Brief description of the showcase event 2.",
-    postedDate: "2023-10-01",
-  },
-
-  {
-    id: "3",
-    name: "Student Showcase 3",
-    image: "/images/a5.jpeg",
-    description: "Brief description of the showcase event 3.",
-    postedDate: "2023-10-01",
-  },
-];
+import { useGetHappenings } from "../../hooks/useGetImage";
+import { baseUrl, API_URLS } from "../../client/url";
 
 const HappeningByCategory = () => {
-  return (
-    <>
+  const { data, isLoading, error } = useGetHappenings();
+  const [selectedType, setSelectedType] = useState(null);
+
+  useEffect(() => {
+    const typeId = localStorage.getItem("selectedHappeningTypeId");
+    setSelectedType(typeId);
+  }, []);
+
+  if (isLoading)
+    return (
       <Layout>
-        <HappeningContext />
-        <div className="container mx-auto p-4">
-          <div className="py-6">
-            <div className="pb-4">
-              <div className="inline-block border-b-2 border-black dark:border-new-vision-yellow">
-                <h2 className="text-2xl font-bold text-black dark:text-white mb-2">
-                  Students Showcase
-                </h2>
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {items.map((item, itemIndex) => (
-              <HappeningDetailCard key={itemIndex} item={item} />
-            ))}
+        <p className="text-center py-10">Loading...</p>
+      </Layout>
+    );
+  if (error)
+    return (
+      <Layout>
+        <p className="text-center py-10 text-red-500">Error loading happenings.</p>
+      </Layout>
+    );
+
+  const filteredHappenings = data?.filter(
+    (item) => item.happeningTypeId === Number(selectedType)
+  );
+
+  const typeName =
+    filteredHappenings?.[0]?.happeningType?.typeName || "No happenings found";
+
+  return (
+    <Layout>
+      <div className="container mx-auto p-4">
+        <div className="pb-4">
+          <div className="inline-block border-b-2 border-black dark:border-new-vision-yellow">
+            <h2 className="text-2xl font-bold text-black dark:text-white mb-2">
+              {typeName}
+            </h2>
           </div>
         </div>
-      </Layout>
-    </>
+
+        {filteredHappenings?.length ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredHappenings.map((item) => (
+              <HappeningDetailCard
+                key={item.id}
+                item={{
+                  id: item.id,
+                  name: item.title,
+                  mainImage: item.mainImage
+                    ? `${baseUrl}${API_URLS.UPLOAD}${API_URLS.HAPPENING}/${item.mainImage}`
+                    : "/images/a1.jpeg",
+                  description: item.description,
+                  postedDate: new Date(item.createdAt).toLocaleDateString(),
+                }}
+              />
+            ))}
+          </div>
+        ) : (
+          <p>No happenings found for this category.</p>
+        )}
+      </div>
+    </Layout>
   );
 };
 

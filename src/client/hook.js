@@ -56,6 +56,32 @@ const getFutureCountry = async () => {
   return response;
 };
 
+const getHappenings = async () => {
+  const response = await client.exec(`${API_URLS.HAPPENING}`, {
+    method: "get",
+  });
+  return response;
+}
+export const getHappeningById = async (id) => {
+  const response = await client.exec(`${API_URLS.HAPPENING}/${id}`, {
+    method: "get",
+  });
+  return response;
+};
+
+export const getHappeningTypeById = async (id) => {
+  const response = await client.exec(`${API_URLS.HAPPENINGTYPE}/${id}`, {
+    method: "get",
+  });
+  return response;
+};
+
+export const getHappeningTypes = async () => {
+  const response = await client.exec(`${API_URLS.HAPPENINGTYPE}`, {
+    method: "get",
+  });
+  return response;
+};
 export const hooks = {
   getImagesById,
   useGetCourse,
@@ -64,4 +90,8 @@ export const hooks = {
   getEducationPartnerInstitute,
   getEducationPartnerUniversity,
   getStudentReview,
+  getHappenings,
+  getHappeningById,
+  getHappeningTypes,
+  getHappeningTypeById,
 };

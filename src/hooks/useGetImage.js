@@ -92,3 +92,58 @@ export const useGetCountry = () => {
     mutate,
   };
 };
+
+
+export const useGetHappenings = () => {
+  const key = API_URLS.HAPPENING;
+  const { data, error, isLoading, mutate } = useSWR(key, () =>
+    hooks.getHappenings()
+  );
+  return {
+    data: data?.data,
+    error,
+    isLoading,
+    mutate,
+  };
+};
+
+export const useGetHappeningById = (id) => {
+  const key = id ? [`${API_URLS.HAPPENING}/${id}`] : null;
+  const { data, error, isLoading, mutate } = useSWR(key, () =>
+    hooks.getHappeningById(id)
+  );
+  return {
+    data: data?.data,
+    error,
+    isLoading,
+    mutate,
+  };
+};
+
+
+
+export const useGetHappeningTypes = () => {
+  const key = API_URLS.HAPPENINGTYPE;
+  const { data, error, isLoading, mutate } = useSWR(key, () =>
+    hooks.getHappeningTypes()
+  );
+  return {
+    data: data?.data,
+    error,
+    isLoading,
+    mutate,
+  };
+};
+
+export const useGetHappeningTypeById = (id) => {
+  const key = id ? [`${API_URLS.HAPPENINGTYPE}/${id}`] : null;
+  const { data, error, isLoading, mutate } = useSWR(key, () =>
+    hooks.getHappeningTypeById(id)
+  );
+  return {
+    data: data?.data,
+    error,
+    isLoading,
+    mutate,
+  };
+};
