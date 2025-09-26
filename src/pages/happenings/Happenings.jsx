@@ -1,105 +1,65 @@
+// src/pages/happenings/Happenings.jsx
 import React from "react";
-import HappeningContext from "../../components/happenings/HappeningContext";
 import Layout from "../../components/common/Layout";
+import HappeningContext from "../../components/happenings/HappeningContext";
 import HappeningCard from "../../components/happenings/HappeningCard";
+import { useGetHappenings } from "../../hooks/useGetImage";
+import { baseUrl, API_URLS } from "../../client/url";
 
-const studentShowcases = [
-  {
-    id: 1,
-    name: "Students Showcase",
-    items: [
-      {
-        id: "2",
-        name: "Student Showcase 1",
-        image: "/images/a1.jpeg",
-        description: "Brief description of the showcase event 1.",
-        postedDate: "2023-10-01",
-      },
-
-      {
-        id: "2",
-        name: "Student Showcase 2",
-        image: "/images/a4.jpeg",
-        description: "Brief description of the showcase event 2.",
-        postedDate: "2023-10-01",
-      },
-
-      {
-        id: "3",
-        name: "Student Showcase 3",
-        image: "/images/a5.jpeg",
-        description: "Brief description of the showcase event 3.",
-        postedDate: "2023-10-01",
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Events - upcoming & past",
-    items: [
-      {
-        id: "2",
-        name: "Student Showcase 1",
-        image: "/images/a1.jpeg",
-        description: "Brief description of the showcase event 1.",
-        postedDate: "2023-10-01",
-      },
-
-      {
-        id: "2",
-        name: "Student Showcase 2",
-        image: "/images/a4.jpeg",
-        description: "Brief description of the showcase event 2.",
-        postedDate: "2023-10-01",
-      },
-
-      {
-        id: "3",
-        name: "Student Showcase 3",
-        image: "/images/a5.jpeg",
-        description: "Brief description of the showcase event 3.",
-        postedDate: "2023-10-01",
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "Achievements",
-    items: [
-      {
-        id: "2",
-        name: "Student Showcase 1",
-        image: "/images/a1.jpeg",
-        description: "Brief description of the showcase event 1.",
-        postedDate: "2023-10-01",
-      },
-
-      {
-        id: "2",
-        name: "Student Showcase 2",
-        image: "/images/a4.jpeg",
-        description: "Brief description of the showcase event 2.",
-        postedDate: "2023-10-01",
-      },
-
-      {
-        id: "3",
-        name: "Student Showcase 3",
-        image: "/images/a5.jpeg",
-        description: "Brief description of the showcase event 3.",
-        postedDate: "2023-10-01",
-      },
-    ],
-  },
-];
 const Happenings = () => {
-  return (
-    <>
+  const { data, isLoading, error } = useGetHappenings();
+
+  if (isLoading)
+    return (
       <Layout>
-        <HappeningContext />
-        <HappeningCard events={studentShowcases} />
+        <p className="text-center py-10">Loading happenings...</p>
       </Layout>
-    </>
+    );
+
+  if (error)
+    return (
+      <Layout>
+        <p className="text-center py-10 text-red-500">
+          Error loading happenings.
+        </p>
+      </Layout>
+    );
+
+  const events = data?.length
+    ? data.reduce((acc, item) => {
+        const groupIndex = acc.findIndex(
+          (g) => g.id === item.happeningTypeId
+        );
+
+        const eventItem = {
+          id: item.id,
+          name: item.title,
+          mainImage: item.mainImage
+            ? `${baseUrl}${API_URLS.UPLOAD}${API_URLS.HAPPENING}/${item.mainImage}`
+            : "/images/a1.jpeg",
+          description: item.description,
+          postedDate: new Date(item.createdAt).toLocaleDateString(),
+        };
+
+        if (groupIndex !== -1) {
+          acc[groupIndex].items.push(eventItem);
+        } else {
+          acc.push({
+            id: item.happeningTypeId,
+            name: item.happeningType?.typeName || "Category",
+            items: [eventItem],
+          });
+        }
+
+        return acc;
+      }, [])
+    : [];
+
+  return (
+    <Layout>
+      <HappeningContext />
+      <HappeningCard events={events} />
+    </Layout>
   );
 };
 
