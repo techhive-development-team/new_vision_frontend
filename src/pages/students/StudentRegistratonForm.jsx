@@ -7,8 +7,6 @@ import {
   GraduationCap,
   Globe,
   Loader2,
-  CheckCircle,
-  XCircle,
 } from "lucide-react";
 import { studentRegistrationSchema } from "./validation";
 import { paymentOptions, schoolTypes } from "./type";
@@ -19,46 +17,12 @@ import { useGetCountry, useGetCourseById } from "@/hooks/useGetImage";
 import FormSection from "@/components/student-register-components/FormSection";
 import FormField from "@/components/student-register-components/FormField";
 
-const LoadingState = () => (
-  <Layout>
-    <div className="max-w-4xl mx-auto p-6 text-center">
-      <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-blue-600" />
-      <h2 className="text-xl font-semibold">Loading...</h2>
-    </div>
-  </Layout>
-);
-
-const SuccessModal = ({ message, onClose }) => (
-  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black opacity-70">
-    <div className="bg-white rounded-lg p-6 max-w-md w-full">
-      <div className="text-center">
-        <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-4" />
-        <h3 className="text-lg font-medium mb-2">Registration Successful!</h3>
-        <p className="text-gray-600 mb-4">{message}</p>
-        <button
-          onClick={onClose}
-          className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
-        >
-          Continue
-        </button>
-      </div>
-    </div>
-  </div>
-);
-
 const StudentRegistrationForm = () => {
   const { id } = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
 
-  const {
-    data: course,
-    isLoading: courseLoading,
-    error: courseError,
-  } = useGetCourseById(id);
-  const { data: countries = [], isLoading: countriesLoading } = useGetCountry();
+  const { data: course } = useGetCourseById(id);
+  const { data: countries = [] } = useGetCountry();
 
   const {
     control,
@@ -134,33 +98,19 @@ const StudentRegistrationForm = () => {
     }
   };
 
-  if (courseLoading || countriesLoading) return <LoadingState />;
-  if (courseError)
-    return (
-      <Layout>
-        <div className="text-red-600 text-center p-6">Error loading course</div>
-      </Layout>
-    );
-
   return (
     <Layout>
-      {showSuccess && (
-        <SuccessModal
-          message={successMessage}
-          onClose={() => setShowSuccess(false)}
-        />
-      )}
-
       <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-2 dark:text-white">
             Student Registration
           </h1>
-          <p className="text-gray-600 dark:text-gray-100">Please fill out all required fields</p>
+          <p className="text-gray-600 dark:text-gray-100">
+            Please fill out all required fields
+          </p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-          {/* Student Information */}
           <FormSection
             icon={User}
             title="Student Information"
@@ -251,8 +201,6 @@ const StudentRegistrationForm = () => {
               </div>
             </div>
           </FormSection>
-
-          {/* Future Plans */}
           <FormSection icon={Globe} title="Future Plans" color="text-green-600">
             <div className="space-y-4">
               <FormField
@@ -301,8 +249,6 @@ const StudentRegistrationForm = () => {
               )}
             </div>
           </FormSection>
-
-          {/* Course Information */}
           {course && (
             <FormSection
               icon={GraduationCap}
@@ -339,8 +285,6 @@ const StudentRegistrationForm = () => {
               </div>
             </FormSection>
           )}
-
-          {/* Payment Information */}
           <FormSection
             icon={CreditCard}
             title="Payment Information"
@@ -364,21 +308,7 @@ const StudentRegistrationForm = () => {
               />
             </div>
           </FormSection>
-
-          {/* Submit */}
           <div className="text-center space-y-4">
-            {submitError && (
-              <div className="bg-red-50 border border-red-200 rounded-md p-4 flex items-center">
-                <XCircle className="w-5 h-5 text-red-500 mr-3" />
-                <div>
-                  <h3 className="font-medium text-red-800">
-                    Registration Failed
-                  </h3>
-                  <p className="text-red-700 text-sm">{submitError}</p>
-                </div>
-              </div>
-            )}
-
             <button
               type="submit"
               disabled={isSubmitting || !isValid}

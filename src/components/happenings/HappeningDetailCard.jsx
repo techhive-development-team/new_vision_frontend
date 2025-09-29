@@ -10,7 +10,10 @@ const HappeningDetailCard = ({ item, itemIndex }) => {
   };
 
   return (
-    <div key={itemIndex} className="bg-white rounded-lg shadow-lg p-4 border-gray-200 border">
+    <div
+      key={itemIndex}
+      className="bg-white rounded-lg shadow-lg p-4 border-gray-200 border"
+    >
       <img
         src={item.mainImage}
         alt={item.title || item.name}
@@ -20,15 +23,15 @@ const HappeningDetailCard = ({ item, itemIndex }) => {
         {item.title || item.name}
       </h3>
       <p className="text-gray-600">
-        {truncateDescription(item.description, 10)} 
+        {truncateDescription(item.description, 10)}
       </p>
       <div className="mt-2 flex flex-row justify-between items-center">
         <p className="text-gray-500 text-sm mt-2">Posted: {item.postedDate}</p>
         <Link
           to={`/happening/${item.id}`}
-          className="text-sm ml-4 text-black p-2 border rounded-xs"
+          className="relative overflow-hidden text-sm ml-4 text-black p-2 border rounded-xs before:absolute before:top-0 before:left-0 before:h-full before:w-0 before:bg-black before:z-0 before:transition-all before:duration-300 hover:before:w-full hover:text-white"
         >
-          View Details
+          <span className="relative z-10">View Details</span>
         </Link>
       </div>
     </div>

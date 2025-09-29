@@ -1,9 +1,23 @@
 import React from "react";
+import { motion } from "framer-motion";
+import missionVisionImage from "../../../public/images/art1.jpeg";
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0 },
+};
 
 const MissionVision = () => {
   return (
     <>
-      <div className="grid lg:grid-cols-2 gap-3 lg:gap-16 items-center">
+      <motion.div
+        className="grid lg:grid-cols-2 gap-3 lg:gap-16 items-center"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6 }}
+        variants={sectionVariants}
+      >
         <div className="p-8">
           <h3 className="text-2xl font-semibold text-black dark:text-white mb-6">
             Our Unique Edge
@@ -30,17 +44,25 @@ const MissionVision = () => {
         </div>
         <div className="p-8">
           <img
-            src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80"
-            className="rounded-3xl h-auto w-full flex items-center justify-center "
+            src={missionVisionImage}
+            className="rounded-3xl h-auto w-full flex items-center justify-center"
           />
         </div>
-      </div>
+      </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-3 lg:gap-16 items-center">
+      {/* Our Mission */}
+      <motion.div
+        className="grid lg:grid-cols-2 gap-3 lg:gap-16 items-center mt-16"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6 }}
+        variants={sectionVariants}
+      >
         <div className="p-8">
           <img
             src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80"
-            className="rounded-3xl h-auto w-full flex items-center justify-center "
+            className="rounded-3xl h-auto w-full flex items-center justify-center"
           />
         </div>
         <div className="p-8">
@@ -61,11 +83,19 @@ const MissionVision = () => {
             global landscape.
           </p>
         </div>
-      </div>
-
-      <div className="grid lg:grid-cols-2 gap-3 lg:gap-16 items-center">
+      </motion.div>
+      <motion.div
+        className="grid lg:grid-cols-2 gap-3 lg:gap-16 items-center mt-16"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6 }}
+        variants={sectionVariants}
+      >
         <div className="p-8">
-          <h3 className="text-2xl font-semibold text-black dark:text-white mb-6">Our Vision</h3>
+          <h3 className="text-2xl font-semibold text-black dark:text-white mb-6">
+            Our Vision
+          </h3>
           <p className="text-black dark:text-white text-base leading-relaxed">
             Our vision is to redefine creative education in Myanmar by equipping
             students with the skills, confidence, and global mindset needed to
@@ -80,10 +110,10 @@ const MissionVision = () => {
         <div className="p-8">
           <img
             src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80"
-            className="rounded-3xl h-auto w-full flex items-center justify-center "
+            className="rounded-3xl h-auto w-full flex items-center justify-center"
           />
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

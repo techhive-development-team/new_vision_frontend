@@ -12,7 +12,6 @@ const AboutUs = () => {
     <>
       <Layout>
         <Congratulation />
-        <Achievement />
         <MissionVision />
       </Layout>
     </>

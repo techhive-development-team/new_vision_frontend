@@ -1,17 +1,15 @@
 import { useGetImageById } from "../../hooks/useGetImage";
 import { API_URLS, baseUrl } from "../../client/url";
 import { getGridCols } from "../common/getGridCols";
+import { isEmptyArray } from "@/lib/util";
 
 const MainCourses = () => {
-  const { data, isLoading, error } = useGetImageById(1);
-
-  if (isLoading) return <p className="text-center py-10">Loading...</p>;
-  if (error)
-    return <p className="text-center py-10 text-red-500">Error loading data</p>;
-  if (!Array.isArray(data?.images) || data.images.length === 0)
+  const { data } = useGetImageById(3);
+  if (isEmptyArray(data?.images)) {
     return (
       <p className="text-center py-10 text-gray-500">No courses available</p>
     );
+  }
 
   return (
     <div className="px-6 w-11/12 md:w-4/5 mx-auto py-6">

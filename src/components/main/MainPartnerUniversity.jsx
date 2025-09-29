@@ -4,20 +4,15 @@ import { useGetEducationPartnerUniversity } from "../../hooks/useGetImage";
 import { API_URLS, baseUrl } from "../../client/url";
 
 const MainPartnerUniversity = () => {
-  // Hooks must always be called first
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true);
 
   const {
     data: universities,
-    isLoading,
-    error,
   } = useGetEducationPartnerUniversity();
 
-  // Only after hooks, handle conditional UI
   useEffect(() => {
     if (!universities || universities.length === 0) return;
-
     const interval = setInterval(() => {
       setFade(false);
       setTimeout(() => {
@@ -29,8 +24,6 @@ const MainPartnerUniversity = () => {
     return () => clearInterval(interval);
   }, [universities]);
 
-  if (isLoading) return <p className="text-center py-10">Loading...</p>;
-  if (error) return <p className="text-center py-10 text-red-500">Error loading data</p>;
   if (!universities || universities.length === 0)
     return <p className="text-center py-10">No universities found</p>;
 
@@ -60,7 +53,7 @@ const MainPartnerUniversity = () => {
             <p className="text-md text-gray-700">{uni.overview}</p>
             <Link
               to="#"
-              className="inline-block border border-new-vision-yellow text-new-vision-yellow bg-black font-base px-6 py-2 rounded-2xl hover:opacity-90 hover:bg-transparent transition"
+              className="inline-block border border-new-vision-yellow text-black bg-new-vision-yellow font-base px-6 py-2 rounded-2xl hover:bg-black hover:text-new-vision-yellow transition"
             >
               Learn More
             </Link>

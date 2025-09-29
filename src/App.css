@@ -1,9 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Oswald:wght@300;400;600;700&display=swap");
+
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  --font-roboto: "Roboto", sans-serif;
+  --font-oswald: "Oswald", sans-serif;
+
   --color-new-vision-yellow: #fbff18;
   --color-new-vision-green: #36f265;
   --color-new-vision-latte: #dbd9a9;
+}
+
+html {
+  font-family: var(--font-roboto);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-roboto);
 }

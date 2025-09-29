@@ -1,36 +1,24 @@
 // src/pages/happenings/Happenings.jsx
-import React from "react";
+import React, { useContext } from "react";
 import Layout from "../../components/common/Layout";
 import HappeningContext from "../../components/happenings/HappeningContext";
 import HappeningCard from "../../components/happenings/HappeningCard";
 import { useGetHappenings } from "../../hooks/useGetImage";
 import { baseUrl, API_URLS } from "../../client/url";
+import LoadingContext from "@/context/LoadingContext";
+import Loader from "@/components/common/Loader";
 
 const Happenings = () => {
-  const { data, isLoading, error } = useGetHappenings();
+  const { data } = useGetHappenings();
+  const { loadingCount } = useContext(LoadingContext);
 
-  if (isLoading)
-    return (
-      <Layout>
-        <p className="text-center py-10">Loading happenings...</p>
-      </Layout>
-    );
-
-  if (error)
-    return (
-      <Layout>
-        <p className="text-center py-10 text-red-500">
-          Error loading happenings.
-        </p>
-      </Layout>
-    );
+  if (loadingCount > 0) {
+    return <Loader />;
+  }
 
   const events = data?.length
     ? data.reduce((acc, item) => {
-        const groupIndex = acc.findIndex(
-          (g) => g.id === item.happeningTypeId
-        );
-
+        const groupIndex = acc.findIndex((g) => g.id === item.happeningTypeId);
         const eventItem = {
           id: item.id,
           name: item.title,
@@ -50,7 +38,6 @@ const Happenings = () => {
             items: [eventItem],
           });
         }
-
         return acc;
       }, [])
     : [];

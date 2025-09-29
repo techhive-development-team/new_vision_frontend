@@ -18,7 +18,7 @@ const NewVisionRoute = () => {
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/courses" element={<Courses />} />
       <Route path="/happening" element={<Happenings />} />
-      <Route path="/happening/category" element={<HappeningByCategory />} />
+      <Route path="/happening/category/:id" element={<HappeningByCategory />} />
       <Route path="/happening/:id" element={<HappeningDetail />} />
       <Route path="/quiz/:id" element={<Quiz />} />
       <Route path="/courses/:id" element={<CourseDetail />} />

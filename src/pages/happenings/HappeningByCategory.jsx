@@ -1,30 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../components/common/Layout";
 import HappeningDetailCard from "../../components/happenings/HappeningDetailCard";
 import { useGetHappenings } from "../../hooks/useGetImage";
 import { baseUrl, API_URLS } from "../../client/url";
+import LoadingContext from "@/context/LoadingContext";
+import Loader from "@/components/common/Loader";
+import HappeningContext from "@/components/happenings/HappeningContext";
+import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
 
 const HappeningByCategory = () => {
-  const { data, isLoading, error } = useGetHappenings();
+  const { id } = useParams();
+  const fadeUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
+  const container = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.1 } },
+  };
+  const { data } = useGetHappenings();
   const [selectedType, setSelectedType] = useState(null);
 
   useEffect(() => {
-    const typeId = localStorage.getItem("selectedHappeningTypeId");
-    setSelectedType(typeId);
+    setSelectedType(id);
   }, []);
+  
+  const { loadingCount } = useContext(LoadingContext);
 
-  if (isLoading)
-    return (
-      <Layout>
-        <p className="text-center py-10">Loading...</p>
-      </Layout>
-    );
-  if (error)
-    return (
-      <Layout>
-        <p className="text-center py-10 text-red-500">Error loading happenings.</p>
-      </Layout>
-    );
+  if (loadingCount > 0) {
+    return <Loader />;
+  }
 
   const filteredHappenings = data?.filter(
     (item) => item.happeningTypeId === Number(selectedType)
@@ -35,6 +42,7 @@ const HappeningByCategory = () => {
 
   return (
     <Layout>
+      <HappeningContext />
       <div className="container mx-auto p-4">
         <div className="pb-4">
           <div className="inline-block border-b-2 border-black dark:border-new-vision-yellow">
@@ -45,22 +53,29 @@ const HappeningByCategory = () => {
         </div>
 
         {filteredHappenings?.length ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            initial="hidden"
+            animate="visible"
+            variants={container}
+          >
             {filteredHappenings.map((item) => (
-              <HappeningDetailCard
-                key={item.id}
-                item={{
-                  id: item.id,
-                  name: item.title,
-                  mainImage: item.mainImage
-                    ? `${baseUrl}${API_URLS.UPLOAD}${API_URLS.HAPPENING}/${item.mainImage}`
-                    : "/images/a1.jpeg",
-                  description: item.description,
-                  postedDate: new Date(item.createdAt).toLocaleDateString(),
-                }}
-              />
+              <motion.div key={item.id} variants={fadeUp}>
+                <HappeningDetailCard
+                  key={item.id}
+                  item={{
+                    id: item.id,
+                    name: item.title,
+                    mainImage: item.mainImage
+                      ? `${baseUrl}${API_URLS.UPLOAD}${API_URLS.HAPPENING}/${item.mainImage}`
+                      : "/images/a1.jpeg",
+                    description: item.description,
+                    postedDate: new Date(item.createdAt).toLocaleDateString(),
+                  }}
+                />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         ) : (
           <p>No happenings found for this category.</p>
         )}

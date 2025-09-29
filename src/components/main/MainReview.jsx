@@ -6,6 +6,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useGetStudentReview } from "@/hooks/useGetImage";
 import { API_URLS, baseUrl } from "@/client/url";
+import { isEmptyArray } from "@/lib/util";
 
 const ReviewCard = ({ review }) => (
   <div className="bg-white rounded-xl shadow-md p-6 max-w-2xl mx-auto text-center">
@@ -15,13 +16,18 @@ const ReviewCard = ({ review }) => (
       className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
     />
     <p className="text-gray-700 mb-4 italic">"{review?.review}"</p>
-    <h4 className="font-semibold text-lg">{review?.name}</h4>
+    <h4 className="font-semibold text-black text-lg">{review?.name}</h4>
     <p className="text-sm text-gray-500">{review?.batch}</p>
   </div>
 );
 
 const MainReview = () => {
-  const { data: reviews, isLoading, error } = useGetStudentReview(1);
+  const { data: reviews } = useGetStudentReview(1);
+  if (isEmptyArray(reviews)) {
+    return (
+      <p className="text-center py-10 text-gray-500">No review available</p>
+    );
+  }
   return (
     <div className="px-6 py-12 text-black dark:text-white ">
       <div className="w-11/12 md:w-4/5 mx-auto text-center mb-8">
@@ -40,15 +46,11 @@ const MainReview = () => {
         loop
         className="!pb-10"
       >
-        {reviews?.length > 0 ? (
-          reviews.map((review, index) => (
-            <SwiperSlide key={index}>
-              <ReviewCard review={review} />
-            </SwiperSlide>
-          ))
-        ) : (
-          <p className="text-center text-gray-500">No reviews available.</p>
-        )}
+        {reviews.map((review, index) => (
+          <SwiperSlide key={index}>
+            <ReviewCard review={review} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

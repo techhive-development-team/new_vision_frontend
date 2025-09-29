@@ -18,7 +18,7 @@ const Navbar = () => {
           </h1>
         </Link>
 
-        <div className="hidden md:flex space-x-6 items-center">
+        <div className="hidden lg:flex space-x-6 items-center">
           <Link
             to="/"
             className="border-b-2 border-transparent hover:border-new-vision-yellow transition"
@@ -45,9 +45,9 @@ const Navbar = () => {
           </Link>
           <Link
             to="/contact"
-            className="text-black hover:text-white bg-new-vision-yellow px-4 py-1 rounded-2xl border border-new-vision-yellow hover:bg-transparent transition"
+            className="relative rounded-2xl overflow-hidden text-sm text-black bg-new-vision-yellow px-4 py-2 border before:absolute before:top-0 before:left-0 before:h-full before:w-0 before:bg-black before:z-0 before:transition-all before:duration-300 hover:before:w-full hover:text-new-vision-yellow"
           >
-            Enquiry
+            <span className="relative z-10">Enquiry</span>
           </Link>
 
           <button onClick={toggleTheme} className="ml-4">
@@ -59,7 +59,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        <div className="md:hidden flex items-center space-x-4">
+        <div className="lg:hidden flex items-center space-x-4">
           <button onClick={toggleTheme}>
             {theme === "dark" ? (
               <Sun className="w-5 h-5" />
@@ -74,7 +74,7 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="md:hidden px-6 pb-4 space-y-3">
+        <div className="lg:hidden px-6 pb-4 space-y-3">
           <Link
             to="/"
             className="block border-b border-gray-300 py-2 hover:text-new-vision-yellow"
@@ -101,7 +101,7 @@ const Navbar = () => {
           </Link>
           <Link
             to="/contact"
-            className="block text-center text-black hover:text-white bg-new-vision-yellow px-4 py-2 rounded-2xl border border-new-vision-yellow hover:bg-transparent transition"
+            className="block text-center text-black hover:text-new-vision-yellow bg-new-vision-yellow px-4 py-2 rounded-2xl border border-new-vision-yellow hover:bg-transparent transition"
           >
             Enquiry
           </Link>

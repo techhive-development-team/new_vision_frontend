@@ -22,27 +22,32 @@ const stats = [
 const MainArchievement = () => {
   return (
     <div className="w-full py-12 relative bg-white">
-      {/* Background Image */}
       <img
         src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80"
         className="absolute inset-0 w-full h-full object-cover z-0"
         alt="Students background"
       />
-      {/* Overlay */}
       <div className="absolute inset-0 bg-black opacity-60 z-10" />
-
-      {/* Content */}
       <div className="relative z-20 text-white px-4 text-center">
         <h3 className="font-semibold text-3xl md:text-4xl">Our Achievements</h3>
         <p className="w-11/12 md:w-2/3 mx-auto mt-6 leading-relaxed text-sm md:text-base text-gray-100">
-          At New Vision Art & Science Institute, we are proud of our students' academic success and global recognition.
-          Our graduates have earned admissions — many with scholarships and prestigious government grants — to top institutions around the world.
-          These include renowned universities such as Newcastle University, University of Glasgow, Sheffield University, University of Illinois, The University of Melbourne,
-          Lasalle College, University of Kansas, Brooklyn College, Taylor's College, Raffles University, and Assumption University of Thailand. In addition,
-          students have gained placements at leading institutions in Asia, such as King Mongkut's University of Technology Thonburi (KMUTT), Chiang Mai University,
-          Seoul National University of Science and Technology, Tongji University, Nanyang Polytechnic, and Polytechnic University. We also celebrate success in the creative fields
-          with admissions to top design schools like The Ontario College of Art and Design University (OCAD). These achievements reflect our commitment to nurturing
-          both academic excellence and creative innovation on a global scale.
+          At New Vision Art & Science Institute, we are proud of our students'
+          academic success and global recognition. Our graduates have earned
+          admissions — many with scholarships and prestigious government grants
+          — to top institutions around the world. These include renowned
+          universities such as Newcastle University, University of Glasgow,
+          Sheffield University, University of Illinois, The University of
+          Melbourne, Lasalle College, University of Kansas, Brooklyn College,
+          Taylor's College, Raffles University, and Assumption University of
+          Thailand. In addition, students have gained placements at leading
+          institutions in Asia, such as King Mongkut's University of Technology
+          Thonburi (KMUTT), Chiang Mai University, Seoul National University of
+          Science and Technology, Tongji University, Nanyang Polytechnic, and
+          Polytechnic University. We also celebrate success in the creative
+          fields with admissions to top design schools like The Ontario College
+          of Art and Design University (OCAD). These achievements reflect our
+          commitment to nurturing both academic excellence and creative
+          innovation on a global scale.
         </p>
 
         {/* Stats Section */}

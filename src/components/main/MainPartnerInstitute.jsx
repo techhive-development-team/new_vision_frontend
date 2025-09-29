@@ -6,14 +6,9 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination } from "swiper/modules";
 import { useGetEducationPartnerInstitute } from "../../hooks/useGetImage";
 import { API_URLS, baseUrl } from "../../client/url";
+import { isEmptyArray } from "@/lib/util";
 
-const PartnerCard = ({
-  bg_img,
-  logo_img,
-  name,
-  location,
-  foundedDate,
-}) => {
+const PartnerCard = ({ bg_img, logo_img, name, location, foundedDate }) => {
   return (
     <div className="rounded-xl shadow-xl bg-white overflow-hidden">
       <img
@@ -41,14 +36,12 @@ const PartnerCard = ({
 };
 
 const MainPartnerInstitute = () => {
-  const {
-    data: partnerInstitutes,
-    isLoading,
-    error,
-  } = useGetEducationPartnerInstitute();
-  if (isLoading) return <p className="text-center py-10">Loading...</p>;
-  if (error)
-    return <p className="text-center py-10 text-red-500">Error loading data</p>;
+  const { data: partnerInstitutes } = useGetEducationPartnerInstitute();
+  if (isEmptyArray(partnerInstitutes)) {
+    return (
+      <p className="text-center py-10 text-gray-500">No partner available</p>
+    );
+  }
   return (
     <div className="px-6 py-10 relative">
       <div className="w-11/12 md:w-4/5 mx-auto space-y-8">
