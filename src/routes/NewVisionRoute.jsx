@@ -9,6 +9,7 @@ import HappeningDetail from "../pages/happenings/HappeningDetail";
 import Quiz from "../pages/Quiz";
 import CourseDetail from "../pages/CourseDetail";
 import StudentRegistrationForm from "../pages/students/StudentRegistratonForm";
+import StudentReviewDetail from "../pages/StudentReviewDetail";
 
 const NewVisionRoute = () => {
   return (
@@ -23,6 +24,8 @@ const NewVisionRoute = () => {
       <Route path="/quiz/:id" element={<Quiz />} />
       <Route path="/courses/:id" element={<CourseDetail />} />
       <Route path="/courses/:id/apply" element={<StudentRegistrationForm />} />
+            <Route path="/student-review/:id" element={<StudentReviewDetail />} /> 
+
     </Routes>
   );
 };

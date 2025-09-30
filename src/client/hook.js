@@ -49,6 +49,13 @@ const getStudentReview = async () => {
   return response;
 };
 
+const getStudentReviewById = async (id) => {
+  const response = await client.exec(`${API_URLS.STUDENTREVIEW}/${id}`, {
+    method: "get",
+  });
+  return response;
+};
+
 const getFutureCountry = async () => {
   const response = await client.exec(`${API_URLS.FUTURECOUNTRY}`, {
     method: "get",
@@ -62,26 +69,29 @@ const getHappenings = async () => {
   });
   return response;
 }
-export const getHappeningById = async (id) => {
+
+const getHappeningById = async (id) => {
   const response = await client.exec(`${API_URLS.HAPPENING}/${id}`, {
     method: "get",
   });
   return response;
 };
 
-export const getHappeningTypeById = async (id) => {
+const getHappeningTypeById = async (id) => {
   const response = await client.exec(`${API_URLS.HAPPENINGTYPE}/${id}`, {
     method: "get",
   });
   return response;
 };
 
-export const getHappeningTypes = async () => {
+const getHappeningTypes = async () => {
   const response = await client.exec(`${API_URLS.HAPPENINGTYPE}`, {
     method: "get",
   });
   return response;
 };
+
+
 export const hooks = {
   getImagesById,
   useGetCourse,
@@ -94,4 +104,5 @@ export const hooks = {
   getHappeningById,
   getHappeningTypes,
   getHappeningTypeById,
+  getStudentReviewById
 };
