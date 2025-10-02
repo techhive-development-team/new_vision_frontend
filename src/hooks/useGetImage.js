@@ -42,6 +42,14 @@ export const useGetStudentReview = () => {
   return { data: data?.data, error, isLoading, mutate };
 };
 
+export const useGetStudentReviewById = (id) => {
+  const key = id ? [`${API_URLS.STUDENTREVIEW}/${id}`] : null;
+  const { data, error, isLoading, mutate } = useSWRWithLoading(key, () =>
+    hooks.getStudentReviewById(id)
+  );
+  return { data: data?.data, error, isLoading, mutate };
+};
+
 export const useGetCourseById = (id) => {
   const key = id ? [`${API_URLS.COURSE}/front/${id}`] : null;
   const { data, error, isLoading, mutate } = useSWRWithLoading(key, () =>
