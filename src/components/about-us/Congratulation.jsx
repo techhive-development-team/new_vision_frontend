@@ -24,7 +24,7 @@ const PrevArrow = ({ onClick }) => (
 );
 
 const CongratulationCard = ({
-  id, 
+  id,
   student_img,
   educationPartner,
   name,
@@ -43,30 +43,34 @@ const CongratulationCard = ({
       <div className="p-4 flex flex-col space-y-2">
         <div>
           <h3 className="text-lg md:text-xl font-semibold">{name}</h3>
-          <p className="text-xs md:text-sm font-light mt-0.5 text-gray-600">{batch}</p> 
+          <p className="text-xs md:text-sm font-light mt-0.5 text-gray-600">
+            {batch}
+          </p>
         </div>
-        
-        <div className="flex flex-col items-center mt-2"> 
+
+        <div className="flex flex-col items-center mt-2">
           {educationPartner && (
-            <div className="flex items-center justify-center space-x-2"> 
-              {educationPartner.logo_img ? ( 
+            <div className="flex items-center justify-center space-x-2">
+              {educationPartner.logo_img ? (
                 <img
                   src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
                   alt={`${educationPartner.name} Logo`}
                   className="w-5 h-5 object-contain"
                 />
               ) : (
-                <span className="text-base">🏢</span> 
+                <span className="text-base">🏢</span>
               )}
               <p className="text-sm md:text-base font-semibold">
                 {educationPartner.name}
               </p>
             </div>
           )}
-          
-          <p className="text-xs md:text-sm font-light mt-0.5 text-gray-600">{qualification}</p>
+
+          <p className="text-xs md:text-sm font-light mt-0.5 text-gray-600">
+            {qualification}
+          </p>
         </div>
-        
+
         <Link
           to={`/student-review/${id}`}
           className="inline-block border border-gray-400 text-black font-base px-4 py-2 rounded-2xl hover:opacity-90 hover:bg-black hover:text-yellow-400 transition text-sm md:text-base mt-2"

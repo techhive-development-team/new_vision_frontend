@@ -7,9 +7,7 @@ const MainPartnerUniversity = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true);
 
-  const {
-    data: universities,
-  } = useGetEducationPartnerUniversity();
+  const { data: universities } = useGetEducationPartnerUniversity();
 
   useEffect(() => {
     if (!universities || universities.length === 0) return;
@@ -25,7 +23,9 @@ const MainPartnerUniversity = () => {
   }, [universities]);
 
   if (!universities || universities.length === 0)
-    return <p className="text-center py-10">No universities found</p>;
+    return (
+      <p className="text-center py-10 text-gray-500">No universities available</p>
+    );
 
   const uni = universities[currentIndex];
 

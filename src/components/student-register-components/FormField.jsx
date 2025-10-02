@@ -35,33 +35,27 @@ const FormField = ({
     );
   }
 
-  if (type === "textarea") {
-    return (
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          {label} {required && <span className="text-red-500">*</span>}
-        </label>
-        <textarea
-          {...field}
-          rows={rows || 3}
-          placeholder={placeholder}
-          className={`${baseClasses} ${errorClasses}`}
-        />
-        {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
-      </div>
-    );
-  }
-
   if (type === "checkbox") {
     return (
-      <div className="flex items-center">
+      <div>
         <input
-          {...field}
+          id={name}
           type="checkbox"
-          checked={field.value}
+          checked={field.value || false}
+          onChange={(e) => {
+            field.onChange(e.target.checked);
+          }}
+          onBlur={field.onBlur}
+          ref={field.ref}
           className="mr-2"
         />
-        <label className="text-sm font-medium text-gray-700">{label}</label>
+        <label
+          htmlFor={name}
+          className="font-medium text-gray-700 cursor-pointer"
+        >
+          {label}
+        </label>
+        {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
       </div>
     );
   }

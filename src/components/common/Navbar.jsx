@@ -45,9 +45,9 @@ const Navbar = () => {
           </Link>
           <Link
             to="/contact"
-            className="relative rounded-2xl overflow-hidden text-sm text-black bg-new-vision-yellow px-4 py-2 border before:absolute before:top-0 before:left-0 before:h-full before:w-0 before:bg-black before:z-0 before:transition-all before:duration-300 hover:before:w-full hover:text-new-vision-yellow"
+            className="custom-btn"
           >
-            <span className="relative z-10">Enquiry</span>
+            <span>Enquiry</span>
           </Link>
 
           <button onClick={toggleTheme} className="ml-4">

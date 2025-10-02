@@ -11,6 +11,7 @@ import { useGetCourseById } from "../hooks/useGetImage";
 import { Link, useParams } from "react-router-dom";
 import { API_URLS, baseUrl } from "../client/url";
 import { motion } from "framer-motion";
+import NotFoundData from "@/components/common/NotFoundData";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -19,17 +20,11 @@ const fadeUp = {
 
 const CourseDetail = () => {
   const { id } = useParams();
-  const { data, isLoading, error } = useGetCourseById(id);
-
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading course.</p>;
-  if (!data) return <p>No course found.</p>;
-
-  const course = data;
+  const { data: course } = useGetCourseById(id);
+  if (!course?.name) return <NotFoundData data={"Course not found."} />;
 
   return (
     <Layout>
-      {/* Hero Image */}
       <motion.div
         className="relative h-64 md:h-96 w-full"
         initial="hidden"
@@ -53,7 +48,6 @@ const CourseDetail = () => {
         </div>
       </motion.div>
 
-      {/* Course Info Cards */}
       <motion.div
         className="max-w-6xl mx-auto mt-6 grid grid-cols-1 md:grid-cols-5 gap-4 px-6"
         initial="hidden"
@@ -94,17 +88,18 @@ const CourseDetail = () => {
         ].map((card, idx) => (
           <motion.div
             key={idx}
-            className="flex flex-col items-center p-4 bg-white rounded-xl shadow-md border border-gray-200 hover:border-new-vision-yellow transition-colors"
+            className="flex flex-col items-center p-4 bg-white rounded-xl shadow-md border border-gray-200 
+             hover:border-new-vision-yellow hover:shadow-lg hover:bg-gray-50 
+             hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer"
             variants={fadeUp}
           >
-            <card.icon className="w-6 h-6 text-black mb-2" />
+            <card.icon className="w-6 h-6 text-black mb-2 group-hover:text-new-vision-yellow" />
             <p className="font-medium text-gray-700 mb-1">{card.label}</p>
             <p className="font-semibold text-gray-900">{card.value}</p>
           </motion.div>
         ))}
       </motion.div>
 
-      {/* Buttons */}
       <motion.div
         className="flex flex-col md:flex-row justify-center gap-4 mt-6 px-6 md:px-0"
         initial="hidden"
@@ -112,25 +107,17 @@ const CourseDetail = () => {
         variants={fadeUp}
       >
         {course?.quiz && (
-          <Link
-            to={course.quiz}
-            target="_blank"
-            className="py-3 px-6 bg-new-vision-yellow text-black font-medium rounded-2xl hover:bg-black hover:text-white border border-new-vision-yellow transition-colors duration-200 text-center"
-          >
-            Check My Level
+          <Link to={course.quiz} target="_blank" className="custom-btn">
+            <span>Check My Level</span>
           </Link>
         )}
         {course?.isOpened && (
-          <Link
-            to={`/courses/${course.id}/apply`}
-            className="py-3 px-6 bg-new-vision-yellow text-black font-medium rounded-2xl hover:bg-black hover:text-white border border-new-vision-yellow transition-colors duration-200 text-center"
-          >
-            Apply Now
+          <Link to={`/courses/${course.id}/apply`} className="custom-btn">
+            <span>Apply Now</span>
           </Link>
         )}
       </motion.div>
 
-      {/* Program Overview */}
       <motion.section
         className="max-w-6xl mx-auto mt-6 px-6"
         initial="hidden"
@@ -141,13 +128,12 @@ const CourseDetail = () => {
           <h3 className="text-2xl font-semibold text-gray-900 mb-4">
             Program Overview
           </h3>
-          <p className="text-base md:text-lg text-gray-700">
+          <p className="text-base md:text-lg text-gray-700 whitespace-pre-wrap break-words">
             {course?.programOverview}
           </p>
         </div>
       </motion.section>
 
-      {/* Skills */}
       {course?.skills?.length > 0 && (
         <motion.section
           className="max-w-6xl mx-auto mt-6 p-6 mb-6"

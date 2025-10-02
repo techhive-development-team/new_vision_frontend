@@ -8,6 +8,7 @@ import Loader from "@/components/common/Loader";
 import HappeningContext from "@/components/happenings/HappeningContext";
 import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
+import NotFoundData from "@/components/common/NotFoundData";
 
 const HappeningByCategory = () => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const HappeningByCategory = () => {
   useEffect(() => {
     setSelectedType(id);
   }, []);
-  
+
   const { loadingCount } = useContext(LoadingContext);
 
   if (loadingCount > 0) {
@@ -37,8 +38,10 @@ const HappeningByCategory = () => {
     (item) => item.happeningTypeId === Number(selectedType)
   );
 
-  const typeName =
-    filteredHappenings?.[0]?.happeningType?.typeName || "No happenings found";
+  if (!filteredHappenings?.[0]?.happeningType?.typeName)
+    return <NotFoundData data={"Happening not found."} />;
+
+  const typeName = filteredHappenings?.[0]?.happeningType?.typeName;
 
   return (
     <Layout>
@@ -77,7 +80,9 @@ const HappeningByCategory = () => {
             ))}
           </motion.div>
         ) : (
-          <p>No happenings found for this category.</p>
+          <p className="text-center py-10 text-gray-500">
+            No happenings found for this category.
+          </p>
         )}
       </div>
     </Layout>

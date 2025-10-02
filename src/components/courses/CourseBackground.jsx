@@ -30,7 +30,10 @@ const CourseBackground = () => {
       variants={container}
     >
       {courses.map((course) => (
-        <div key={course.id} className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200">
+        <div
+          key={course.id}
+          className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200"
+        >
           <div className="relative overflow-hidden h-48 md:h-56 xl:h-64">
             <img
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -96,9 +99,9 @@ const CourseBackground = () => {
             <div className="flex justify-end">
               <Link
                 to={`/courses/${course.id}`}
-                className="relative overflow-hidden text-sm ml-4 text-black p-2 border rounded-xs before:absolute before:top-0 before:left-0 before:h-full before:w-0 before:bg-black before:z-0 before:transition-all before:duration-300 hover:before:w-full hover:text-white"
+                className="custom-btn"
               >
-                <span className="relative z-10">View Details</span>
+                <span>View Details</span>
               </Link>
             </div>
           </div>
@@ -112,7 +115,7 @@ const CourseBackground = () => {
       <div className="relative bg-[url('/images/a1.jpeg')] bg-cover bg-center text-white">
         <div className="container mx-auto">
           <div className="absolute inset-0 bg-black opacity-70 z-0"></div>
-          <div className="relative z-10 flex flex-col justify-center md:flex-row items-center md:items-start p-6 space-y-4 md:space-y-0 md:space-x-6 min-h-[18rem]">
+          <div className="relative z-10 flex flex-col justify-center md:flex-row items-center md:items-start p-8 space-y-6 md:space-y-0 md:space-x-8 min-h-[20rem]">
             <div className="md:w-1/2 text-left">
               <h1 className="text-3xl md:text-4xl text-yellow-300 font-bold mb-4">
                 Courses
@@ -148,6 +151,13 @@ const CourseBackground = () => {
           </div>
         </div>
       </div>
+      {opened.length === 0 && closed.length === 0 && (
+        <div className="flex items-center justify-center min-h-screen">
+          <p className="text-center text-gray-400 text-lg">
+            No courses available at the moment.
+          </p>
+        </div>
+      )}
       {opened.length > 0 && (
         <section className="p-8 bg-white dark:bg-gray-800">
           <div className="container mx-auto max-w-7xl">

@@ -9,9 +9,9 @@ const sectionVariants = {
 
 const MissionVision = () => {
   return (
-    <>
+    <div className="container mx-auto">
       <motion.div
-        className="grid lg:grid-cols-2 gap-3 lg:gap-16 items-center"
+        className="grid lg:grid-cols-2 gap-3 lg:gap-10 items-center"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -19,7 +19,7 @@ const MissionVision = () => {
         variants={sectionVariants}
       >
         <div className="p-8">
-          <h3 className="text-2xl font-semibold text-black dark:text-white mb-6">
+          <h3 className="text-2xl font-semibold text-black dark:text-new-vision-yellow mb-6">
             Our Unique Edge
           </h3>
           <p className="text-black dark:text-white text-base leading-relaxed">
@@ -45,14 +45,12 @@ const MissionVision = () => {
         <div className="p-8">
           <img
             src={missionVisionImage}
-            className="rounded-3xl h-auto w-full flex items-center justify-center"
+            className="rounded-3xl h-auto w-full flex items-center justify-center hover:scale-110 transition"
           />
         </div>
       </motion.div>
-
-      {/* Our Mission */}
       <motion.div
-        className="grid lg:grid-cols-2 gap-3 lg:gap-16 items-center mt-16"
+        className="grid lg:grid-cols-2 gap-3 lg:gap-16 items-center"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -61,12 +59,12 @@ const MissionVision = () => {
       >
         <div className="p-8">
           <img
-            src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80"
-            className="rounded-3xl h-auto w-full flex items-center justify-center"
+            src={missionVisionImage}
+            className="rounded-3xl h-auto w-full flex items-center justify-center hover:scale-110 transition"
           />
-        </div>
+        </div> 
         <div className="p-8">
-          <h3 className="text-2xl font-semibold text-black dark:text-white mb-6">
+          <h3 className="text-2xl font-semibold text-black dark:text-new-vision-yellow mb-6">
             Our Mission
           </h3>
           <p className="text-black dark:text-white text-base leading-relaxed">
@@ -85,7 +83,7 @@ const MissionVision = () => {
         </div>
       </motion.div>
       <motion.div
-        className="grid lg:grid-cols-2 gap-3 lg:gap-16 items-center mt-16"
+        className="grid lg:grid-cols-2 gap-3 lg:gap-16 items-center"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -93,7 +91,7 @@ const MissionVision = () => {
         variants={sectionVariants}
       >
         <div className="p-8">
-          <h3 className="text-2xl font-semibold text-black dark:text-white mb-6">
+          <h3 className="text-2xl font-semibold text-black dark:text-new-vision-yellow mb-6 ">
             Our Vision
           </h3>
           <p className="text-black dark:text-white text-base leading-relaxed">
@@ -109,12 +107,12 @@ const MissionVision = () => {
         </div>
         <div className="p-8">
           <img
-            src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80"
-            className="rounded-3xl h-auto w-full flex items-center justify-center"
+            src={missionVisionImage}
+            className="rounded-3xl h-auto w-full flex items-center justify-center hover:scale-110 transition"
           />
         </div>
       </motion.div>
-    </>
+    </div>
   );
 };
 
