@@ -61,8 +61,11 @@ const Footer = () => {
           <h2 className="text-xl font-semibold">Find Us</h2>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.44958622217!2d96.12877277619147!3d16.80403808398702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c193af7c71f08b%3A0x80bcbd188e53fa60!2sNew%20Vision%20Art%20%26%20Science%20Institute!5e0!3m2!1sen!2sth!4v1753702190343!5m2!1sen!2sth"
-            className="w-full h-auto rounded-md"
+            className="w-full h-44 rounded-md shadow-md"
+            style={{ border: 0 }}
+            allowFullScreen=""
             loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
       </div>
