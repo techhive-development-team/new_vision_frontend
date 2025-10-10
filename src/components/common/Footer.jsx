@@ -64,7 +64,6 @@ const Footer = () => {
             className="w-full h-44 rounded-md shadow-md"
             style={{ border: 0 }}
             allowFullScreen=""
-            loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
