@@ -23,11 +23,11 @@ const PartnerCard = ({ bg_img, logo_img, name, location, foundedDate }) => {
             alt="Partner Logo"
             className="w-12 h-12 object-contain rounded-xl"
           />
-          <p className="text-sm font-light">{name}</p>
+          <p className="text-2xl font-semibold">{name}</p>
         </div>
-        <h3 className="text-2xl font-semibold">{location}</h3>
-        <div className="flex items-center space-x-4">
-          <GraduationCap className="w-5 h-5" />
+        <h3 className="text-base font-light">{location}</h3>
+        <div className="flex items-center space-x-4 my-2">
+          <GraduationCap className="w-6 h-6" />
           <p className="text-sm font-light">{foundedDate}</p>
         </div>
       </div>

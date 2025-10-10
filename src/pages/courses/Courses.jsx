@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import CourseBackground from "../components/courses/CourseBackground";
-import Layout from "../components/common/Layout";
+import CourseBackground from "../../components/courses/CourseBackground";
+import Layout from "../../components/common/Layout";
 import LoadingContext from "@/context/LoadingContext";
 import Loader from "@/components/common/Loader";
 

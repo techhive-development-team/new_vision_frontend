@@ -22,6 +22,11 @@ const StudentRegistrationForm = () => {
   const { data: countries = [] } = useGetCountry();
   const { loadingCount } = useContext(LoadingContext);
 
+  if (course?.expireDate && new Date(course.expireDate) < new Date()) {
+    window.history.back();
+    return;
+  }
+
   useEffect(() => {}, [course, countries]);
 
   const {

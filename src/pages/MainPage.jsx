@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { motion } from "framer-motion";
-
 import MainSlider from "../components/main/MainSlider";
 import MainContext from "../components/main/MainContext";
 import MainCourses from "../components/main/MainCourses";

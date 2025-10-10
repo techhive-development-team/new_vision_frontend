@@ -7,7 +7,6 @@ import { useGetHappenings } from "../../hooks/useGetImage";
 import { baseUrl, API_URLS } from "../../client/url";
 import LoadingContext from "@/context/LoadingContext";
 import Loader from "@/components/common/Loader";
-import NotFoundData from "@/components/common/NotFoundData";
 
 const Happenings = () => {
   const { data } = useGetHappenings();

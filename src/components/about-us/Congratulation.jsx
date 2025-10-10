@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useGetStudentReview } from "../../hooks/useGetImage";
 import { baseUrl, API_URLS } from "../../client/url";
+import { isEmptyArray } from "@/lib/util";
 
 const NextArrow = ({ onClick }) => (
   <button
@@ -40,42 +41,38 @@ const CongratulationCard = ({
           className="w-full h-48 md:h-56 lg:h-60 object-cover"
         />
       )}
-      <div className="p-4 flex flex-col space-y-2">
+      <div className="p-4 flex flex-col space-y-4">
         <div>
           <h3 className="text-lg md:text-xl font-semibold">{name}</h3>
-          <p className="text-xs md:text-sm font-light mt-0.5 text-gray-600">
-            {batch}
-          </p>
+          <p className="text-xs md:text-sm font-light text-gray-600">{batch}</p>
         </div>
 
-        <div className="flex flex-col items-center mt-2">
+        <div className="flex flex-col items-center">
           {educationPartner && (
             <div className="flex items-center justify-center space-x-2">
               {educationPartner.logo_img ? (
                 <img
                   src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
                   alt={`${educationPartner.name} Logo`}
-                  className="w-5 h-5 object-contain"
+                  className="w-10 h-10 object-contain"
                 />
               ) : (
                 <span className="text-base">🏢</span>
               )}
-              <p className="text-sm md:text-base font-semibold">
-                {educationPartner.name}
-              </p>
+              <p className="text-sm text-left">{educationPartner.name}</p>
             </div>
           )}
 
-          <p className="text-xs md:text-sm font-light mt-0.5 text-gray-600">
+          <p className="text-xs md:text-sm font-light text-gray-600">
             {qualification}
           </p>
         </div>
 
         <Link
           to={`/student-review/${id}`}
-          className="inline-block border border-gray-400 text-black font-base px-4 py-2 rounded-2xl hover:opacity-90 hover:bg-black hover:text-yellow-400 transition text-sm md:text-base mt-2"
+          className="relative overflow-hidden text-sm text-black p-2 border rounded-lg before:absolute before:top-0 before:left-0 before:h-full before:w-0 before:bg-black before:z-0 before:transition-all before:duration-300 hover:before:w-full hover:text-white"
         >
-          Learn More
+          <span className="relative z-10">Learn More</span>
         </Link>
       </div>
     </div>
@@ -83,10 +80,13 @@ const CongratulationCard = ({
 };
 
 const Congratulations = () => {
-  const { data, isLoading, error } = useGetStudentReview();
+  const { data } = useGetStudentReview();
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading student reviews.</p>;
+  if (isEmptyArray(data)) {
+    return (
+      <p className="text-center py-10 text-gray-500">No review available</p>
+    );
+  }
 
   const settings = {
     dots: true,

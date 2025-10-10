@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/common/Layout";
+import Layout from "../../components/common/Layout";
 import {
   Calendar,
   ChartColumnStacked,
@@ -7,9 +7,9 @@ import {
   Clock,
   MapPin,
 } from "lucide-react";
-import { useGetCourseById } from "../hooks/useGetImage";
+import { useGetCourseById } from "../../hooks/useGetImage";
 import { Link, useParams } from "react-router-dom";
-import { API_URLS, baseUrl } from "../client/url";
+import { API_URLS, baseUrl } from "../../client/url";
 import { motion } from "framer-motion";
 import NotFoundData from "@/components/common/NotFoundData";
 
@@ -111,11 +111,13 @@ const CourseDetail = () => {
             <span>Check My Level</span>
           </Link>
         )}
-        {course?.isOpened && (
-          <Link to={`/courses/${course.id}/apply`} className="custom-btn">
-            <span>Apply Now</span>
-          </Link>
-        )}
+        {course?.isOpened &&
+          course?.expireDate &&
+          new Date(course.expireDate) >= new Date && (
+            <Link to={`/courses/${course.id}/apply`} className="custom-btn">
+              <span>Apply Now</span>
+            </Link>
+          )}
       </motion.div>
 
       <motion.section

@@ -20,7 +20,7 @@ export const useGetCourse = () => {
 
 export const useGetEducationPartnerInstitute = () => {
   const { data, error, isLoading, mutate } = useSWRWithLoading(
-    API_URLS.EDUCATION_PARTNER,
+    `${API_URLS.EDUCATION_PARTNER}/front/institute`,
     () => hooks.getEducationPartnerInstitute()
   );
   return { data: data?.data, error, isLoading, mutate };
@@ -28,7 +28,7 @@ export const useGetEducationPartnerInstitute = () => {
 
 export const useGetEducationPartnerUniversity = () => {
   const { data, error, isLoading, mutate } = useSWRWithLoading(
-    API_URLS.EDUCATION_PARTNER,
+    `${API_URLS.EDUCATION_PARTNER}/front/university`,
     () => hooks.getEducationPartnerUniversity()
   );
   return { data: data?.data, error, isLoading, mutate };

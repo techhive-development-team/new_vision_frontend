@@ -19,7 +19,7 @@ const MissionVision = () => {
         variants={sectionVariants}
       >
         <div className="p-8">
-          <h3 className="text-2xl font-semibold text-black dark:text-new-vision-yellow mb-6">
+          <h3 className="text-2xl font-semibold text-black dark:text-white mb-6">
             Our Unique Edge
           </h3>
           <p className="text-black dark:text-white text-base leading-relaxed">
@@ -64,7 +64,7 @@ const MissionVision = () => {
           />
         </div> 
         <div className="p-8">
-          <h3 className="text-2xl font-semibold text-black dark:text-new-vision-yellow mb-6">
+          <h3 className="text-2xl font-semibold text-black dark:text-white mb-6">
             Our Mission
           </h3>
           <p className="text-black dark:text-white text-base leading-relaxed">
@@ -91,7 +91,7 @@ const MissionVision = () => {
         variants={sectionVariants}
       >
         <div className="p-8">
-          <h3 className="text-2xl font-semibold text-black dark:text-new-vision-yellow mb-6 ">
+          <h3 className="text-2xl font-semibold text-black dark:text-white mb-6 ">
             Our Vision
           </h3>
           <p className="text-black dark:text-white text-base leading-relaxed">

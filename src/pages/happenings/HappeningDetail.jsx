@@ -80,9 +80,10 @@ const HappeningDetail = () => {
                 ))}
               </motion.div>
             ) : (
-              <motion.p className="text-gray-400 mt-4" variants={fadeUp}>
-                No album images available.
-              </motion.p>
+              <motion.p
+                className="text-gray-400 mt-4"
+                variants={fadeUp}
+              ></motion.p>
             )}
           </motion.div>
         </Layout>
