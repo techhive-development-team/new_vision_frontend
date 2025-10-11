@@ -22,22 +22,24 @@ const MainPage = () => {
   if (loadingCount > 0) {
     return <Loader />;
   }
+
   return (
     <Layout>
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5 }}
         variants={sectionVariants}
       >
         <MainSlider />
       </motion.div>
+
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5 }}
         variants={sectionVariants}
       >
         <MainContext />
@@ -46,8 +48,8 @@ const MainPage = () => {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5 }}
         variants={sectionVariants}
       >
         <MainCourses />
@@ -56,8 +58,8 @@ const MainPage = () => {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5 }}
         variants={sectionVariants}
       >
         <MainArchievement />
@@ -66,8 +68,8 @@ const MainPage = () => {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5 }}
         variants={sectionVariants}
       >
         <MainPartnerInstitute />
@@ -76,8 +78,8 @@ const MainPage = () => {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, delay: 0.5 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5 }}
         variants={sectionVariants}
       >
         <MainPartnerUniversity />
@@ -86,8 +88,8 @@ const MainPage = () => {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, delay: 0.6 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5 }}
         variants={sectionVariants}
       >
         <MainReview />
