@@ -26,7 +26,7 @@ const CourseDetail = () => {
   return (
     <Layout>
       <motion.div
-        className="relative h-64 md:h-96 w-full"
+        className="relative w-full aspect-[16/9] md:aspect-[21/9]"
         initial="hidden"
         animate="visible"
         variants={fadeUp}
@@ -38,7 +38,7 @@ const CourseDetail = () => {
               : "/images/a1.jpeg"
           }
           alt={course?.name}
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
@@ -113,7 +113,7 @@ const CourseDetail = () => {
         )}
         {course?.isOpened &&
           course?.expireDate &&
-          new Date(course.expireDate) >= new Date && (
+          new Date(course.expireDate) >= new Date() && (
             <Link to={`/courses/${course.id}/apply`} className="custom-btn">
               <span>Apply Now</span>
             </Link>

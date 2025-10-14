@@ -5,6 +5,7 @@ import { isEmptyArray } from "@/lib/util";
 
 const MainCourses = () => {
   const { data } = useGetImageById(3);
+
   if (isEmptyArray(data?.images)) {
     return (
       <p className="text-center py-10 text-gray-500">No courses available</p>
@@ -27,11 +28,14 @@ const MainCourses = () => {
             key={index}
             className="relative bg-white rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-[1.02]"
           >
-            <img
-              src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.IMAGE}/${card.bg_img}`}
-              alt={card.mainText || "Course image"}
-              className="w-full h-48 object-cover rounded-t-xl shadow-md bg-gray-200"
-            />
+            <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-t-xl shadow-md bg-gray-200">
+              <img
+                src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.IMAGE}/${card.bg_img}`}
+                alt={card.mainText || "Course image"}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </div>
+
             <div className="p-5">
               <p className="text-gray-700 text-base text-center">
                 {card.mainText}

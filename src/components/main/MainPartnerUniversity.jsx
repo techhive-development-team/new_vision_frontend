@@ -24,7 +24,9 @@ const MainPartnerUniversity = () => {
 
   if (!universities || universities.length === 0)
     return (
-      <p className="text-center py-10 text-gray-500">No universities available</p>
+      <p className="text-center py-10 text-gray-500">
+        No universities available
+      </p>
     );
 
   const uni = universities[currentIndex];
@@ -41,11 +43,13 @@ const MainPartnerUniversity = () => {
             fade ? "opacity-100" : "opacity-0"
           } flex flex-col items-center justify-center md:flex-row md:items-center md:justify-center gap-10`}
         >
-          <img
-            src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${uni.bg_img}`}
-            alt={uni.name}
-            className="h-44 md:h-72 w-full max-w-md object-cover rounded-xl shadow-md"
-          />
+          <div className="relative w-full max-w-md aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-xl shadow-md bg-gray-200">
+            <img
+              src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${uni.bg_img}`}
+              alt={uni.name}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            />
+          </div>
 
           <div className="max-w-xl text-left md:text-left space-y-4">
             <h3 className="text-2xl font-bold">{uni.name}</h3>

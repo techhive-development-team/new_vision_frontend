@@ -12,13 +12,16 @@ const HappeningDetailCard = ({ item, itemIndex }) => {
   return (
     <div
       key={itemIndex}
-      className="bg-white rounded-lg shadow-lg p-4 border-gray-200 border"
+      className="bg-white rounded-lg shadow-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300"
     >
-      <img
-        src={item.mainImage}
-        alt={item.title || item.name}
-        className="w-full h-48 object-cover rounded-lg mb-4"
-      />
+      <div className="w-full aspect-[20/9] rounded-lg overflow-hidden mb-4">
+        <img
+          src={item.mainImage}
+          alt={item.title || item.name}
+          className="w-full h-full object-cover"
+        />
+      </div>
+
       <h3 className="text-xl font-semibold text-gray-800 mb-2">
         {item.title || item.name}
       </h3>

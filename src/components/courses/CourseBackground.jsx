@@ -34,9 +34,9 @@ const CourseBackground = () => {
           key={course.id}
           className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200"
         >
-          <div className="relative overflow-hidden h-48 md:h-56 xl:h-64">
+          <div className="relative w-full aspect-[4/3] xl:aspect-[16/9] overflow-hidden">
             <img
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.COURSE}/${course.image}`}
               alt={course.name}
             />
@@ -97,10 +97,7 @@ const CourseBackground = () => {
               </div>
             )}
             <div className="flex justify-end">
-              <Link
-                to={`/courses/${course.id}`}
-                className="custom-btn"
-              >
+              <Link to={`/courses/${course.id}`} className="custom-btn">
                 <span>View Details</span>
               </Link>
             </div>
@@ -159,7 +156,7 @@ const CourseBackground = () => {
         </div>
       )}
       {opened.length > 0 && (
-        <section className="p-8 bg-white dark:bg-gray-800">
+        <section className="p-8 dark:bg-gray-800">
           <div className="container mx-auto max-w-7xl">
             <div className="text-left mb-6">
               <h2 className="text-2xl font-bold text-gray-800 mb-4 dark:text-gray-50">
@@ -175,7 +172,7 @@ const CourseBackground = () => {
         </section>
       )}
       {closed.length > 0 && (
-        <section className="pb-8 px-8 bg-white dark:bg-gray-800">
+        <section className="pb-8 px-8 dark:bg-gray-800">
           <div className="container mx-auto max-w-7xl">
             <div className="text-left mb-6">
               <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-50 mb-4">

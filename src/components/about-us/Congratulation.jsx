@@ -8,7 +8,7 @@ import { isEmptyArray } from "@/lib/util";
 
 const NextArrow = ({ onClick }) => (
   <button
-    className="absolute top-1/2 -right-6 transform -translate-y-1/2 z-10 text-gray-800 hover:text-gray-500 dark:text-white pointer text-2xl"
+    className="absolute top-1/2 -right-6 transform -translate-y-1/2 z-10 text-gray-800 hover:text-gray-500 dark:text-white text-2xl"
     onClick={onClick}
   >
     <FaChevronRight />
@@ -17,7 +17,7 @@ const NextArrow = ({ onClick }) => (
 
 const PrevArrow = ({ onClick }) => (
   <button
-    className="absolute top-1/2 -left-6 transform -translate-y-1/2 z-10 text-gray-800 hover:text-gray-500 dark:text-white pointer text-2xl"
+    className="absolute top-1/2 -left-6 transform -translate-y-1/2 z-10 text-gray-800 hover:text-gray-500 dark:text-white text-2xl"
     onClick={onClick}
   >
     <FaChevronLeft />
@@ -35,12 +35,15 @@ const CongratulationCard = ({
   return (
     <div className="rounded-xl shadow bg-white overflow-hidden text-center border border-gray-200 w-full max-w-[280px] mx-auto">
       {student_img && (
-        <img
-          src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.STUDENTREVIEW}/${student_img}`}
-          alt={name}
-          className="w-full h-48 md:h-56 lg:h-60 object-cover"
-        />
+        <div className="relative w-full aspect-[4/3] overflow-hidden">
+          <img
+            src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.STUDENTREVIEW}/${student_img}`}
+            alt={name}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          />
+        </div>
       )}
+
       <div className="p-4 flex flex-col space-y-4">
         <div>
           <h3 className="text-lg md:text-xl font-semibold">{name}</h3>
@@ -51,11 +54,13 @@ const CongratulationCard = ({
           {educationPartner && (
             <div className="flex items-center justify-center space-x-2">
               {educationPartner.logo_img ? (
-                <img
-                  src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
-                  alt={`${educationPartner.name} Logo`}
-                  className="w-10 h-10 object-contain"
-                />
+                <div className="relative w-10 aspect-square">
+                  <img
+                    src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
+                    alt={`${educationPartner.name} Logo`}
+                    className="absolute inset-0 w-full h-full object-contain"
+                  />
+                </div>
               ) : (
                 <span className="text-base">🏢</span>
               )}

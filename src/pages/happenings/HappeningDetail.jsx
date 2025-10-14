@@ -32,7 +32,7 @@ const HappeningDetail = () => {
       ) : (
         <Layout>
           <motion.div
-            className="w-full h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden bg-gray-200"
+            className="w-full aspect-[20/9] overflow-hidden bg-gray-200"
             initial="hidden"
             animate="visible"
             variants={fadeUp}
@@ -50,7 +50,7 @@ const HappeningDetail = () => {
             variants={container}
           >
             <motion.h3
-              className="font-bold text-3xl md:text-4xl mb-4 text-black dark:text-white"
+              className="font-bold text-xl md:text-4xl mb-4 text-black dark:text-white"
               variants={fadeUp}
             >
               {happening.title}
@@ -64,19 +64,23 @@ const HappeningDetail = () => {
             </motion.p>
             {happening.album?.images?.length > 0 ? (
               <motion.div
-                className="grid grid-cols-2 md:grid-cols-4 gap-2"
+                className="grid grid-cols-1 md:grid-cols-3 gap-2"
                 variants={container}
               >
                 {happening.album.images.map((img, index) => (
-                  <motion.img
+                  <motion.div
                     key={img.id || index}
-                    src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.HAPPENING}/${img.image}`}
-                    alt={`Gallery ${index + 1}`}
-                    className="w-full h-40 object-cover shadow-md cursor-pointer rounded-md"
+                    className="w-full aspect-[16/9] overflow-hidden rounded-md shadow-md cursor-pointer"
                     variants={fadeUp}
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  />
+                  >
+                    <img
+                      src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.HAPPENING}/${img.image}`}
+                      alt={`Gallery ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
                 ))}
               </motion.div>
             ) : (
