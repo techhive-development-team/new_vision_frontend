@@ -9,7 +9,7 @@ const Layout = ({ children, isLoading }) => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div>
+        <div className="pt-16">
           <Navbar />
           {children}
           <Footer />

@@ -16,16 +16,15 @@ const Footer = () => {
   const mapContainerRef = useRef(null);
 
   useEffect(() => {
-    // Use IntersectionObserver to lazy load the map
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
           setShouldLoadMap(true);
-          observer.disconnect(); // Stop observing after loading
+          observer.disconnect();
         }
       },
       {
-        rootMargin: "100px", // Start loading 100px before it comes into view
+        rootMargin: "100px",
         threshold: 0.01,
       }
     );
@@ -45,7 +44,7 @@ const Footer = () => {
         <div className="flex flex-col space-y-4 text-new-vision-green">
           <div className="flex items-center">
             <img src={logo} alt="Logo" className="h-24 w-24 object-contain" />
-            <h1 className="text-xl sm:text-2xl font-semibold whitespace-nowrap bg-gradient-to-r from-new-vision-yellow to-new-vision-green bg-clip-text text-transparent text-center">
+            <h1 className="text-xl sm:text-lg font-semibold whitespace-nowrap bg-gradient-to-r from-new-vision-yellow to-new-vision-green bg-clip-text text-transparent text-center">
               New Vision Art &<br />
               Science Institute
             </h1>
@@ -53,12 +52,15 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col space-y-4 text-new-vision-green">
-          <h2 className="text-xl font-semibold">Contact Us</h2>
+          <h2 className="text-lg font-semibold">Contact Us</h2>
           <div className="flex items-center space-x-4">
             <Phone className="w-5 h-5" />
-            <span className="hover:text-new-vision-yellow cursor-pointer">
+            <Link
+              to="tel:+95943160359"
+              className="hover:text-new-vision-yellow cursor-pointer"
+            >
               +95943160359
-            </span>
+            </Link>
           </div>
           <div className="flex items-center space-x-4">
             <MapPin className="w-5 h-5" />
@@ -68,14 +70,17 @@ const Footer = () => {
           </div>
           <div className="flex items-center space-x-4">
             <Mail className="w-5 h-5" />
-            <span className="hover:text-new-vision-yellow cursor-pointer">
-              example@gmail.com
-            </span>
+            <Link
+              className="hover:text-new-vision-yellow cursor-pointer"
+              to="mailto:office@newvision-institute.com"
+            >
+              office@newvision-institute.com
+            </Link>
           </div>
         </div>
 
         <div className="flex flex-col space-y-4 text-new-vision-green">
-          <h2 className="text-xl font-semibold">Follow Us</h2>
+          <h2 className="text-lg font-semibold">Follow Us</h2>
           <div className="flex space-x-4">
             <Facebook className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
             <Linkedin className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
@@ -85,7 +90,7 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col space-y-4 text-new-vision-green">
-          <h2 className="text-xl font-semibold">Find Us</h2>
+          <h2 className="text-lg font-semibold">Find Us</h2>
           <div
             ref={mapContainerRef}
             className="w-full h-44 rounded-md shadow-md overflow-hidden bg-gray-800"

@@ -32,7 +32,7 @@ const MainSlider = () => {
     <div className="w-full relative">
       <Slider {...settings}>
         {data.images.map((slide, index) => (
-          <div className="relative w-full aspect-[2/3] sm:aspect-[16/9]">
+          <div className="relative w-full aspect-[2/3] sm:aspect-[21/9]">
             <img
               src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.IMAGE}/${slide.bg_img}`}
               alt={`Slide ${index}`}

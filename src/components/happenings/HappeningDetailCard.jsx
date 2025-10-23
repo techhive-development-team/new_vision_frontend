@@ -12,9 +12,9 @@ const HappeningDetailCard = ({ item, itemIndex }) => {
   return (
     <div
       key={itemIndex}
-      className="bg-white rounded-lg shadow-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300"
+      className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:border-gray-300 transition-colors duration-200"
     >
-      <div className="w-full aspect-[20/9] rounded-lg overflow-hidden mb-4">
+      <div className="w-full aspect-[20/9] overflow-hidden bg-gray-100">
         <img
           src={item.mainImage}
           alt={item.title || item.name}
@@ -22,20 +22,22 @@ const HappeningDetailCard = ({ item, itemIndex }) => {
         />
       </div>
 
-      <h3 className="text-xl font-semibold text-gray-800 mb-2">
-        {item.title || item.name}
-      </h3>
-      <p className="text-gray-600">
-        {truncateDescription(item.description, 10)}
-      </p>
-      <div className="mt-2 flex flex-row justify-between items-center">
-        <p className="text-gray-500 text-sm mt-2">Posted: {item.postedDate}</p>
-        <Link
-          to={`/happening/${item.id}`}
-          className="relative overflow-hidden text-sm ml-4 text-black p-2 border rounded-xs before:absolute before:top-0 before:left-0 before:h-full before:w-0 before:bg-black before:z-0 before:transition-all before:duration-300 hover:before:w-full hover:text-white"
-        >
-          <span className="relative z-10">View Details</span>
-        </Link>
+      <div className="p-4">
+        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+          {item.title || item.name}
+        </h3>
+        <p className="text-sm text-gray-600 mb-3">
+          {truncateDescription(item.description, 10)}
+        </p>
+        <div className="flex justify-between items-center pt-2 border-t border-gray-100">
+          <p className="text-xs text-gray-500">Posted: {item.postedDate}</p>
+          <Link
+            to={`/happening/${item.id}`}
+            className="px-3 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+          >
+            View Details
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -1,37 +1,28 @@
 import React from "react";
 import HappeningDetailCard from "./HappeningDetailCard";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 const container = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.08 } },
 };
 
 const HappeningCard = ({ events }) => {
-
   return (
     <>
       {events.map((event) => (
-        <div className="container mx-auto p-4">
-          <motion.div
-            key={event.id}
-            className="py-6"
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-          >
-            <div className="pb-4">
-              <div className="inline-block border-b-2 border-black dark:border-white">
-                <h2 className="text-2xl font-bold text-black dark:text-white mb-2">
-                  {event.name || "Category"}
-                </h2>
-              </div>
+        <div key={event.id} className="container mx-auto px-6 py-8">
+          <motion.div initial="hidden" animate="visible" variants={fadeUp}>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-gray-900 dark:border-white inline-block pb-1">
+                {event.name || "Category"}
+              </h2>
             </div>
 
             <motion.div
@@ -47,12 +38,12 @@ const HappeningCard = ({ events }) => {
               ))}
             </motion.div>
 
-            <div className="flex items-end justify-end mt-4">
+            <div className="flex justify-end mt-6">
               <Link
-                className="text-md ml-4 text-black dark:text-white hover:underline"
+                className="text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
                 to={`/happening/category/${event.id}`}
               >
-                View More &rarr;
+                View More →
               </Link>
             </div>
           </motion.div>

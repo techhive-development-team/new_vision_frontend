@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import missionVisionImage from "../../../public/images/art1.jpeg";
+import missionVisionImage from "/images/art1.jpeg";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },

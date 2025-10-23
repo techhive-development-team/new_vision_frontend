@@ -25,15 +25,7 @@ const MainPage = () => {
 
   return (
     <Layout>
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 0.5 }}
-        variants={sectionVariants}
-      >
-        <MainSlider />
-      </motion.div>
+      <MainSlider />
 
       <motion.div
         initial="hidden"
