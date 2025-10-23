@@ -21,11 +21,13 @@ const StudentReviewDetail = () => {
 
         <div className="grid md:grid-cols-2 gap-6 bg-white dark:bg-white shadow rounded-xl overflow-hidden border border-gray-200">
           {student_img && (
-            <img
-              src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.STUDENTREVIEW}/${student_img}`}
-              alt={name}
-              className="w-full h-80 md:h-full object-cover"
-            />
+            <div className="relative w-full aspect-[4/3] md:aspect-[3/4] overflow-hidden">
+              <img
+                src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.STUDENTREVIEW}/${student_img}`}
+                alt={name}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
           )}
 
           <div className="p-6 md:p-8 flex flex-col justify-center text-gray-800 dark:text-gray-900">
@@ -42,11 +44,13 @@ const StudentReviewDetail = () => {
             {educationPartner && (
               <div className="flex items-center space-x-3 mt-1">
                 {educationPartner.logo_img ? (
-                  <img
-                    src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
-                    alt={`${educationPartner.name} Logo`}
-                    className="w-10 h-10 object-contain p-1 bg-white dark:bg-gray-100"
-                  />
+                  <div className="relative w-10 aspect-square p-1 bg-white dark:bg-gray-100">
+                    <img
+                      src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
+                      alt={`${educationPartner.name} Logo`}
+                      className="absolute inset-0 w-full h-full object-contain"
+                    />
+                  </div>
                 ) : (
                   <span className="text-3xl">🏢</span>
                 )}

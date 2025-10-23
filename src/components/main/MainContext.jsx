@@ -7,11 +7,13 @@ import { isEmptyArray } from "@/lib/util";
 
 const MainContext = () => {
   const { data } = useGetImageById(2);
+
   if (isEmptyArray(data?.images)) {
     return (
       <p className="text-center py-10 text-gray-500">No context available</p>
     );
   }
+
   return (
     <div className="px-6">
       <div
@@ -31,18 +33,22 @@ const MainContext = () => {
               </h2>
             </div>
             <div className="p-5 space-y-4">
-              <img
-                src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.IMAGE}/${slide.bg_img}`}
-                alt={slide.sub_text || "Slide image"}
-                className="w-full h-48 object-cover rounded-xl shadow-md bg-gray-200"
-              />
+              <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-xl shadow-md bg-gray-200">
+                <img
+                  src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.IMAGE}/${slide.bg_img}`}
+                  alt={slide.sub_text || "Slide image"}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+              </div>
+
               {slide.subText && (
                 <p className="text-gray-700 text-base">{slide.subText}</p>
               )}
+
               {slide.link && (
                 <Link
                   to={slide.link}
-                  className="inline-block text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
+                  className="inline-block text-base font-medium text-blue-600 hover:text-blue-800 transition-colors"
                 >
                   Learn More →
                 </Link>

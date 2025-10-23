@@ -10,19 +10,24 @@ import { isEmptyArray } from "@/lib/util";
 
 const PartnerCard = ({ bg_img, logo_img, name, location, foundedDate }) => {
   return (
-    <div className="rounded-xl shadow-xl bg-white overflow-hidden">
-      <img
-        src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${bg_img}`}
-        alt="Partner Banner"
-        className="w-full h-52 object-cover"
-      />
+    <div className="rounded-xl shadow-xl bg-white overflow-hidden transition-transform hover:scale-[1.02]">
+      <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden bg-gray-200">
+        <img
+          src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${bg_img}`}
+          alt="Partner Banner"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+        />
+      </div>
+
       <div className="p-4 flex flex-col space-y-2">
         <div className="flex items-center space-x-4">
-          <img
-            src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${logo_img}`}
-            alt="Partner Logo"
-            className="w-12 h-12 object-contain rounded-xl"
-          />
+          <div className="relative w-12 aspect-square">
+            <img
+              src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${logo_img}`}
+              alt="Partner Logo"
+              className="absolute inset-0 w-full h-full object-contain rounded-xl"
+            />
+          </div>
           <p className="text-2xl font-semibold">{name}</p>
         </div>
         <h3 className="text-base font-light">{location}</h3>
@@ -37,11 +42,13 @@ const PartnerCard = ({ bg_img, logo_img, name, location, foundedDate }) => {
 
 const MainPartnerInstitute = () => {
   const { data: partnerInstitutes } = useGetEducationPartnerInstitute();
+
   if (isEmptyArray(partnerInstitutes)) {
     return (
       <p className="text-center py-10 text-gray-500">No partner available</p>
     );
   }
+
   return (
     <div className="px-6 py-10 relative">
       <div className="w-11/12 md:w-4/5 mx-auto space-y-8">

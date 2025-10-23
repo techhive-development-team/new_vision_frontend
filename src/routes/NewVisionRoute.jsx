@@ -10,6 +10,8 @@ import Quiz from "../pages/Quiz";
 import CourseDetail from "../pages/courses/CourseDetail";
 import StudentRegistrationForm from "../pages/students/StudentRegistratonForm";
 import StudentReviewDetail from "../pages/StudentReviewDetail";
+import RegistrationSuccess from "@/pages/students/RegistrationSuccess";
+import ScrollToTop from "./ScrollToTop";
 
 const NewVisionRoute = () => {
   return (
@@ -24,6 +26,10 @@ const NewVisionRoute = () => {
       <Route path="/quiz/:id" element={<Quiz />} />
       <Route path="/courses/:id" element={<CourseDetail />} />
       <Route path="/courses/:id/apply" element={<StudentRegistrationForm />} />
+      <Route
+        path="/courses/:id/apply/success"
+        element={<RegistrationSuccess />}
+      />
       <Route path="/student-review/:id" element={<StudentReviewDetail />} />
     </Routes>
   );

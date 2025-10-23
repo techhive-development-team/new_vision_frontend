@@ -1,55 +1,49 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { DarkModeContext } from "../../context/DarkModeContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, toggleTheme } = useContext(DarkModeContext);
+  const navLinkClass = ({ isActive }) =>
+    `border-b-2 transition ${
+      isActive
+        ? "border-new-vision-yellow"
+        : "border-transparent hover:border-new-vision-yellow"
+    }`;
 
   return (
-    <nav className="bg-black text-white w-full shadow-md">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-black text-white shadow-md">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <Link to={"/"} className="flex items-center space-x-4">
+        <NavLink to="/" className="flex items-center space-x-4">
           <img src={logo} alt="Logo" className="h-10 w-10 object-contain" />
           <h1 className="hidden md:block text-xl sm:text-2xl font-semibold whitespace-nowrap bg-gradient-to-r from-new-vision-yellow to-new-vision-green bg-clip-text text-transparent">
             New Vision Art & Science Institute
           </h1>
-        </Link>
-
+        </NavLink>
         <div className="hidden lg:flex space-x-6 items-center">
-          <Link
-            to="/"
-            className="border-b-2 border-transparent hover:border-new-vision-yellow transition"
-          >
+          <NavLink to="/" className={navLinkClass}>
             Home
-          </Link>
-          <Link
-            to="/courses"
-            className="border-b-2 border-transparent hover:border-new-vision-yellow transition"
-          >
+          </NavLink>
+          <NavLink to="/courses" className={navLinkClass}>
             Courses
-          </Link>
-          <Link
-            to="/happening"
-            className="border-b-2 border-transparent hover:border-new-vision-yellow transition"
-          >
+          </NavLink>
+          <NavLink to="/happening" className={navLinkClass}>
             Happening
-          </Link>
-          <Link
-            to="/about-us"
-            className="border-b-2 border-transparent hover:border-new-vision-yellow transition"
-          >
+          </NavLink>
+          <NavLink to="/about-us" className={navLinkClass}>
             About Us
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/contact"
-            className="custom-btn"
+            className={({ isActive }) =>
+              `custom-btn ${isActive ? "brightness-110" : ""}`
+            }
           >
             <span>Enquiry</span>
-          </Link>
-
+          </NavLink>
           <button onClick={toggleTheme} className="ml-4">
             {theme === "dark" ? (
               <Sun className="w-5 h-5" />
@@ -58,7 +52,6 @@ const Navbar = () => {
             )}
           </button>
         </div>
-
         <div className="lg:hidden flex items-center space-x-4">
           <button onClick={toggleTheme}>
             {theme === "dark" ? (
@@ -72,39 +65,73 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-
       {isOpen && (
         <div className="lg:hidden px-6 pb-4 space-y-3">
-          <Link
+          <NavLink
             to="/"
-            className="block border-b border-gray-300 py-2 hover:text-new-vision-yellow"
+            className={({ isActive }) =>
+              `block border-b border-gray-300 py-2 transition ${
+                isActive
+                  ? "text-new-vision-yellow"
+                  : "hover:text-new-vision-yellow"
+              }`
+            }
+            onClick={() => setIsOpen(false)}
           >
             Home
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/courses"
-            className="block border-b border-gray-300 py-2 hover:text-new-vision-yellow"
+            className={({ isActive }) =>
+              `block border-b border-gray-300 py-2 transition ${
+                isActive
+                  ? "text-new-vision-yellow"
+                  : "hover:text-new-vision-yellow"
+              }`
+            }
+            onClick={() => setIsOpen(false)}
           >
             Courses
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/happening"
-            className="block border-b border-gray-300 py-2 hover:text-new-vision-yellow"
+            className={({ isActive }) =>
+              `block border-b border-gray-300 py-2 transition ${
+                isActive
+                  ? "text-new-vision-yellow"
+                  : "hover:text-new-vision-yellow"
+              }`
+            }
+            onClick={() => setIsOpen(false)}
           >
             Happening
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/about-us"
-            className="block border-b border-gray-300 py-2 hover:text-new-vision-yellow"
+            className={({ isActive }) =>
+              `block border-b border-gray-300 py-2 transition ${
+                isActive
+                  ? "text-new-vision-yellow"
+                  : "hover:text-new-vision-yellow"
+              }`
+            }
+            onClick={() => setIsOpen(false)}
           >
             About Us
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/contact"
-            className="block text-center text-black hover:text-new-vision-yellow bg-new-vision-yellow px-4 py-2 rounded-2xl border border-new-vision-yellow hover:bg-transparent transition"
+            className={({ isActive }) =>
+              `block text-center text-black transition ${
+                isActive
+                  ? "bg-new-vision-yellow"
+                  : "hover:text-new-vision-yellow hover:bg-transparent"
+              } bg-new-vision-yellow px-4 py-2 rounded-2xl border border-new-vision-yellow`
+            }
+            onClick={() => setIsOpen(false)}
           >
             Enquiry
-          </Link>
+          </NavLink>
         </div>
       )}
     </nav>

@@ -5,7 +5,7 @@ import { User, CreditCard, GraduationCap, Globe, Loader2 } from "lucide-react";
 import { studentRegistrationSchema } from "./validation";
 import { paymentOptions, schoolTypes, joinRafflesOptions } from "./type";
 import Layout from "@/components/common/Layout";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { API_URLS, baseUrl } from "@/client/url";
 import { useGetCountry, useGetCourseById } from "@/hooks/useGetImage";
 import FormSection from "@/components/student-register-components/FormSection";
@@ -15,6 +15,7 @@ import Loader from "@/components/common/Loader";
 import LoadingContext from "@/context/LoadingContext";
 
 const StudentRegistrationForm = () => {
+  const navigate = useNavigate()
   const { id } = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -70,6 +71,7 @@ const StudentRegistrationForm = () => {
 
     try {
       const formData = new FormData();
+      console.log(data);
       for (let [key, value] of Object.entries(data)) {
         if (value === null || value === "") {
           continue;
@@ -78,6 +80,7 @@ const StudentRegistrationForm = () => {
       }
 
       formData.append("coursesId", id);
+      console.log(formData.get("futureCountryId"));
       const response = await fetch(`${baseUrl}/students/upload`, {
         method: "POST",
         body: formData,
@@ -88,6 +91,7 @@ const StudentRegistrationForm = () => {
         throw new Error(errorData.message || "Registration failed");
       }
       const result = await response.json();
+      navigate(`/courses/${id}/apply/success`);
       reset();
     } catch (error) {
       console.error("Submit error:", error);

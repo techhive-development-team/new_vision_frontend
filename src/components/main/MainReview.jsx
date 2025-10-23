@@ -1,20 +1,21 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/navigation";
 import { useGetStudentReview } from "@/hooks/useGetImage";
 import { API_URLS, baseUrl } from "@/client/url";
 import { isEmptyArray } from "@/lib/util";
 
 const ReviewCard = ({ review }) => (
   <div className="bg-white rounded-xl shadow-md p-6 max-w-2xl mx-auto text-center">
-    <img
-      src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.STUDENTREVIEW}/${review.student_img}`}
-      alt={review.name}
-      className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
-    />
+    <div className="relative w-24 sm:w-28 mx-auto mb-4 aspect-square rounded-full overflow-hidden bg-gray-200">
+      <img
+        src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.STUDENTREVIEW}/${review.student_img}`}
+        alt={review.name}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+    </div>
     <p className="text-gray-700 mb-4 italic">"{review?.review}"</p>
     <h4 className="font-semibold text-black text-lg">{review?.name}</h4>
     <p className="text-sm text-gray-500">{review?.batch}</p>
@@ -23,13 +24,15 @@ const ReviewCard = ({ review }) => (
 
 const MainReview = () => {
   const { data: reviews } = useGetStudentReview(1);
+
   if (isEmptyArray(reviews)) {
     return (
       <p className="text-center py-10 text-gray-500">No review available</p>
     );
   }
+
   return (
-    <div className="px-6 py-12 text-black dark:text-white ">
+    <div className="px-6 py-12 text-black dark:text-white">
       <div className="w-11/12 md:w-4/5 mx-auto text-center mb-8">
         <h2 className="text-3xl font-bold">What Our Students Say</h2>
         <p className="text-gray-800 dark:text-gray-100 mt-2">
