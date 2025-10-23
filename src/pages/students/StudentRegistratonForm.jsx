@@ -15,7 +15,7 @@ import Loader from "@/components/common/Loader";
 import LoadingContext from "@/context/LoadingContext";
 
 const StudentRegistrationForm = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { id } = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -60,6 +60,8 @@ const StudentRegistrationForm = () => {
       status: "NONE",
       transactionId: "",
       coursesIds: id ? [id.toString()] : [],
+      bank: "",
+      message: "",
     },
     mode: "onChange",
   });
@@ -340,6 +342,23 @@ const StudentRegistrationForm = () => {
                 control={control}
                 label="Transaction ID"
                 placeholder="Required for bank transfer"
+              />
+              {/* Add Bank Field */}
+              <FormField
+                name="bank"
+                control={control}
+                label="Bank Name"
+                placeholder="Enter your bank name"
+                error={errors.bank}
+              />
+              {/* Add Message Field */}
+              <FormField
+                name="message"
+                control={control}
+                label="Message"
+                type="textarea"
+                placeholder="Any additional info"
+                error={errors.message}
               />
             </div>
           </FormSection>
