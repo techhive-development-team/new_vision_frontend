@@ -239,11 +239,11 @@ const HappeningDetail = () => {
         </p>
 
         {/* YouTube Video Section */}
-        {/* {happening.youtubeUrl && ( */}
+        {happening.embeddedLink && (
         <div className="mb-8">
           <div className="w-full aspect-video rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800">
             <iframe
-              src="https://www.youtube.com/embed/F50wc80fEOc?si=O2c1IsT3ORMU95jC"
+              src={happening.embeddedLink}
               title="YouTube video"
               className="w-full h-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -251,7 +251,7 @@ const HappeningDetail = () => {
             />
           </div>
         </div>
-        {/* )} */}
+         )} 
 
         {happening.album?.images?.length > 0 && (
           <>

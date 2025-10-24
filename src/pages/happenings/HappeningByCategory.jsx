@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Layout from "../../components/common/Layout";
 import HappeningDetailCard from "../../components/happenings/HappeningDetailCard";
-import { useGetHappenings } from "../../hooks/useGetImage";
+import { useGetHappeningTypeById } from "../../hooks/useGetImage";
 import { baseUrl, API_URLS } from "../../client/url";
 import LoadingContext from "@/context/LoadingContext";
 import Loader from "@/components/common/Loader";
@@ -12,36 +12,24 @@ import NotFoundData from "@/components/common/NotFoundData";
 
 const HappeningByCategory = () => {
   const { id } = useParams();
+  const { data, loading } = useGetHappeningTypeById(id);
+  const { loadingCount } = useContext(LoadingContext);
+
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
-
   const container = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.1 } },
   };
-  const { data } = useGetHappenings();
-  const [selectedType, setSelectedType] = useState(null);
 
-  useEffect(() => {
-    setSelectedType(id);
-  }, []);
+  if (loading || loadingCount > 0) return <Loader />;
+  const happenings = data?.Happening || [];
+  const typeName = data?.typeName || "Happenings";
 
-  const { loadingCount } = useContext(LoadingContext);
-
-  if (loadingCount > 0) {
-    return <Loader />;
-  }
-
-  const filteredHappenings = data?.filter(
-    (item) => item.happeningTypeId === Number(selectedType)
-  );
-
-  if (!filteredHappenings?.[0]?.happeningType?.typeName)
-    return <NotFoundData data={"Happening not found."} />;
-
-  const typeName = filteredHappenings?.[0]?.happeningType?.typeName;
+  if (!happenings.length)
+    return <NotFoundData data={"No happenings found for this category."} />;
 
   return (
     <Layout>
@@ -55,35 +43,28 @@ const HappeningByCategory = () => {
           </div>
         </div>
 
-        {filteredHappenings?.length ? (
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            initial="hidden"
-            animate="visible"
-            variants={container}
-          >
-            {filteredHappenings.map((item) => (
-              <motion.div key={item.id} variants={fadeUp}>
-                <HappeningDetailCard
-                  key={item.id}
-                  item={{
-                    id: item.id,
-                    name: item.title,
-                    mainImage: item.mainImage
-                      ? `${baseUrl}${API_URLS.UPLOAD}${API_URLS.HAPPENING}/${item.mainImage}`
-                      : "/images/a1.jpeg",
-                    description: item.description,
-                    postedDate: new Date(item.createdAt).toLocaleDateString(),
-                  }}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-        ) : (
-          <p className="text-center py-10 text-gray-500">
-            No happenings found for this category.
-          </p>
-        )}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          initial="hidden"
+          animate="visible"
+          variants={container}
+        >
+          {happenings.map((item) => (
+            <motion.div key={item.id} variants={fadeUp}>
+              <HappeningDetailCard
+                item={{
+                  id: item.id,
+                  name: item.title,
+                  mainImage: item.mainImage
+                    ? `${baseUrl}${API_URLS.UPLOAD}${API_URLS.HAPPENING}/${item.mainImage}`
+                    : "/images/a1.jpeg",
+                  description: item.description,
+                  postedDate: new Date(item.createdAt).toLocaleDateString(),
+                }}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </Layout>
   );

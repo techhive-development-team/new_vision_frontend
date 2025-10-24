@@ -82,14 +82,6 @@ export const useGetHappeningById = (id) => {
   return { data: data?.data, error, isLoading, mutate };
 };
 
-export const useGetHappeningTypes = () => {
-  const { data, error, isLoading, mutate } = useSWRWithLoading(
-    API_URLS.HAPPENINGTYPE,
-    () => hooks.getHappeningTypes()
-  );
-  return { data: data?.data, error, isLoading, mutate };
-};
-
 export const useGetHappeningTypeById = (id) => {
   const key = id ? [`${API_URLS.HAPPENINGTYPE}/${id}`] : null;
   const { data, error, isLoading, mutate } = useSWRWithLoading(key, () =>
