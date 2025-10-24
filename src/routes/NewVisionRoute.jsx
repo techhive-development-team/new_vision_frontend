@@ -8,7 +8,7 @@ import HappeningByCategory from "../pages/happenings/HappeningByCategory";
 import HappeningDetail from "../pages/happenings/HappeningDetail";
 import Quiz from "../pages/Quiz";
 import CourseDetail from "../pages/courses/CourseDetail";
-import StudentRegistrationForm from "../pages/students/StudentRegistratonForm";
+import StudentRegistrationForm from "../pages/students/StudentRegistrationForm";
 import StudentReviewDetail from "../pages/StudentReviewDetail";
 import RegistrationSuccess from "@/pages/students/RegistrationSuccess";
 import ScrollToTop from "./ScrollToTop";

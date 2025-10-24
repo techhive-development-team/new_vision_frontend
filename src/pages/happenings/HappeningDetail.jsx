@@ -230,7 +230,7 @@ const HappeningDetail = () => {
         />
       </div>
 
-      <div className="container mx-auto px-6 py-10 max-w-5xl">
+      <div className="container mx-auto px-6 py-6 md:py-10 max-w-5xl">
         <h1 className="font-bold text-2xl md:text-3xl mb-4 text-gray-900 dark:text-white">
           {happening.title}
         </h1>
