@@ -8,19 +8,21 @@ import { isEmptyArray } from "@/lib/util";
 
 const NextArrow = ({ onClick }) => (
   <button
-    className="absolute top-1/2 -right-6 transform -translate-y-1/2 z-10 text-gray-800 hover:text-gray-500 dark:text-white text-2xl"
+    className="absolute top-1/2 -right-3 md:-right-10 transform -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white shadow-lg flex items-center justify-center text-gray-700 hover:bg-gray-50 transition-all duration-200 hover:scale-110"
     onClick={onClick}
+    aria-label="Next slide"
   >
-    <FaChevronRight />
+    <FaChevronRight className="text-base" />
   </button>
 );
 
 const PrevArrow = ({ onClick }) => (
   <button
-    className="absolute top-1/2 -left-6 transform -translate-y-1/2 z-10 text-gray-800 hover:text-gray-500 dark:text-white text-2xl"
+    className="absolute top-1/2 -left-3 md:-left-10 transform -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white shadow-lg flex items-center justify-center text-gray-700 hover:bg-gray-50 transition-all duration-200 hover:scale-110"
     onClick={onClick}
+    aria-label="Previous slide"
   >
-    <FaChevronLeft />
+    <FaChevronLeft className="text-base" />
   </button>
 );
 
@@ -33,51 +35,47 @@ const CongratulationCard = ({
   qualification,
 }) => {
   return (
-    <div className="rounded-xl shadow bg-white overflow-hidden text-center border border-gray-200 w-full max-w-[280px] mx-auto">
+    <div className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 w-full max-w-[280px] mx-auto">
       {student_img && (
-        <div className="relative w-full aspect-[4/3] overflow-hidden">
+        <div className="relative w-full aspect-square overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
           <img
             src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.STUDENTREVIEW}/${student_img}`}
             alt={name}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         </div>
       )}
-
-      <div className="p-4 flex flex-col space-y-4">
-        <div>
-          <h3 className="text-lg md:text-xl font-semibold">{name}</h3>
-          <p className="text-xs md:text-sm font-light text-gray-600">{batch}</p>
+      <div className="p-4 space-y-3">
+        <div className="text-center">
+          <h3 className="text-base font-semibold text-gray-900 mb-0.5">
+            {name}
+          </h3>
+          <p className="text-xs text-gray-500">{batch}</p>
         </div>
-
-        <div className="flex flex-col items-center">
-          {educationPartner && (
-            <div className="flex items-center justify-center space-x-2">
-              {educationPartner.logo_img ? (
-                <div className="relative w-10 aspect-square">
-                  <img
-                    src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
-                    alt={`${educationPartner.name} Logo`}
-                    className="absolute inset-0 w-full h-full object-contain"
-                  />
-                </div>
-              ) : (
-                <span className="text-base">🏢</span>
-              )}
-              <p className="text-sm text-left">{educationPartner.name}</p>
-            </div>
-          )}
-
-          <p className="text-xs md:text-sm font-light text-gray-600">
-            {qualification}
-          </p>
-        </div>
-
+        {educationPartner && (
+          <div className="flex items-center justify-center gap-2 py-2 px-3 bg-gray-50 rounded-lg">
+            {educationPartner.logo_img ? (
+              <div className="w-7 h-7 flex-shrink-0">
+                <img
+                  src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
+                  alt={educationPartner.name}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            ) : (
+              <span className="text-lg">🏢</span>
+            )}
+            <p className="text-xs font-medium text-gray-700 line-clamp-2">
+              {educationPartner.name}
+            </p>
+          </div>
+        )}
+        <p className="text-xs text-center text-gray-600">{qualification}</p>
         <Link
           to={`/student-review/${id}`}
-          className="relative overflow-hidden text-sm text-black p-2 border rounded-lg before:absolute before:top-0 before:left-0 before:h-full before:w-0 before:bg-black before:z-0 before:transition-all before:duration-300 hover:before:w-full hover:text-white"
+          className="block w-full text-center py-2.5 px-4 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors duration-200"
         >
-          <span className="relative z-10">Learn More</span>
+          Read Story
         </Link>
       </div>
     </div>
@@ -89,38 +87,66 @@ const Congratulations = () => {
 
   if (isEmptyArray(data)) {
     return (
-      <p className="text-center py-10 text-gray-500">No review available</p>
+      <div className="text-center py-12">
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gray-100 mb-3">
+          <span className="text-xl">📝</span>
+        </div>
+        <p className="text-gray-500 text-sm">No reviews available yet</p>
+      </div>
     );
   }
 
   const settings = {
     dots: true,
-    infinite: true,
-    centerMode: true,
-    centerPadding: "0px",
+    infinite: data.length > 3,
+    centerMode: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 2 } },
-      { breakpoint: 640, settings: { slidesToShow: 1 } },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          infinite: data.length > 2,
+        },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          centerMode: false,
+          infinite: data.length > 1,
+        },
+      },
     ],
+    customPaging: () => (
+      <div className="w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors" />
+    ),
+    dotsClass: "slick-dots !bottom-[-35px] flex justify-center gap-2",
   };
 
   return (
-    <div className="px-4 md:px-8 py-8 max-w-6xl mx-auto relative">
-      <h3 className="text-xl md:text-2xl font-semibold text-black dark:text-white mb-6 text-center">
-        Congratulations
-      </h3>
-      <Slider {...settings}>
-        {data?.map((review) => (
-          <div key={review.id} className="px-2">
-            <CongratulationCard {...review} />
-          </div>
-        ))}
-      </Slider>
+    <div className="px-4 md:px-8 py-8 md:py-10 max-w-7xl mx-auto">
+      <div className="text-center mb-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
+          Success Stories
+        </h2>
+        <p className="text-sm text-gray-600 dark:text-gray-300">
+          Celebrating our students' achievements
+        </p>
+      </div>
+      <div className="relative px-6 md:px-12">
+        <Slider {...settings}>
+          {data?.map((review) => (
+            <div key={review.id} className="px-2">
+              <CongratulationCard {...review} />
+            </div>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 };

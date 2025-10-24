@@ -7,21 +7,37 @@ import Layout from "../components/common/Layout";
 const StudentReviewDetail = () => {
   const { id } = useParams();
   const { data } = useGetStudentReviewById(id);
-  if (!data) return <p className="text-center py-10">No review found.</p>;
+
+  if (!data) {
+    return (
+      <Layout>
+        <div className="text-center py-12">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gray-100 mb-3">
+            <span className="text-xl">📝</span>
+          </div>
+          <p className="text-gray-500 text-sm">No review found</p>
+        </div>
+      </Layout>
+    );
+  }
 
   const { student_img, educationPartner, name, batch, qualification, review } =
     data;
 
   return (
     <Layout>
-      <div className="max-w-5xl mx-auto py-10 px-4">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
-          Student Review
-        </h2>
-
-        <div className="grid md:grid-cols-2 gap-6 bg-white dark:bg-white shadow rounded-xl overflow-hidden border border-gray-200">
+      <div className="max-w-6xl mx-auto py-8 md:py-10 px-4 md:px-8">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
+            Success Story
+          </h2>
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            Student achievement details
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-0 bg-white shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden border border-gray-100">
           {student_img && (
-            <div className="relative w-full aspect-[4/3] md:aspect-[3/4] overflow-hidden">
+            <div className="relative w-full aspect-square md:aspect-auto md:min-h-[500px] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
               <img
                 src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.STUDENTREVIEW}/${student_img}`}
                 alt={name}
@@ -29,53 +45,44 @@ const StudentReviewDetail = () => {
               />
             </div>
           )}
-
-          <div className="p-6 md:p-8 flex flex-col justify-center text-gray-800 dark:text-gray-900">
-            <h3 className="text-2xl font-extrabold">{name}</h3>
-
-            <p className="text-base text-gray-500 dark:text-gray-700 mt-1">
-              {batch}
-            </p>
-
-            <p className="text-base text-gray-500 dark:text-gray-700 mt-3">
-              {qualification}
-            </p>
-
+          <div className="p-6 md:p-8 flex flex-col justify-center">
+            <div className="mb-4">
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">
+                {name}
+              </h3>
+              <p className="text-sm text-gray-500">{batch}</p>
+            </div>
+            <p className="text-base text-gray-600 mb-4">{qualification}</p>
             {educationPartner && (
-              <div className="flex items-center space-x-3 mt-1">
+              <div className="flex items-center gap-3 py-3 px-4 bg-gray-50 rounded-lg mb-6 w-fit">
                 {educationPartner.logo_img ? (
-                  <div className="relative w-10 aspect-square p-1 bg-white dark:bg-gray-100">
+                  <div className="w-8 h-8 flex-shrink-0">
                     <img
                       src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
-                      alt={`${educationPartner.name} Logo`}
-                      className="absolute inset-0 w-full h-full object-contain"
+                      alt={educationPartner.name}
+                      className="w-full h-full object-contain"
                     />
                   </div>
                 ) : (
-                  <span className="text-3xl">🏢</span>
+                  <span className="text-xl">🏢</span>
                 )}
-                <p className="text-xl font-semibold text-gray-700 dark:text-gray-900">
+                <p className="text-sm font-medium text-gray-700">
                   {educationPartner.name}
                 </p>
               </div>
             )}
-
-            <div className="pt-4 mt-4 border-t border-gray-200 dark:border-gray-300">
-              <p className="text-base leading-relaxed italic dark:text-gray-800">
+            <div className="pt-4 mt-4 border-t border-gray-200">
+              <p className="text-base leading-relaxed text-gray-700 italic">
                 "{review}"
               </p>
             </div>
           </div>
         </div>
-
         <Link
           to="/about-us"
-          className="inline-flex items-center w-32 px-4 py-2 mt-8 text-sm md:text-base font-semibold 
-                     rounded-2xl transition duration-300 whitespace-nowrap justify-center
-                     text-black bg-new-vision-yellow border border-new-vision-yellow relative overflow-hidden
-                     before:absolute before:top-0 before:left-0 before:h-full before:w-0 before:bg-gray-900 before:z-0 before:transition-all before:duration-300 hover:before:w-full hover:text-new-vision-yellow"
+          className="inline-block mt-8 py-2.5 px-6 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors duration-200"
         >
-          <span className="relative z-10">Back</span>
+          Back
         </Link>
       </div>
     </Layout>

@@ -314,7 +314,7 @@ const StudentRegistrationForm = () => {
                   <FormField
                     name="joinRaffles"
                     control={control}
-                    label="Whould you like to join Raffles?"
+                    label="Whould you like to join Raffles University?"
                     type="select"
                     options={joinRafflesOptions}
                   />

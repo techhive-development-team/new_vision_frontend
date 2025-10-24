@@ -30,10 +30,10 @@ const HappeningDetailCard = ({ item, itemIndex }) => {
           {truncateDescription(item.description, 10)}
         </p>
         <div className="flex justify-between items-center pt-2 border-t border-gray-100">
-          <p className="text-xs text-gray-500">Posted: {item.postedDate}</p>
+          <p className="text-sm text-gray-500">Posted: {item.postedDate}</p>
           <Link
             to={`/happening/${item.id}`}
-            className="px-3 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+            className="px-3 py-1.5 text-sm font-medium text-gray-700 bg-new-vision-yellow border border-gray-300 rounded-md hover:bg-new-vision-yellow/80 transition-colors"
           >
             View Details
           </Link>

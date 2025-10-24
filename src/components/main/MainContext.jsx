@@ -33,14 +33,13 @@ const MainContext = () => {
               </h2>
             </div>
             <div className="p-5 space-y-4">
-              <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-xl shadow-md bg-gray-200">
+              <div className="relative w-full max-h-[500px] sm:max-h-[600px] aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-xl shadow-md bg-gray-200">
                 <img
                   src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.IMAGE}/${slide.bg_img}`}
                   alt={slide.sub_text || "Slide image"}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                 />
               </div>
-
               {slide.subText && (
                 <p className="text-gray-700 text-base">{slide.subText}</p>
               )}
