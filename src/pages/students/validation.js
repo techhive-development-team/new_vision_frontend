@@ -38,4 +38,6 @@ export const studentRegistrationSchema = z.object({
   }),
   status: z.enum(["NONE", "PENDING", "COMPLETED", "FAILED"]).default("NONE"),
   transactionId: z.string().optional(),
+  bank: z.string().optional(),
+  message: z.string().optional(),
 });
