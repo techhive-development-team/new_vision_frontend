@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
+import { FaTiktok } from "react-icons/fa6";
 
 const Footer = () => {
   const [shouldLoadMap, setShouldLoadMap] = useState(false);
@@ -82,10 +83,47 @@ const Footer = () => {
         <div className="flex flex-col space-y-4 text-new-vision-green">
           <h2 className="text-lg font-semibold">Follow Us</h2>
           <div className="flex space-x-4">
-            <Facebook className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
-            <Linkedin className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
-            <Instagram className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
-            <Youtube className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
+            <a
+              href="https://www.facebook.com/NewVisionArtandScienceInstitute" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="Follow us on Facebook"
+            >
+              <Facebook className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
+            </a>
+            <a
+              href="https://mm.linkedin.com/company/new-vision-art-science-institute" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="Follow us on Linkedin"
+            >
+              <Linkedin className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
+            </a>
+            <a
+              href="https://www.instagram.com/newvisionartschool" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="Follow us on Instagram"
+            >
+              <Instagram className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
+            </a>
+            <a
+              href="https://www.youtube.com/@newvision2878" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="Follow us on Youtube"
+            >
+              <Youtube className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
+            </a>
+            <a
+              href="https://www.tiktok.com/@newvisionartandscience" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="Follow us on TikTok"
+            >
+              <FaTiktok className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
+            </a>
+            
           </div>
         </div>
 
