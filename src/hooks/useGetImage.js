@@ -36,14 +36,14 @@ export const useGetEducationPartnerUniversity = () => {
 
 export const useGetStudentReview = () => {
   const { data, error, isLoading, mutate } = useSWRWithLoading(
-    API_URLS.STUDENTREVIEW,
+    `${API_URLS.STUDENTREVIEW}/front`,
     () => hooks.getStudentReview()
   );
   return { data: data?.data, error, isLoading, mutate };
 };
 
 export const useGetStudentReviewById = (id) => {
-  const key = id ? [`${API_URLS.STUDENTREVIEW}/${id}`] : null;
+  const key = id ? [`${API_URLS.STUDENTREVIEW}/front/${id}`] : null;
   const { data, error, isLoading, mutate } = useSWRWithLoading(key, () =>
     hooks.getStudentReviewById(id)
   );
@@ -60,7 +60,7 @@ export const useGetCourseById = (id) => {
 
 export const useGetCountry = () => {
   const { data, error, isLoading, mutate } = useSWRWithLoading(
-    API_URLS.FUTURECOUNTRY,
+    `${API_URLS.FUTURECOUNTRY}/front`,
     () => hooks.getFutureCountry()
   );
   return { data: data?.data, error, isLoading, mutate };

@@ -43,21 +43,21 @@ const useGetCourseById = async (id) => {
 };
 
 const getStudentReview = async () => {
-  const response = await client.exec(`${API_URLS.STUDENTREVIEW}`, {
+  const response = await client.exec(`${API_URLS.STUDENTREVIEW}/front`, {
     method: "get",
   });
   return response;
 };
 
 const getStudentReviewById = async (id) => {
-  const response = await client.exec(`${API_URLS.STUDENTREVIEW}/${id}`, {
+  const response = await client.exec(`${API_URLS.STUDENTREVIEW}/front/${id}`, {
     method: "get",
   });
   return response;
 };
 
 const getFutureCountry = async () => {
-  const response = await client.exec(`${API_URLS.FUTURECOUNTRY}`, {
+  const response = await client.exec(`${API_URLS.FUTURECOUNTRY}/front`, {
     method: "get",
   });
   return response;
