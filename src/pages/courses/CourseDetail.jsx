@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../../components/common/Layout";
 import {
   Calendar,
@@ -10,7 +10,7 @@ import {
 import { useGetCourseById } from "../../hooks/useGetImage";
 import { Link, useParams } from "react-router-dom";
 import { API_URLS, baseUrl } from "../../client/url";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import NotFoundData from "@/components/common/NotFoundData";
 
 const fadeUp = {
@@ -18,9 +18,17 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
+const slideUp = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  exit: { opacity: 0, y: 50, transition: { duration: 0.4 } },
+};
+
 const CourseDetail = () => {
   const { id } = useParams();
   const { data: course } = useGetCourseById(id);
+  const [showQuiz, setShowQuiz] = useState(false);
+
   if (!course?.name) return <NotFoundData data={"Course not found."} />;
 
   return (
@@ -110,13 +118,12 @@ const CourseDetail = () => {
         variants={fadeUp}
       >
         {course?.quiz && (
-          <Link
-            to={course.quiz}
-            target="_blank"
+          <button
+            onClick={() => setShowQuiz(!showQuiz)}
             className="px-6 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
           >
-            Check My Level
-          </Link>
+            {showQuiz ? "Close Quiz" : "Check My Level"}
+          </button>
         )}
 
         {course?.isOpened &&
@@ -130,6 +137,25 @@ const CourseDetail = () => {
             </Link>
           )}
       </motion.div>
+      <AnimatePresence>
+        {showQuiz && course?.quiz && (
+          <motion.div
+            key="quiz"
+            className="max-w-5xl mx-auto mt-6 mb-12 px-6 rounded-lg overflow-hidden"
+            variants={slideUp}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <iframe
+              src={course.quiz}
+              title="Course Quiz"
+              className="w-full h-[600px] border-0"
+              allow="camera; microphone; autoplay; encrypted-media;"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <motion.section
         className="max-w-5xl mx-auto mt-8 px-6 pb-12"
         initial="hidden"

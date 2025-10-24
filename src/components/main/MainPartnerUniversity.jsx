@@ -54,7 +54,9 @@ const MainPartnerUniversity = () => {
           <div className="max-w-xl text-left md:text-left space-y-4">
             <h3 className="text-2xl font-bold">{uni.name}</h3>
             <p className="text-lg text-gray-500">{uni.location}</p>
-            <p className="text-md text-gray-700">{uni.overview}</p>
+            <p className="text-md text-gray-700">
+              {uni.overview.substring(0, 300)}...
+            </p>
             <Link
               to="#"
               className="inline-block border border-new-vision-yellow text-black bg-new-vision-yellow font-base px-6 py-2 rounded-2xl hover:bg-black hover:text-new-vision-yellow transition"
