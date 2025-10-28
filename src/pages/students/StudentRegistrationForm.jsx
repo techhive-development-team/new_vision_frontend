@@ -336,7 +336,7 @@ const StudentRegistrationForm = () => {
                 name="paymentOption"
                 control={control}
                 label="Payment Method"
-                type="select"
+                type="radio"
                 options={paymentOptions}
                 error={errors.paymentOption}
                 required

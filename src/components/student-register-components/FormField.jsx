@@ -60,6 +60,34 @@ const FormField = ({
     );
   }
 
+  if (type === "radio") {
+    return (
+      <div>
+        <p className="block text-sm font-medium text-gray-700 mb-1">
+          {label} {required && <span className="text-red-500">*</span>}
+        </p>
+        <div className="flex flex-col gap-2">
+          {options?.map((opt, index) => (
+            <label key={index} className="flex items-center cursor-pointer">
+              <input
+                type="radio"
+                value={opt.value}
+                checked={field.value === opt.value}
+                onChange={() => field.onChange(opt.value)}
+                onBlur={field.onBlur}
+                ref={field.ref}
+                className="mr-2"
+                disabled={field.disabled}
+              />
+              <span>{opt.label}</span>
+            </label>
+          ))}
+        </div>
+        {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
+      </div>
+    );
+  }
+
   if (type === "file") {
     return (
       <div>

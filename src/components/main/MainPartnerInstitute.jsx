@@ -11,7 +11,7 @@ import { isEmptyArray } from "@/lib/util";
 const PartnerCard = ({ bg_img, logo_img, name, location, foundedDate }) => {
   return (
     <div className="rounded-xl shadow-xl bg-white overflow-hidden transition-transform hover:scale-[1.02]">
-      <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden bg-gray-200">
+      <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] overflow-hidden bg-gray-200">
         <img
           src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${bg_img}`}
           alt="Partner Banner"
