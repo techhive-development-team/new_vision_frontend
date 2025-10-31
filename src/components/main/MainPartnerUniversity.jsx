@@ -57,12 +57,12 @@ const MainPartnerUniversity = () => {
             <p className="text-md text-gray-700">
               {uni.overview.substring(0, 300)}...
             </p>
-            <Link
+            {/* <Link
               to="#"
               className="inline-block border border-new-vision-yellow text-black bg-new-vision-yellow font-base px-6 py-2 rounded-2xl hover:bg-black hover:text-new-vision-yellow transition"
             >
               Learn More
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

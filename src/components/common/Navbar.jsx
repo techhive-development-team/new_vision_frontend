@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <NavLink to="/" className="flex items-center space-x-4">
           <img src={logo} alt="Logo" className="h-10 w-10 object-contain" />
-          <h1 className="hidden md:block text-xl sm:text-2xl font-semibold whitespace-nowrap bg-gradient-to-r from-new-vision-yellow to-new-vision-green bg-clip-text text-transparent">
+          <h1 className="hidden md:block text-xl sm:text-2xl font-semibold whitespace-nowrap text-new-vision-yellow">
             New Vision Art & Science Institute
           </h1>
         </NavLink>
