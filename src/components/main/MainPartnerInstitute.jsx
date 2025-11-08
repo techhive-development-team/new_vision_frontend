@@ -5,7 +5,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination } from "swiper/modules";
 import { useGetEducationPartnerInstitute } from "../../hooks/useGetImage";
-import { API_URLS, baseUrl } from "../../client/url";
+import { API_URLS, imageUrl } from "../../client/url";
 import { isEmptyArray } from "@/lib/util";
 
 const PartnerCard = ({ bg_img, logo_img, name, location, foundedDate }) => {
@@ -13,7 +13,7 @@ const PartnerCard = ({ bg_img, logo_img, name, location, foundedDate }) => {
     <div className="rounded-xl shadow-xl bg-white overflow-hidden transition-transform hover:scale-[1.02]">
       <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] overflow-hidden bg-gray-200">
         <img
-          src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${bg_img}`}
+          src={`${imageUrl}${API_URLS.EDUCATION_PARTNER}/${bg_img}`}
           alt="Partner Banner"
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
         />
@@ -23,7 +23,7 @@ const PartnerCard = ({ bg_img, logo_img, name, location, foundedDate }) => {
         <div className="flex items-center space-x-4">
           <div className="relative w-12 aspect-square">
             <img
-              src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${logo_img}`}
+              src={`${imageUrl}${API_URLS.EDUCATION_PARTNER}/${logo_img}`}
               alt="Partner Logo"
               className="absolute inset-0 w-full h-full object-contain rounded-xl"
             />

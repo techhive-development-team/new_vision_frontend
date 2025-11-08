@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetCourse } from "../../hooks/useGetImage";
-import { API_URLS, baseUrl } from "../../client/url";
+import { API_URLS, imageUrl } from "../../client/url";
 import { Link } from "react-router-dom";
 import { Clock, DollarSign, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
@@ -32,7 +32,7 @@ const CourseBackground = () => {
           <div className="relative w-full aspect-[16/9] overflow-hidden bg-gray-100">
             <img
               className="absolute inset-0 w-full h-full object-cover"
-              src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.COURSE}/${course.image}`}
+              src={`${imageUrl}${API_URLS.COURSE}/${course.image}`}
               alt={course.name}
             />
           </div>

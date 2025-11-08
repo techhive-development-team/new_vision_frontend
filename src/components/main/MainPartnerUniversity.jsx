@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useGetEducationPartnerUniversity } from "../../hooks/useGetImage";
-import { API_URLS, baseUrl } from "../../client/url";
+import { API_URLS,  imageUrl } from "../../client/url";
 
 const MainPartnerUniversity = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -45,7 +44,7 @@ const MainPartnerUniversity = () => {
         >
           <div className="relative w-full max-w-md aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-xl shadow-md bg-gray-200">
             <img
-              src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${uni.bg_img}`}
+              src={`${imageUrl}${API_URLS.EDUCATION_PARTNER}/${uni.bg_img}`}
               alt={uni.name}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-105"
             />

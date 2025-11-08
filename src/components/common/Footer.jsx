@@ -83,45 +83,46 @@ const Footer = () => {
           <h2 className="text-lg font-semibold">Follow Us</h2>
           <div className="flex space-x-4">
             <a
-              href="https://www.facebook.com/NewVisionArtandScienceInstitute"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="https://www.facebook.com/NewVisionArtandScienceInstitute" 
+              target="_blank" 
+              rel="noopener noreferrer" 
               aria-label="Follow us on Facebook"
             >
               <Facebook className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
             </a>
             <a
-              href="https://mm.linkedin.com/company/new-vision-art-science-institute"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="https://mm.linkedin.com/company/new-vision-art-science-institute" 
+              target="_blank" 
+              rel="noopener noreferrer" 
               aria-label="Follow us on Linkedin"
             >
               <Linkedin className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
             </a>
             <a
-              href="https://www.instagram.com/newvisionartschool"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="https://www.instagram.com/newvisionartschool" 
+              target="_blank" 
+              rel="noopener noreferrer" 
               aria-label="Follow us on Instagram"
             >
               <Instagram className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
             </a>
             <a
-              href="https://www.youtube.com/@newvision2878"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="https://www.youtube.com/@newvision2878" 
+              target="_blank" 
+              rel="noopener noreferrer" 
               aria-label="Follow us on Youtube"
             >
               <Youtube className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
             </a>
             <a
-              href="https://www.tiktok.com/@newvisionartandscience"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="https://www.tiktok.com/@newvisionartandscience" 
+              target="_blank" 
+              rel="noopener noreferrer" 
               aria-label="Follow us on TikTok"
             >
               <FaTiktok className="w-5 h-5 hover:text-new-vision-yellow cursor-pointer" />
             </a>
+            
           </div>
         </div>
 

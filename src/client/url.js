@@ -13,3 +13,9 @@ export const API_URLS = {
 };
 
 export const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
+export const environment = import.meta.env.VITE_APP_NODE_ENV;
+
+export const imageUrl =
+  environment === 'production'
+    ? import.meta.env.VITE_APP_AWS_IMAGE_URL
+    : `${baseUrl}/${API_URLS.UPLOAD}`;

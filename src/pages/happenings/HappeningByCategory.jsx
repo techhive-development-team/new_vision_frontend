@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Layout from "../../components/common/Layout";
 import HappeningDetailCard from "../../components/happenings/HappeningDetailCard";
 import { useGetHappeningTypeById } from "../../hooks/useGetImage";
-import { baseUrl, API_URLS } from "../../client/url";
+import { API_URLS, imageUrl } from "../../client/url";
 import LoadingContext from "@/context/LoadingContext";
 import Loader from "@/components/common/Loader";
 import HappeningContext from "@/components/happenings/HappeningContext";
@@ -56,7 +56,7 @@ const HappeningByCategory = () => {
                   id: item.id,
                   name: item.title,
                   mainImage: item.mainImage
-                    ? `${baseUrl}${API_URLS.UPLOAD}${API_URLS.HAPPENING}/${item.mainImage}`
+                    ? `${imageUrl}${API_URLS.HAPPENING}/${item.mainImage}`
                     : "/images/a1.jpeg",
                   description: item.description,
                   postedDate: new Date(item.createdAt).toLocaleDateString(),
