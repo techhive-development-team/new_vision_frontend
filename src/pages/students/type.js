@@ -6,9 +6,8 @@ export const schoolTypes = [
 ];
 
 export const paymentOptions = [
-  { value: undefined, label: "Select payment method" },
-  { value: "CASH", label: "Cash Payment At Office" },
-  { value: "BANK_TRANSFER", label: "Bank Transfer" },
+  { value: "FULL_PAYMENT", label: "Pay the entire course fee upfront." },
+  { value: "HALF_PAYMENT", label: "Pay 50% now and the remaining 50% later." },
 ];
 
 export const joinRafflesOptions = [

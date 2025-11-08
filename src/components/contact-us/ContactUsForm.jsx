@@ -76,7 +76,7 @@ const ContactUsForm = () => {
         <div className="w-full md:w-[420px] bg-black backdrop-blur-md text-white rounded-2xl px-8 py-10 shadow-xl">
           <div className="flex items-center space-x-2 justify-center mb-8">
             <img className="w-10 h-10" src={logo} alt="new vision logo" />
-            <h2 className="text-xl sm:text-2xl font-semibold bg-gradient-to-r from-new-vision-yellow to-new-vision-green bg-clip-text text-transparent">
+            <h2 className="text-xl sm:text-2xl font-semibold text-new-vision-yellow">
               New Vision Art & Science Institute
             </h2>
           </div>

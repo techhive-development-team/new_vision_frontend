@@ -45,7 +45,7 @@ const Footer = () => {
         <div className="flex flex-col space-y-4 text-new-vision-green">
           <div className="flex items-center">
             <img src={logo} alt="Logo" className="h-24 w-24 object-contain" />
-            <h1 className="text-xl sm:text-lg font-semibold whitespace-nowrap bg-gradient-to-r from-new-vision-yellow to-new-vision-green bg-clip-text text-transparent text-center">
+            <h1 className="text-xl sm:text-lg font-semibold whitespace-nowrap text-new-vision-green text-center">
               New Vision Art &<br />
               Science Institute
             </h1>
@@ -79,7 +79,6 @@ const Footer = () => {
             </Link>
           </div>
         </div>
-
         <div className="flex flex-col space-y-4 text-new-vision-green">
           <h2 className="text-lg font-semibold">Follow Us</h2>
           <div className="flex space-x-4">

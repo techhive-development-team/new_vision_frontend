@@ -33,7 +33,7 @@ export const studentRegistrationSchema = z.object({
   futureuniversityName: z.string().optional(),
   potentialYearOfStudy: z.string().optional(),
   joinRaffles: z.enum(["YES", "NO", "MAYBE"]).optional(),
-  paymentOption: z.enum(["CASH", "BANK_TRANSFER"], {
+  paymentOption: z.enum(["FULL_PAYMENT", "HALF_PAYMENT"], {
     required_error: "Please select a payment option",
   }),
   status: z.enum(["NONE", "PENDING", "COMPLETED", "FAILED"]).default("NONE"),
