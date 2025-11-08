@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useGetStudentReviewById } from "../hooks/useGetImage";
-import { baseUrl, API_URLS } from "../client/url";
+import { API_URLS, imageUrl } from "../client/url";
 import Layout from "../components/common/Layout";
 
 const StudentReviewDetail = () => {
@@ -39,7 +39,7 @@ const StudentReviewDetail = () => {
           {student_img && (
             <div className="relative w-full aspect-square md:aspect-auto md:min-h-[500px] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
               <img
-                src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.STUDENTREVIEW}/${student_img}`}
+                src={`${imageUrl}${API_URLS.STUDENTREVIEW}/${student_img}`}
                 alt={name}
                 className="absolute inset-0 w-full h-full object-cover"
               />
@@ -58,7 +58,7 @@ const StudentReviewDetail = () => {
                 {educationPartner.logo_img ? (
                   <div className="w-8 h-8 flex-shrink-0">
                     <img
-                      src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
+                      src={`${imageUrl}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
                       alt={educationPartner.name}
                       className="w-full h-full object-contain"
                     />

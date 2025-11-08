@@ -1,7 +1,7 @@
 import { Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useGetImageById } from "../../hooks/useGetImage";
-import { API_URLS, baseUrl } from "../../client/url";
+import { API_URLS, imageUrl } from "../../client/url";
 import { getGridCols } from "../common/getGridCols";
 import { isEmptyArray } from "@/lib/util";
 
@@ -35,7 +35,7 @@ const MainContext = () => {
             <div className="p-5 space-y-4">
               <div className="relative w-full max-h-[500px] sm:max-h-[600px] aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-xl shadow-md bg-gray-200">
                 <img
-                  src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.IMAGE}/${slide.bg_img}`}
+                  src={`${imageUrl}${API_URLS.IMAGE}/${slide.bg_img}`}
                   alt={slide.sub_text || "Slide image"}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                 />

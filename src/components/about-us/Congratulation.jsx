@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useGetStudentReview } from "../../hooks/useGetImage";
-import { baseUrl, API_URLS } from "../../client/url";
+import { baseUrl, API_URLS, imageUrl } from "../../client/url";
 import { isEmptyArray } from "@/lib/util";
 
 const NextArrow = ({ onClick }) => (
@@ -39,7 +39,7 @@ const CongratulationCard = ({
       {student_img && (
         <div className="relative w-full aspect-square overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
           <img
-            src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.STUDENTREVIEW}/${student_img}`}
+            src={`${imageUrl}${API_URLS.STUDENTREVIEW}/${student_img}`}
             alt={name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
@@ -57,7 +57,7 @@ const CongratulationCard = ({
             {educationPartner.logo_img ? (
               <div className="w-7 h-7 flex-shrink-0">
                 <img
-                  src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
+                  src={`${imageUrl}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
                   alt={educationPartner.name}
                   className="w-full h-full object-contain"
                 />

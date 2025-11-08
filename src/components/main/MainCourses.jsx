@@ -1,5 +1,5 @@
 import { useGetImageById } from "../../hooks/useGetImage";
-import { API_URLS, baseUrl } from "../../client/url";
+import { API_URLS, imageUrl } from "../../client/url";
 import { getGridCols } from "../common/getGridCols";
 import { isEmptyArray } from "@/lib/util";
 
@@ -30,7 +30,7 @@ const MainCourses = () => {
           >
             <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-t-xl shadow-md bg-gray-200">
               <img
-                src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.IMAGE}/${card.bg_img}`}
+                src={`${imageUrl}${API_URLS.IMAGE}/${card.bg_img}`}
                 alt={card.mainText || "Course image"}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
               />

@@ -9,7 +9,7 @@ import React, {
 import Layout from "../../components/common/Layout";
 import { useParams } from "react-router-dom";
 import { useGetHappeningById } from "../../hooks/useGetImage";
-import { baseUrl, API_URLS } from "../../client/url";
+import { API_URLS, imageUrl } from "../../client/url";
 import LoadingContext from "@/context/LoadingContext";
 import Loader from "@/components/common/Loader";
 import NotFoundData from "@/components/common/NotFoundData";
@@ -134,7 +134,7 @@ const HappeningDetail = () => {
   const mainImageUrl = useMemo(
     () =>
       happening?.mainImage
-        ? `${baseUrl}${API_URLS.UPLOAD}${API_URLS.HAPPENING}/${happening.mainImage}`
+        ? `${imageUrl}${API_URLS.HAPPENING}/${happening.mainImage}`
         : null,
     [happening?.mainImage]
   );
@@ -143,7 +143,7 @@ const HappeningDetail = () => {
     () =>
       happening?.album?.images?.map(
         (img) =>
-          `${baseUrl}${API_URLS.UPLOAD}${API_URLS.HAPPENING}/${img.image}`
+          `${imageUrl}${API_URLS.HAPPENING}/${img.image}`
       ) || [],
     [happening?.album?.images]
   );
@@ -230,7 +230,7 @@ const HappeningDetail = () => {
         />
       </div>
 
-      <div className="container mx-auto px-6 py-10 max-w-5xl">
+      <div className="container mx-auto px-6 py-6 md:py-10 max-w-5xl">
         <h1 className="font-bold text-2xl md:text-3xl mb-4 text-gray-900 dark:text-white">
           {happening.title}
         </h1>

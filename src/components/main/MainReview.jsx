@@ -4,14 +4,14 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useGetStudentReview } from "@/hooks/useGetImage";
-import { API_URLS, baseUrl } from "@/client/url";
+import { API_URLS, imageUrl } from "@/client/url";
 import { isEmptyArray } from "@/lib/util";
 
 const ReviewCard = ({ review }) => (
   <div className="bg-white rounded-xl shadow-md p-6 max-w-2xl mx-auto text-center">
     <div className="relative w-24 sm:w-28 mx-auto mb-4 aspect-square rounded-full overflow-hidden bg-gray-200">
       <img
-        src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.STUDENTREVIEW}/${review.student_img}`}
+        src={`${imageUrl}${API_URLS.STUDENTREVIEW}/${review.student_img}`}
         alt={review.name}
         className="absolute inset-0 w-full h-full object-cover"
       />

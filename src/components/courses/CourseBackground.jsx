@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetCourse } from "../../hooks/useGetImage";
-import { API_URLS, baseUrl } from "../../client/url";
+import { API_URLS, imageUrl } from "../../client/url";
 import { Link } from "react-router-dom";
 import { Clock, DollarSign, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
@@ -32,7 +32,7 @@ const CourseBackground = () => {
           <div className="relative w-full aspect-[16/9] overflow-hidden bg-gray-100">
             <img
               className="absolute inset-0 w-full h-full object-cover"
-              src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.COURSE}/${course.image}`}
+              src={`${imageUrl}${API_URLS.COURSE}/${course.image}`}
               alt={course.name}
             />
           </div>
@@ -69,7 +69,7 @@ const CourseBackground = () => {
             <div className="pt-2">
               <Link
                 to={`/courses/${course.id}`}
-                className="inline-block px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                className="px-3 py-1.5 text-sm font-medium text-gray-700 bg-new-vision-yellow border border-gray-300 rounded-md hover:bg-new-vision-yellow/80 transition-colors"
               >
                 View Details
               </Link>
@@ -140,7 +140,7 @@ const CourseBackground = () => {
         </section>
       )}
       {closed.length > 0 && (
-        <section className="py-12 px-6 bg-white dark:bg-gray-800">
+        <section className="py-12 px-6">
           <div className="container mx-auto max-w-7xl">
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-50 mb-2">

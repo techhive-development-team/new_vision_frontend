@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { useGetCourseById } from "../../hooks/useGetImage";
 import { Link, useParams } from "react-router-dom";
-import { API_URLS, baseUrl } from "../../client/url";
+import { API_URLS, imageUrl } from "../../client/url";
 import { motion, AnimatePresence } from "framer-motion";
 import NotFoundData from "@/components/common/NotFoundData";
 
@@ -42,7 +42,7 @@ const CourseDetail = () => {
         <img
           src={
             course?.image
-              ? `${baseUrl}${API_URLS.UPLOAD}${API_URLS.COURSE}/${course.image}`
+              ? `${imageUrl}${API_URLS.COURSE}/${course.image}`
               : "/images/a1.jpeg"
           }
           alt={course?.name}

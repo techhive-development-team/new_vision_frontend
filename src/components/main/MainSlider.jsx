@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import { useGetImageById } from "../../hooks/useGetImage";
-import { API_URLS, baseUrl } from "../../client/url";
+import { API_URLS, imageUrl } from "../../client/url";
 import { isEmptyArray } from "@/lib/util";
 
 const EmptyArrow = () => <div></div>;
@@ -34,7 +34,7 @@ const MainSlider = () => {
         {data.images.map((slide, index) => (
           <div className="relative w-full aspect-[2/3] sm:aspect-[21/9]">
             <img
-              src={`${baseUrl}${API_URLS.UPLOAD}${API_URLS.IMAGE}/${slide.bg_img}`}
+              src={`${imageUrl}${API_URLS.IMAGE}/${slide.bg_img}`}
               alt={`Slide ${index}`}
               className="w-full h-full object-cover transition-opacity duration-500"
             />
