@@ -120,9 +120,9 @@ const StudentRegistrationForm = () => {
     <Layout>
       <div className="my-0 md:my-6 max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          <h4 className="text-3xl font-bold text-gray-800 mb-2">
             Student Registration
-          </h1>
+          </h4>
           <p className="text-gray-600">Please fill out all required fields</p>
         </div>
 

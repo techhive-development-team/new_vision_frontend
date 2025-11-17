@@ -63,9 +63,9 @@ const ContactUsForm = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
         <div className="flex-1 space-y-6 text-white">
-          <h1 className="text-3xl md:text-4xl text-yellow-300 font-bold">
+          <h4 className="text-3xl md:text-4xl text-yellow-300 font-bold">
             Contact Us
-          </h1>
+          </h4>
           <p className="text-lg leading-relaxed text-yellow-300 max-w-2xl">
             New Vision Art & Science Institute would be delighted to discuss
             your requirements and help you find the right programme.
@@ -76,9 +76,9 @@ const ContactUsForm = () => {
         <div className="w-full md:w-[420px] bg-black backdrop-blur-md text-white rounded-2xl px-8 py-10 shadow-xl">
           <div className="flex items-center space-x-2 justify-center mb-8">
             <img className="w-10 h-10" src={logo} alt="new vision logo" />
-            <h2 className="text-xl sm:text-2xl font-semibold text-new-vision-yellow">
+            <h1 className="text-xl sm:text-2xl font-semibold text-new-vision-yellow">
               New Vision Art & Science Institute
-            </h2>
+            </h1>
           </div>
 
           <form className="space-y-5" onSubmit={handleSubmit}>

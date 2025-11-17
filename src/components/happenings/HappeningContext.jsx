@@ -12,9 +12,9 @@ const HappeningContext = () => {
       </div>
       <div className="relative container mx-auto px-6 py-16">
         <div className="max-w-4xl">
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-6">
+          <h4 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Events
-          </h1>
+          </h4>
           <p className="text-base text-gray-200 leading-relaxed max-w-2xl">
             Explore the rich history of New Vision Art & Science Institute
             through our past events. From insightful workshops to inspiring

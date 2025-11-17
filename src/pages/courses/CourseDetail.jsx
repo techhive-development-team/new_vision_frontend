@@ -49,9 +49,9 @@ const CourseDetail = () => {
           className="absolute inset-0 w-full h-full object-cover opacity-40"
         />
         <div className="absolute inset-0 flex items-center justify-center px-4">
-          <h1 className="text-3xl md:text-4xl font-bold text-white text-center">
+          <h4 className="text-3xl md:text-4xl font-bold text-white text-center">
             {course?.name || "Course Detail"}
-          </h1>
+          </h4>
         </div>
       </motion.div>
       <motion.div

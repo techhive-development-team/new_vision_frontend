@@ -53,7 +53,7 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col space-y-4 text-new-vision-green">
-          <h2 className="text-lg font-semibold">Contact Us</h2>
+          <h4 className="text-lg font-semibold">Contact Us</h4>
           <div className="flex items-center space-x-4">
             <Phone className="w-5 h-5" />
             <Link
@@ -80,7 +80,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex flex-col space-y-4 text-new-vision-green">
-          <h2 className="text-lg font-semibold">Follow Us</h2>
+          <h4 className="text-lg font-semibold">Follow Us</h4>
           <div className="flex space-x-4">
             <a
               href="https://www.facebook.com/NewVisionArtandScienceInstitute" 

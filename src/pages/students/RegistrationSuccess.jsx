@@ -13,7 +13,7 @@ const RegistrationSuccess = () => {
     <Layout>
       <div className="flex flex-col items-center justify-center min-h-screen p-4">
         <div className="bg-white shadow-md rounded-lg p-8 max-w-md text-center">
-          <h1 className="text-2xl font-bold mb-4">Registration Successful!</h1>
+          <h4 className="text-2xl font-bold mb-4">Registration Successful!</h4>
           <p className="mb-4">
             You will receive a Gmail notification once your registration is
             approved by the admin.

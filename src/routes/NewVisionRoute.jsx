@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import MainPage from "../pages/MainPage";
-import ContactUs from "../pages/courses/ContactUs";
+import ContactUs from "../pages/ContactUs";
 import AboutUs from "../pages/AboutUs";
 import Courses from "../pages/courses/Courses";
 import Happenings from "../pages/happenings/Happenings";
@@ -12,6 +12,8 @@ import StudentRegistrationForm from "../pages/students/StudentRegistrationForm";
 import StudentReviewDetail from "../pages/StudentReviewDetail";
 import RegistrationSuccess from "@/pages/students/RegistrationSuccess";
 import ScrollToTop from "./ScrollToTop";
+import ErrorPage from "@/pages/ErrorPage";
+import NotFound from "@/pages/NotFound";
 
 const NewVisionRoute = () => {
   return (
@@ -31,6 +33,9 @@ const NewVisionRoute = () => {
         element={<RegistrationSuccess />}
       />
       <Route path="/student-review/:id" element={<StudentReviewDetail />} />
+
+      <Route path="/error" element={<ErrorPage />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

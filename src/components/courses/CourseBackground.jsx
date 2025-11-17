@@ -92,9 +92,9 @@ const CourseBackground = () => {
         </div>
         <div className="relative container mx-auto px-6 py-16">
           <div className="max-w-4xl">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            <h4 className="text-3xl md:text-4xl font-bold text-white mb-6">
               Courses
-            </h1>
+            </h4>
             <div className="flex flex-wrap gap-4 mb-6 text-white">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>

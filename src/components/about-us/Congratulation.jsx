@@ -131,9 +131,9 @@ const Congratulations = () => {
   return (
     <div className="px-4 md:px-8 py-8 md:py-10 max-w-7xl mx-auto">
       <div className="text-center mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
+        <h4 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
           Success Stories
-        </h2>
+        </h4>
         <p className="text-sm text-gray-600 dark:text-gray-300">
           Celebrating our students' achievements
         </p>
