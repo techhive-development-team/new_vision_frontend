@@ -6,9 +6,9 @@ RESET='\033[0m'
 if [ -n "$(git status --porcelain)" ]; then
   echo -e "${GREEN}⚡ UNCOMMITTED CHANGES PRESENT - SKIPPING GIT PULL${RESET}"
 else
-  sudo git fetch origin main || { echo -e "${RED}Git fetch failed${RESET}"; exit 1; }
-  sudo git checkout main || { echo -e "${RED}Git checkout main failed${RESET}"; exit 1; }
-  sudo git pull --ff-only origin main || { echo -e "${RED}Git pull failed${RESET}"; exit 1; }
+  git fetch origin main || { echo -e "${RED}Git fetch failed${RESET}"; exit 1; }
+  git checkout main || { echo -e "${RED}Git checkout main failed${RESET}"; exit 1; }
+  git pull --ff-only origin main || { echo -e "${RED}Git pull failed${RESET}"; exit 1; }
 fi
 
 echo -e "${GREEN}⚡ INSTALLING NODE DEPENDENCIES USING PNPM ${RESET}"
