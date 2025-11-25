@@ -15,9 +15,10 @@ const MainSlider = () => {
       <p className="text-center py-10 text-gray-500">No slide available</p>
     );
   }
+  
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: data.images.length > 1,
     speed: 800,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -32,7 +33,10 @@ const MainSlider = () => {
     <div className="w-full relative">
       <Slider {...settings}>
         {data.images.map((slide, index) => (
-          <div className="relative w-full aspect-[2/3] sm:aspect-[21/9]">
+          <div
+            key={slide.id ?? index}
+            className="relative w-full aspect-[2/3] sm:aspect-[21/9]"
+          >
             <img
               src={`${imageUrl}${API_URLS.IMAGE}/${slide.bg_img}`}
               alt={`Slide ${index}`}
@@ -45,11 +49,13 @@ const MainSlider = () => {
                 <h2 className="text-new-vision-yellow text-2xl sm:text-4xl font-bold mb-4">
                   {slide.mainText}
                 </h2>
+
                 {slide.subText && (
                   <p className="text-new-vision-yellow text-base sm:text-lg mb-6">
                     {slide.subText}
                   </p>
                 )}
+
                 {slide.link && (
                   <Link
                     to={slide.link}
