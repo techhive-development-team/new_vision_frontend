@@ -11,7 +11,7 @@ else
   git pull --ff-only origin main || { echo -e "${RED}Git pull failed${RESET}"; exit 1; }
 fi
 
-echo -e "${GREEN}⚡ INSTALLING NODE DEPENDENCIES USING PNPM ${RESET}"
+echo -e "${GREEN}⚡ INSTALLING NODE DEPENDENCIES USING NPM ${RESET}"
 npm install
 
 echo -e "${GREEN}⚡ BUILDING THE PROJECT ${RESET}"
