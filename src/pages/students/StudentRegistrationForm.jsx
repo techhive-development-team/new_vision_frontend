@@ -6,7 +6,7 @@ import { studentRegistrationSchema } from "./validation";
 import { paymentOptions, schoolTypes, joinRafflesOptions } from "./type";
 import Layout from "@/components/common/Layout";
 import { useNavigate, useParams } from "react-router-dom";
-import { API_URLS, baseUrl } from "@/client/url";
+import { API_URLS, baseUrl, imageUrl } from "@/client/url";
 import { useGetCountry, useGetCourseById } from "@/hooks/useGetImage";
 import FormSection from "@/components/student-register-components/FormSection";
 import FormField from "@/components/student-register-components/FormField";
@@ -139,7 +139,7 @@ const StudentRegistrationForm = () => {
                     <img
                       src={
                         course.image
-                          ? `${baseUrl}${API_URLS.UPLOAD}${API_URLS.COURSE}/${course.image}`
+                          ? `${imageUrl}${API_URLS.COURSE}/${course.image}`
                           : "/images/a1.jpeg"
                       }
                       alt="Course"
