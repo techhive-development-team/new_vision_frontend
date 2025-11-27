@@ -3,7 +3,7 @@ import { hooks } from "../client/hook";
 import { API_URLS } from "../client/url";
 
 export const useGetImageById = (id) => {
-  const key = id ? [`${API_URLS.IMAGE}/${id}`] : null;
+  const key = id ? `${API_URLS.IMAGE}/${id}` : null;
   const { data, error, isLoading, mutate } = useSWRWithLoading(key, () =>
     hooks.getImagesById(id)
   );
@@ -43,7 +43,7 @@ export const useGetStudentReview = () => {
 };
 
 export const useGetStudentReviewById = (id) => {
-  const key = id ? [`${API_URLS.STUDENTREVIEW}/front/${id}`] : null;
+  const key = id ? `${API_URLS.STUDENTREVIEW}/front/${id}` : null;
   const { data, error, isLoading, mutate } = useSWRWithLoading(key, () =>
     hooks.getStudentReviewById(id)
   );
@@ -51,7 +51,7 @@ export const useGetStudentReviewById = (id) => {
 };
 
 export const useGetCourseById = (id) => {
-  const key = id ? [`${API_URLS.COURSE}/front/${id}`] : null;
+  const key = id ? `${API_URLS.COURSE}/front/${id}` : null;
   const { data, error, isLoading, mutate } = useSWRWithLoading(key, () =>
     hooks.useGetCourseById(id)
   );
@@ -75,7 +75,7 @@ export const useGetHappenings = () => {
 };
 
 export const useGetHappeningById = (id) => {
-  const key = id ? [`${API_URLS.HAPPENING}/${id}`] : null;
+  const key = id ? `${API_URLS.HAPPENING}/${id}` : null;
   const { data, error, isLoading, mutate } = useSWRWithLoading(key, () =>
     hooks.getHappeningById(id)
   );
@@ -83,7 +83,7 @@ export const useGetHappeningById = (id) => {
 };
 
 export const useGetHappeningTypeById = (id) => {
-  const key = id ? [`${API_URLS.HAPPENINGTYPE}/${id}`] : null;
+  const key = id ? `${API_URLS.HAPPENINGTYPE}/${id}` : null;
   const { data, error, isLoading, mutate } = useSWRWithLoading(key, () =>
     hooks.getHappeningTypeById(id)
   );
