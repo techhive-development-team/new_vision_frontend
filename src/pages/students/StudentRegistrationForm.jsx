@@ -61,6 +61,9 @@ const StudentRegistrationForm = () => {
 
   const studyAbroad = watch("studyAbroad");
 
+  // All useEffect calls must come BEFORE any conditional returns
+  useEffect(() => {}, [course, countries]);
+
   // Early returns AFTER all hooks
   if (courseLoading || countriesLoading) {
     return <Loader />;
@@ -75,7 +78,12 @@ const StudentRegistrationForm = () => {
     return;
   }
 
-  useEffect(() => {}, [course, countries]);
+  if (id && !course) {
+    return <NotFoundData data={"Course not found or unavailable"} />;
+  }
+  if (countries && countries.length === 0) {
+    return <NotFoundData data={"No countries found"} />;
+  }
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
@@ -108,6 +116,19 @@ const StudentRegistrationForm = () => {
       setIsSubmitting(false);
     }
   };
+
+  if (courseLoading || countriesLoading) {
+    return <Loader />;
+  }
+
+  if (
+    (course?.expireDate &&
+    new Date(course.expireDate) < new Date()) ||
+    course?.isOpened === false
+  ) {
+    window.history.back();
+    return;
+  }
 
   if (id && !course) {
     return <NotFoundData data={"Course not found or unavailable"} />;
