@@ -8,15 +8,19 @@ export const useSWRWithLoading = (key, fetcher) => {
   const { data, error, isLoading, mutate } = useSWR(key, fetcher);
 
   useEffect(() => {
-    if (!key) return;
-    startLoading(key);
+    if (key) {
+      startLoading(key);
+    }
+
     return () => {
-      finishLoading(key);
+      if (key) {
+        finishLoading(key);
+      }
     };
   }, [key]);
 
   useEffect(() => {
-    if (data || error) {
+    if (key && (data || error)) {
       finishLoading(key);
     }
   }, [data, error, key]);
