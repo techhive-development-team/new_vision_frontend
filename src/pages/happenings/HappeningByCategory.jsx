@@ -3,7 +3,6 @@ import Layout from "../../components/common/Layout";
 import HappeningDetailCard from "../../components/happenings/HappeningDetailCard";
 import { useGetHappeningTypeById } from "../../hooks/useGetImage";
 import { API_URLS, imageUrl } from "../../client/url";
-import LoadingContext from "@/context/LoadingContext";
 import Loader from "@/components/common/Loader";
 import HappeningContext from "@/components/happenings/HappeningContext";
 import { motion } from "framer-motion";
@@ -13,7 +12,6 @@ import NotFoundData from "@/components/common/NotFoundData";
 const HappeningByCategory = () => {
   const { id } = useParams();
   const { data, loading } = useGetHappeningTypeById(id);
-  const { loadingCount } = useContext(LoadingContext);
 
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
@@ -24,7 +22,7 @@ const HappeningByCategory = () => {
     visible: { transition: { staggerChildren: 0.1 } },
   };
 
-  if (loading || loadingCount > 0) return <Loader />;
+  if (loading) return <Loader />;
   const happenings = data?.Happening || [];
   const typeName = data?.typeName || "Happenings";
 

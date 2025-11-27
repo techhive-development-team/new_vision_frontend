@@ -1,5 +1,4 @@
 import React, {
-  useContext,
   useState,
   useEffect,
   useCallback,
@@ -10,7 +9,6 @@ import Layout from "../../components/common/Layout";
 import { useParams } from "react-router-dom";
 import { useGetHappeningById } from "../../hooks/useGetImage";
 import { API_URLS, imageUrl } from "../../client/url";
-import LoadingContext from "@/context/LoadingContext";
 import Loader from "@/components/common/Loader";
 import NotFoundData from "@/components/common/NotFoundData";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -101,7 +99,7 @@ const LazyImage = ({
 const HappeningDetail = () => {
   const { id } = useParams();
   const { data: happening } = useGetHappeningById(id);
-  const { loadingCount } = useContext(LoadingContext);
+
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -215,8 +213,6 @@ const HappeningDetail = () => {
       return () => window.removeEventListener("keydown", handleKeyDown);
     }
   }, [selectedImage, handleKeyDown]);
-
-  if (loadingCount > 0 && !happening) return <Loader />;
 
   if (!happening?.mainImage)
     return <NotFoundData data={"Happening not found."} />;

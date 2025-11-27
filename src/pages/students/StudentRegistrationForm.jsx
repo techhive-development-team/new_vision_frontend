@@ -12,7 +12,6 @@ import FormSection from "@/components/student-register-components/FormSection";
 import FormField from "@/components/student-register-components/FormField";
 import NotFoundData from "@/components/common/NotFoundData";
 import Loader from "@/components/common/Loader";
-import LoadingContext from "@/context/LoadingContext";
 
 const StudentRegistrationForm = () => {
   const navigate = useNavigate();
@@ -109,9 +108,6 @@ const StudentRegistrationForm = () => {
     }
   };
 
-  if (loadingCount > 0) {
-    return <Loader />;
-  }
   if (id && !course) {
     return <NotFoundData data={"Course not found or unavailable"} />;
   }
