@@ -23,7 +23,7 @@ const ReviewCard = ({ review }) => (
 );
 
 const MainReview = () => {
-  const { data: reviews } = useGetStudentReview(1);
+  const { data: reviews } = useGetStudentReview();
 
   if (isEmptyArray(reviews)) {
     return (

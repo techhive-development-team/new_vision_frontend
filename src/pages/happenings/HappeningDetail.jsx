@@ -174,7 +174,7 @@ const HappeningDetail = () => {
       setSelectedImage(happening.album.images[index]);
       document.body.style.overflow = "hidden";
     },
-    [happening?.album?.images]
+    [happening?.id]
   );
 
   const closeModal = useCallback(() => {
@@ -183,18 +183,22 @@ const HappeningDetail = () => {
   }, []);
 
   const goToNext = useCallback(() => {
-    const nextIndex = (currentIndex + 1) % happening.album.images.length;
-    setCurrentIndex(nextIndex);
-    setSelectedImage(happening.album.images[nextIndex]);
-  }, [currentIndex, happening?.album?.images]);
+    setCurrentIndex((prev) => {
+      const nextIndex = (prev + 1) % happening.album.images.length;
+      setSelectedImage(happening.album.images[nextIndex]);
+      return nextIndex;
+    });
+  }, [happening?.id]);
 
   const goToPrev = useCallback(() => {
-    const prevIndex =
-      (currentIndex - 1 + happening.album.images.length) %
-      happening.album.images.length;
-    setCurrentIndex(prevIndex);
-    setSelectedImage(happening.album.images[prevIndex]);
-  }, [currentIndex, happening?.album?.images]);
+    setCurrentIndex((prev) => {
+      const prevIndex =
+        (prev - 1 + happening.album.images.length) %
+        happening.album.images.length;
+      setSelectedImage(happening.album.images[prevIndex]);
+      return prevIndex;
+    });
+  }, [happening?.id]);
 
   const handleKeyDown = useCallback(
     (e) => {
