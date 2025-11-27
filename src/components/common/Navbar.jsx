@@ -33,7 +33,7 @@ const Navbar = () => {
           <NavLink to="/happening" className={navLinkClass}>
             Happening
           </NavLink>
-          <NavLink to="/about-us" className={navLinkClass}>
+          <NavLink to="/about" className={navLinkClass}>
             About Us
           </NavLink>
           <NavLink
@@ -107,7 +107,7 @@ const Navbar = () => {
             Happening
           </NavLink>
           <NavLink
-            to="/about-us"
+            to="/about"
             className={({ isActive }) =>
               `block border-b border-gray-300 py-2 transition ${
                 isActive

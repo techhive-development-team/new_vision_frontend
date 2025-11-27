@@ -1,19 +1,20 @@
-import React, { useContext } from "react";
+import React from "react";
 import CourseBackground from "../../components/courses/CourseBackground";
 import Layout from "../../components/common/Layout";
-import LoadingContext from "@/context/LoadingContext";
 import Loader from "@/components/common/Loader";
+import { useGetCourse } from "@/hooks/useGetImage";
 
 const Courses = () => {
-  const { loadingCount } = useContext(LoadingContext);
+  const { data, isLoading } = useGetCourse();
 
-  if (loadingCount > 0) {
+  if (isLoading) {
     return <Loader />;
   }
+
   return (
     <div>
       <Layout>
-        <CourseBackground />
+        <CourseBackground data={data} loading={isLoading} />
       </Layout>
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 
-const HappeningContext = () => {
+const HappeningContext = ({ data, loading }) => {
   return (
     <div className="relative bg-gray-900">
       <div className="absolute inset-0">

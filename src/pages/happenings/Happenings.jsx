@@ -1,18 +1,16 @@
 // src/pages/happenings/Happenings.jsx
-import React, { useContext } from "react";
+import React from "react";
 import Layout from "../../components/common/Layout";
 import HappeningContext from "../../components/happenings/HappeningContext";
 import HappeningCard from "../../components/happenings/HappeningCard";
 import { useGetHappenings } from "../../hooks/useGetImage";
 import { API_URLS, imageUrl } from "../../client/url";
-import LoadingContext from "@/context/LoadingContext";
 import Loader from "@/components/common/Loader";
 
 const Happenings = () => {
-  const { data } = useGetHappenings();
-  const { loadingCount } = useContext(LoadingContext);
+  const { data, isLoading } = useGetHappenings();
 
-  if (loadingCount > 0) {
+  if (isLoading) {
     return <Loader />;
   }
 
@@ -57,7 +55,7 @@ const Happenings = () => {
 
   return (
     <Layout>
-      <HappeningContext />
+      <HappeningContext data={data} loading={isLoading} />
       <HappeningCard events={events} />
     </Layout>
   );

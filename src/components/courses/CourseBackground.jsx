@@ -1,5 +1,4 @@
 import React from "react";
-import { useGetCourse } from "../../hooks/useGetImage";
 import { API_URLS, imageUrl } from "../../client/url";
 import { Link } from "react-router-dom";
 import { Clock, DollarSign, MapPin } from "lucide-react";
@@ -10,10 +9,10 @@ const container = {
   visible: { transition: { staggerChildren: 0.08 } },
 };
 
-const CourseBackground = () => {
-  const { data } = useGetCourse();
-
-  if (!data) return null;
+const CourseBackground = ({ data, loading }) => {
+  if (loading) {
+    return <p className="text-center py-10 text-gray-500">Loading course...</p>;
+  }
 
   const { opened = [], closed = [] } = data;
 

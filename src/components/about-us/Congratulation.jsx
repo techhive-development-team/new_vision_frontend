@@ -2,8 +2,7 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Link } from "react-router-dom";
-import { useGetStudentReview } from "../../hooks/useGetImage";
-import { baseUrl, API_URLS, imageUrl } from "../../client/url";
+import { API_URLS, imageUrl } from "../../client/url"
 import { isEmptyArray } from "@/lib/util";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
@@ -63,8 +62,10 @@ const CongratulationCard = ({
   );
 };
 
-const Congratulations = () => {
-  const { data } = useGetStudentReview();
+const Congratulations = ({ data, loading }) => {
+  if (loading) {
+    return <div className="text-center py-12"><p className="text-gray-500">Loading...</p></div>;
+  }
 
   if (isEmptyArray(data)) {
     return (

@@ -79,7 +79,7 @@ const StudentReviewDetail = () => {
           </div>
         </div>
         <Link
-          to="/about-us"
+          to="/about"
           className="inline-block mt-8 py-2.5 px-6 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors duration-200"
         >
           Back

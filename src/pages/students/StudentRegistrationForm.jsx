@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User, CreditCard, GraduationCap, Globe, Loader2 } from "lucide-react";
@@ -19,9 +19,12 @@ const StudentRegistrationForm = () => {
   const { id } = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { data: course } = useGetCourseById(id);
-  const { data: countries = [] } = useGetCountry();
-  const { loadingCount } = useContext(LoadingContext);
+  const { data: course, isLoading: courseLoading } = useGetCourseById(id);
+  const { data: countries = [], isLoading: countriesLoading } = useGetCountry();
+
+  if (courseLoading || countriesLoading) {
+    return <Loader />;
+  }
 
   if (
     (course?.expireDate &&

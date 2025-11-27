@@ -1,20 +1,21 @@
-import React, { useContext } from "react";
+import React from "react";
 import MissionVision from "../components/about-us/MissionVision";
 import Congratulation from "../components/about-us/Congratulation";
 import Layout from "../components/common/Layout";
-import LoadingContext from "@/context/LoadingContext";
 import Loader from "@/components/common/Loader";
+import { useGetStudentReview } from "@/hooks/useGetImage";
 
 const AboutUs = () => {
-  const { loadingCount } = useContext(LoadingContext);
+  const { data, isLoading } = useGetStudentReview();
 
-  if (loadingCount > 0) {
+  if (isLoading) {
     return <Loader />;
   }
+
   return (
     <>
       <Layout>
-        <Congratulation />
+        <Congratulation data={data} loading={isLoading} />
         <MissionVision />
       </Layout>
     </>
