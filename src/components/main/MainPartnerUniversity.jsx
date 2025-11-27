@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { useGetEducationPartnerUniversity } from "../../hooks/useGetImage";
 import { API_URLS,  imageUrl } from "../../client/url";
 
-const MainPartnerUniversity = () => {
+const MainPartnerUniversity = ({ data, loading }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true);
 
-  const { data: universities } = useGetEducationPartnerUniversity();
-
   useEffect(() => {
-    if (!universities || universities.length === 0) return;
+    if (!data || data.length === 0) return;
     const interval = setInterval(() => {
       setFade(false);
       setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % universities.length);
+        setCurrentIndex((prev) => (prev + 1) % data.length);
         setFade(true);
       }, 500);
     }, 5000);
-
     return () => clearInterval(interval);
-  }, [universities]);
+  }, [data]);
 
-  if (!universities || universities.length === 0)
+  if (loading) {
+    return <p className="text-center py-10 text-gray-500">Loading universities...</p>;
+  }
+  if (!data || data.length === 0)
     return (
       <p className="text-center py-10 text-gray-500">
         No universities available
       </p>
     );
 
-  const uni = universities[currentIndex];
+  const uni = data[currentIndex];
 
   return (
     <div className="px-6 py-10 bg-new-vision-latte relative">
@@ -56,12 +55,6 @@ const MainPartnerUniversity = () => {
             <p className="text-md text-gray-700">
               {uni.overview.substring(0, 300)}...
             </p>
-            {/* <Link
-              to="#"
-              className="inline-block border border-new-vision-yellow text-black bg-new-vision-yellow font-base px-6 py-2 rounded-2xl hover:bg-black hover:text-new-vision-yellow transition"
-            >
-              Learn More
-            </Link> */}
           </div>
         </div>
       </div>

@@ -4,20 +4,18 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Link } from "react-router-dom";
-import { useGetImageById } from "../../hooks/useGetImage";
 import { API_URLS, imageUrl } from "../../client/url";
 import { isEmptyArray } from "@/lib/util";
 
-const MainSlider = () => {
-  const { data } = useGetImageById(1);
-
+const MainSlider = ({ data, loading }) => {
+  if (loading) {
+    return <p className="text-center py-10 text-gray-500">Loading slides...</p>;
+  }
   if (isEmptyArray(data?.images)) {
     return <p className="text-center py-10 text-gray-500">No slide available</p>;
   }
-
   const slides = data.images;
   const pagination = useMemo(() => ({ clickable: true }), []);
-
   return (
     <div className="w-full relative">
       <Swiper

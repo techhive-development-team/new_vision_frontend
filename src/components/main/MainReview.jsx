@@ -3,7 +3,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import { useGetStudentReview } from "@/hooks/useGetImage";
 import { API_URLS, imageUrl } from "@/client/url";
 import { isEmptyArray } from "@/lib/util";
 
@@ -22,15 +21,15 @@ const ReviewCard = ({ review }) => (
   </div>
 );
 
-const MainReview = () => {
-  const { data: reviews } = useGetStudentReview();
-
-  if (isEmptyArray(reviews)) {
+const MainReview = ({ data, loading }) => {
+  if (loading) {
+    return <p className="text-center py-10 text-gray-500">Loading reviews...</p>;
+  }
+  if (isEmptyArray(data)) {
     return (
       <p className="text-center py-10 text-gray-500">No review available</p>
     );
   }
-
   return (
     <div className="px-6 py-12 text-black dark:text-white">
       <div className="w-11/12 md:w-4/5 mx-auto text-center mb-8">
@@ -49,7 +48,7 @@ const MainReview = () => {
         loop
         className="!pb-10"
       >
-        {reviews.map((review, index) => (
+        {data.map((review, index) => (
           <SwiperSlide key={index}>
             <ReviewCard review={review} />
           </SwiperSlide>

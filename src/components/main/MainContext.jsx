@@ -1,19 +1,18 @@
 import { Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useGetImageById } from "../../hooks/useGetImage";
 import { API_URLS, imageUrl } from "../../client/url";
 import { getGridCols } from "../common/getGridCols";
 import { isEmptyArray } from "@/lib/util";
 
-const MainContext = () => {
-  const { data } = useGetImageById(2);
-
+const MainContext = ({ data, loading }) => {
+  if (loading) {
+    return <p className="text-center py-10 text-gray-500">Loading context...</p>;
+  }
   if (isEmptyArray(data?.images)) {
     return (
       <p className="text-center py-10 text-gray-500">No context available</p>
     );
   }
-
   return (
     <div className="px-6">
       <div

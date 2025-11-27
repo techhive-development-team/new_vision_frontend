@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import MainSlider from "../components/main/MainSlider";
 import MainContext from "../components/main/MainContext";
@@ -8,8 +8,8 @@ import MainPartnerInstitute from "../components/main/MainPartnerInstitute";
 import MainPartnerUniversity from "../components/main/MainPartnerUniversity";
 import MainReview from "../components/main/MainReview";
 import Layout from "../components/common/Layout";
-import LoadingContext from "@/context/LoadingContext";
 import Loader from "@/components/common/Loader";
+import { useGetImageById, useGetEducationPartnerInstitute, useGetEducationPartnerUniversity, useGetStudentReview } from "@/hooks/useGetImage";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -17,15 +17,22 @@ const sectionVariants = {
 };
 
 const MainPage = () => {
-  const { loadingCount } = useContext(LoadingContext);
+  const { data: sliderData, isLoading: loadingSlider } = useGetImageById(1);
+  const { data: contextData, isLoading: loadingContext } = useGetImageById(2);
+  const { data: coursesData, isLoading: loadingCourses } = useGetImageById(3);
+  const { data: institutesData, isLoading: loadingInstitutes } = useGetEducationPartnerInstitute();
+  const { data: universitiesData, isLoading: loadingUniversities } = useGetEducationPartnerUniversity();
+  const { data: reviewsData, isLoading: loadingReviews } = useGetStudentReview();
 
-  if (loadingCount > 0) {
+  const isLoading = loadingSlider || loadingContext || loadingCourses || loadingInstitutes || loadingUniversities || loadingReviews;
+
+  if (isLoading) {
     return <Loader />;
   }
 
   return (
     <Layout>
-      <MainSlider />
+      <MainSlider data={sliderData} loading={loadingSlider} />
 
       <motion.div
         initial="hidden"
@@ -34,7 +41,7 @@ const MainPage = () => {
         transition={{ duration: 0.5 }}
         variants={sectionVariants}
       >
-        <MainContext />
+        <MainContext data={contextData} loading={loadingContext} />
       </motion.div>
 
       <motion.div
@@ -44,7 +51,7 @@ const MainPage = () => {
         transition={{ duration: 0.5 }}
         variants={sectionVariants}
       >
-        <MainCourses />
+        <MainCourses data={coursesData} loading={loadingCourses} />
       </motion.div>
 
       <motion.div
@@ -64,7 +71,7 @@ const MainPage = () => {
         transition={{ duration: 0.5 }}
         variants={sectionVariants}
       >
-        <MainPartnerInstitute />
+        <MainPartnerInstitute data={institutesData} loading={loadingInstitutes} />
       </motion.div>
 
       <motion.div
@@ -74,7 +81,7 @@ const MainPage = () => {
         transition={{ duration: 0.5 }}
         variants={sectionVariants}
       >
-        <MainPartnerUniversity />
+        <MainPartnerUniversity data={universitiesData} loading={loadingUniversities} />
       </motion.div>
 
       <motion.div
@@ -84,7 +91,7 @@ const MainPage = () => {
         transition={{ duration: 0.5 }}
         variants={sectionVariants}
       >
-        <MainReview />
+        <MainReview data={reviewsData} loading={loadingReviews} />
       </motion.div>
     </Layout>
   );

@@ -4,7 +4,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination } from "swiper/modules";
-import { useGetEducationPartnerInstitute } from "../../hooks/useGetImage";
 import { API_URLS, imageUrl } from "../../client/url";
 import { isEmptyArray } from "@/lib/util";
 
@@ -40,15 +39,15 @@ const PartnerCard = ({ bg_img, logo_img, name, location, foundedDate }) => {
   );
 };
 
-const MainPartnerInstitute = () => {
-  const { data: partnerInstitutes } = useGetEducationPartnerInstitute();
-
-  if (isEmptyArray(partnerInstitutes)) {
+const MainPartnerInstitute = ({ data, loading }) => {
+  if (loading) {
+    return <p className="text-center py-10 text-gray-500">Loading partners...</p>;
+  }
+  if (isEmptyArray(data)) {
     return (
       <p className="text-center py-10 text-gray-500">No partner available</p>
     );
   }
-
   return (
     <div className="px-6 py-10 relative">
       <div className="w-11/12 md:w-4/5 mx-auto space-y-8">
@@ -73,7 +72,7 @@ const MainPartnerInstitute = () => {
             className="!pb-10"
             loop
           >
-            {partnerInstitutes.map((partner, index) => (
+            {data.map((partner, index) => (
               <SwiperSlide key={index}>
                 <PartnerCard {...partner} />
               </SwiperSlide>
