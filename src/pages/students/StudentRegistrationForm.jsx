@@ -18,24 +18,11 @@ const StudentRegistrationForm = () => {
   const { id } = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Fetch data
   const { data: course, isLoading: courseLoading } = useGetCourseById(id);
   const { data: countries = [], isLoading: countriesLoading } = useGetCountry();
 
-  if (courseLoading || countriesLoading) {
-    return <Loader />;
-  }
-
-  if (
-    (course?.expireDate &&
-    new Date(course.expireDate) < new Date()) ||
-    course?.isOpened === false
-  ) {
-    window.history.back();
-    return;
-  }
-
-  useEffect(() => {}, [course, countries]);
-
+  // Initialize form - must be called before any conditional returns
   const {
     control,
     handleSubmit,
@@ -74,12 +61,27 @@ const StudentRegistrationForm = () => {
 
   const studyAbroad = watch("studyAbroad");
 
+  // Early returns AFTER all hooks
+  if (courseLoading || countriesLoading) {
+    return <Loader />;
+  }
+
+  if (
+    (course?.expireDate &&
+    new Date(course.expireDate) < new Date()) ||
+    course?.isOpened === false
+  ) {
+    window.history.back();
+    return;
+  }
+
+  useEffect(() => {}, [course, countries]);
+
   const onSubmit = async (data) => {
     setIsSubmitting(true);
 
     try {
       const formData = new FormData();
-      console.log(data);
       for (let [key, value] of Object.entries(data)) {
         if (value === null || value === "") {
           continue;
@@ -88,7 +90,6 @@ const StudentRegistrationForm = () => {
       }
 
       formData.append("coursesId", id);
-      console.log(formData.get("futureCountryId"));
       const response = await fetch(`${baseUrl}/students/upload`, {
         method: "POST",
         body: formData,
