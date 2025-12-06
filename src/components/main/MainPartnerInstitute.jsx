@@ -31,8 +31,12 @@ const PartnerCard = ({ bg_img, logo_img, name, location, foundedDate }) => {
         </div>
         <h3 className="text-base font-light">{location}</h3>
         <div className="flex items-center space-x-4 my-2">
-          <GraduationCap className="w-6 h-6" />
-          <p className="text-sm font-light">{foundedDate}</p>
+          {foundedDate && (
+            <>
+              <GraduationCap className="w-6 h-6" />
+              <p className="text-sm font-light">{foundedDate}</p>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -52,7 +56,7 @@ const MainPartnerInstitute = ({ data, loading }) => {
     <div className="px-6 py-10 relative">
       <div className="w-11/12 md:w-4/5 mx-auto space-y-8">
         <h2 className="text-2xl font-semibold text-center text-black dark:text-white">
-          Our Partner Institutes
+          Our Partnerships
         </h2>
         <div className="relative">
           <Swiper

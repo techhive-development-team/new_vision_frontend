@@ -37,7 +37,8 @@ const CourseBackground = ({ data, loading }) => {
           </div>
           <div className="p-5 space-y-4">
             <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
-              {course.name}{course.level && ` (${course.level})`}
+              {course.name}
+              {course.level && ` (${course.level})`}
             </h3>
             <div className="space-y-2 text-sm text-gray-600">
               <div className="flex items-center gap-2">
@@ -50,7 +51,7 @@ const CourseBackground = ({ data, loading }) => {
               </div>
               <div className="flex items-center gap-2">
                 <DollarSign size={16} className="text-gray-400" />
-                <span>{course.price} MMK</span>
+                {course.price != null && <span>{course.price} MMK</span>}
               </div>
             </div>
             {course.expireDate && course.isOpened && (
@@ -105,7 +106,9 @@ const CourseBackground = ({ data, loading }) => {
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                <span className="text-sm">Total: {opened.length + closed.length}</span>
+                <span className="text-sm">
+                  Total: {opened.length + closed.length}
+                </span>
               </div>
             </div>
             <p className="text-base text-gray-200 leading-relaxed max-w-2xl">
@@ -131,7 +134,8 @@ const CourseBackground = ({ data, loading }) => {
                 Opening Courses
               </h2>
               <p className="text-gray-600 dark:text-gray-300">
-                These courses are currently accepting new students. Register now to secure your spot.
+                These courses are currently accepting new students. Register now
+                to secure your spot.
               </p>
             </div>
             {renderCourses(opened)}
@@ -146,7 +150,8 @@ const CourseBackground = ({ data, loading }) => {
                 Closed Courses
               </h2>
               <p className="text-gray-600 dark:text-gray-300">
-                These courses have completed their registration period. Stay tuned for future offerings!
+                These courses have completed their registration period. Stay
+                tuned for future offerings!
               </p>
             </div>
             {renderCourses(closed)}

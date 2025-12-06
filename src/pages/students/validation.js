@@ -8,7 +8,7 @@ const fileValidation = z
   }, "Please select a student image")
   .refine((file) => {
     if (!file) return false;
-    return file.size <= 5 * 1024 * 1024;
+    return file.size <= 2 * 1024 * 1024;
   }, "File size should be less than 5MB")
   .refine((file) => {
     if (!file) return false;
