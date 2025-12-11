@@ -82,10 +82,20 @@ export const useGetHappeningById = (id) => {
   return { data: data?.data, error, isLoading, mutate };
 };
 
-export const useGetHappeningTypeById = (id) => {
-  const key = id ? `${API_URLS.HAPPENINGTYPE}/${id}` : null;
-  const { data, error, isLoading, mutate } = useSWRWithLoading(key, () =>
-    hooks.getHappeningTypeById(id)
+export const useGetHappeningTypeById = (id, page = 1, limit = 6) => {
+  const offset = (page - 1) * limit;
+  const key = id ? `${API_URLS.HAPPENING}/front/type/${id}?offset=${offset}&limit=${limit}` : null;
+
+  const { data, error, isLoading } = useSWRWithLoading(
+    key,
+    () => hooks.getHappeningTypeById(id, { offset, limit }),
+    { keepPreviousData: false }
   );
-  return { data: data?.data, error, isLoading, mutate };
+
+  return {
+    data: data?.data || {},
+    total: data?.meta?.total || 0,
+    isLoading,
+    error,
+  };
 };

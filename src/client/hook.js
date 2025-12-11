@@ -77,12 +77,14 @@ const getHappeningById = async (id) => {
   return response;
 };
 
-const getHappeningTypeById = async (id) => {
-  const response = await client.exec(`${API_URLS.HAPPENING}/front/type/${id}`, {
-    method: "get",
-  });
+const getHappeningTypeById = async (id, { offset = 0, limit = 6 } = {}) => {
+  const response = await client.exec(
+    `${API_URLS.HAPPENING}/front/type/${id}?offset=${offset}&limit=${limit}`,
+    { method: "get" }
+  );
   return response;
 };
+
 
 export const hooks = {
   getImagesById,
