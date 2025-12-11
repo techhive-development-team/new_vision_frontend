@@ -21,7 +21,7 @@ const StudentReviewDetail = () => {
     );
   }
 
-  const { student_img, educationPartner, name, batch, qualification, review } =
+  const { student_img, university, universityLogo, name, batch, qualification, review } =
     data;
 
   return (
@@ -53,13 +53,13 @@ const StudentReviewDetail = () => {
               <p className="text-sm text-gray-500">{batch}</p>
             </div>
             <p className="text-base text-gray-600 mb-4">{qualification}</p>
-            {educationPartner && (
+            {university && (
               <div className="flex items-center gap-3 py-3 px-4 bg-gray-50 rounded-lg mb-6 w-fit">
-                {educationPartner.logo_img ? (
+                {universityLogo ? (
                   <div className="w-8 h-8 flex-shrink-0">
                     <img
-                      src={`${imageUrl}${API_URLS.EDUCATION_PARTNER}/${educationPartner.logo_img}`}
-                      alt={educationPartner.name}
+                      src={`${imageUrl}${API_URLS.STUDENTREVIEW}/${universityLogo}`}
+                      alt={university}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -67,7 +67,7 @@ const StudentReviewDetail = () => {
                   <span className="text-xl">🏢</span>
                 )}
                 <p className="text-sm font-medium text-gray-700">
-                  {educationPartner.name}
+                  {university}
                 </p>
               </div>
             )}
