@@ -43,12 +43,18 @@ const MainArchievement = () => {
           Thailand. In addition, students have gained placements at leading
           institutions in Asia, such as King Mongkut's University of Technology
           Thonburi (KMUTT), Chiang Mai University, Seoul National University of
-          Science and Technology, Tongji University, Nanyang Polytechnic, and
-          Polytechnic University. We also celebrate success in the creative
-          fields with admissions to top design schools like The Ontario College
-          of Art and Design University (OCAD). These achievements reflect our
-          commitment to nurturing both academic excellence and creative
-          innovation on a global scale.
+          Science and Technology, Tongji University, Nanyang Academy of Fine
+          Arts( Singapore),Lancaster University(London),California Polytechnic
+          State Univeristy, Northumbria University (Newcastle),King Mongkut's
+          Institute of Technology Ladkrabang (KMITL) , University of PECS
+          ,University of Portsmouth, DALIAN University of Technology (china) ,
+          Southwest jiaotong University (china) , INTI international University
+          & Colleges (Malaysia) , University of BATH (UK) , oxford brookes
+          university (UK), Nanyang Polytechnic, and Polytechnic University. We
+          also celebrate success in the creative fields with admissions to top
+          design schools like The Ontario College of Art and Design University
+          (OCAD). These achievements reflect our commitment to nurturing both
+          academic excellence and creative innovation on a global scale.
         </p>
         <div className="w-11/12 md:w-4/5 mx-auto mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {stats.map((item, index) => (

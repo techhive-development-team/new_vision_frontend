@@ -9,7 +9,7 @@ const StudentImageUpload = ({
   error, 
   required = false,
   disabled = false,
-  maxSize = 5 * 1024 * 1024, // 5MB default
+  maxSize = 2 * 1024 * 1024, // 2MB default
   acceptedFormats = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
 }) => {
   const [preview, setPreview] = useState(null);
@@ -34,7 +34,7 @@ const StudentImageUpload = ({
       errors.push(`File size should be less than ${(maxSize / 1024 / 1024).toFixed(1)}MB`);
     }
     
-    if (file.size < 1024) { // Less than 1KB might be corrupted
+    if (file.size < 1024) {
       errors.push("File appears to be corrupted or too small");
     }
     

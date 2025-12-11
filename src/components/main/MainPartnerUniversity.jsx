@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_URLS,  imageUrl } from "../../client/url";
+import { API_URLS, imageUrl } from "../../client/url";
 
 const MainPartnerUniversity = ({ data, loading }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -41,11 +41,11 @@ const MainPartnerUniversity = ({ data, loading }) => {
             fade ? "opacity-100" : "opacity-0"
           } flex flex-col items-center justify-center md:flex-row md:items-center md:justify-center gap-10`}
         >
-          <div className="relative w-full max-w-md aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-xl shadow-md bg-gray-200">
+          <div className="relative w-full max-w-md overflow-hidden rounded-xl shadow-md bg-gray-200">
             <img
               src={`${imageUrl}${API_URLS.EDUCATION_PARTNER}/${uni.bg_img}`}
               alt={uni.name}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              className="w-full h-auto object-contain transition-transform duration-500 hover:scale-105"
             />
           </div>
 
