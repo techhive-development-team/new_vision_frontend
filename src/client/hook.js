@@ -68,7 +68,7 @@ const getHappenings = async () => {
     method: "get",
   });
   return response;
-}
+};
 
 const getHappeningById = async (id) => {
   const response = await client.exec(`${API_URLS.HAPPENING}/front/${id}`, {
@@ -77,10 +77,13 @@ const getHappeningById = async (id) => {
   return response;
 };
 
-const getHappeningTypeById = async (id) => {
-  const response = await client.exec(`${API_URLS.HAPPENING}/front/type/${id}`, {
-    method: "get",
-  });
+const getHappeningTypeById = async (id, page = 1, limit = 6) => {
+  const response = await client.exec(
+    `${API_URLS.HAPPENING}/front/type/${id}?page=${page}&limit=${limit}`,
+    {
+      method: "get",
+    }
+  );
   return response;
 };
 
@@ -95,5 +98,5 @@ export const hooks = {
   getHappenings,
   getHappeningById,
   getHappeningTypeById,
-  getStudentReviewById
+  getStudentReviewById,
 };

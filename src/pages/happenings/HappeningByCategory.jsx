@@ -19,7 +19,7 @@ const HappeningByCategory = () => {
   };
   const container = {
     hidden: {},
-    visible: { transition: { staggerChildren: 0.1 } },
+    visible: { transition: { staggerChildren: 0.1 } },  
   };
 
   if (loading) return <Loader />;
