@@ -68,7 +68,7 @@ const getHappenings = async () => {
     method: "get",
   });
   return response;
-}
+};
 
 const getHappeningById = async (id) => {
   const response = await client.exec(`${API_URLS.HAPPENING}/front/${id}`, {
@@ -97,5 +97,5 @@ export const hooks = {
   getHappenings,
   getHappeningById,
   getHappeningTypeById,
-  getStudentReviewById
+  getStudentReviewById,
 };

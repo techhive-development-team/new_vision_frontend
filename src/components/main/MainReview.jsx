@@ -25,8 +25,7 @@ const ReviewCard = ({ review }) => {
         />
       </div>
 
-      {/* Review Text */}
-      <p className="text-gray-700 dark:text-gray-300 italic mb-4 leading-relaxed line-clamp-4">
+      <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed line-clamp-4">
         “{shortText}”
       </p>
 
@@ -47,11 +46,6 @@ const ReviewCard = ({ review }) => {
         <p className="text-sm text-gray-500 dark:text-gray-400">
           {review?.batch}
         </p>
-
-        {/* Optional Rating UI (static for UX polish) */}
-        <div className="flex justify-center gap-1 mt-2 text-yellow-400">
-          ★ ★ ★ ★ ★
-        </div>
       </div>
     </div>
   );

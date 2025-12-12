@@ -36,7 +36,7 @@ const HappeningByCategory = () => {
   };
   const container = {
     hidden: {},
-    visible: { transition: { staggerChildren: 0.1 } },
+    visible: { transition: { staggerChildren: 0.1 } },  
   };
 
   const handlePrev = () => setPage((p) => Math.max(p - 1, 1));
