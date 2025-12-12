@@ -98,8 +98,8 @@ const HappeningByCategory = () => {
                   onClick={() => setPage(p)}
                   className={`relative inline-flex items-center px-4 py-2 text-sm font-medium ${
                     page === p
-                      ? "bg-indigo-500 text-white"
-                      : "text-gray-700 hover:bg-gray-200"
+                      ? "bg-yellow-200 text-gray-900"
+                      : "bg-yellow-100 text-gray-700 hover:bg-yellow-200"
                   }`}
                 >
                   {p}
