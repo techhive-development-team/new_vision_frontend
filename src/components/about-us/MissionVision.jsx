@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-import missionVisionImage from "/images/art1.jpeg";
+import missionImage from "/images/mission.jpg";
+import visionImage from "/images/vision.jpg";
+import missionVisionImage from "/images/a1.jpeg"
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -63,7 +65,7 @@ const MissionVision = () => {
         <div className="p-8">
           <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-3xl bg-gray-200">
             <img
-              src={missionVisionImage}
+              src={missionImage}
               alt="Our Mission"
               className="absolute inset-0 w-full h-full object-cover transition-transform hover:scale-110"
             />
@@ -116,7 +118,7 @@ const MissionVision = () => {
         <div className="p-8">
           <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-3xl bg-gray-200">
             <img
-              src={missionVisionImage}
+              src={visionImage}
               alt="Our Vision"
               className="absolute inset-0 w-full h-full object-cover transition-transform hover:scale-110"
             />
