@@ -33,6 +33,20 @@ const CourseBackground = ({
     ? [programType]
     : Array.from(new Set(allCourses.map((course) => course.programType)));
 
+  const container = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+    },
+    exit: { opacity: 0, transition: { duration: 0.3 } },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
   return (
     <div>
       {/* Hero Section */}
@@ -76,24 +90,31 @@ const CourseBackground = ({
       {showOverview && !programType && (
         <section className="py-12 px-6">
           <div className="px-6 w-11/12 md:w-4/5 mx-auto py-6">
-            <h3 className="font-semibold text-2xl text-black mb-2">
+            <h3 className="font-semibold text-2xl text-black dark:text-white mb-2">
               Overview of our study programs
             </h3>
-            <p className="font-light text-black mb-6">
+            <p className="font-light text-black dark:text-gray-300 mb-6">
               We offer a wide range of state-recognised and accredited
               undergraduate and postgraduate study programmes.
             </p>
 
-            <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <motion.div
+              className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={container}
+            >
               {programTypes.map((type) => (
                 <motion.div
                   key={type}
+                  variants={cardVariants}
                   whileHover={{
-                    scale: 1.05,
-                    y: -8,
-                    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
+                    scale: 1.03, 
+                    y: -4, 
+                    boxShadow: "0 6px 12px rgba(0, 0, 0, 0.1)", 
                   }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  transition={{ type: "spring", stiffness: 250 }}
                   className="relative bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer border border-gray-200 group"
                 >
                   <div className="relative w-full aspect-[4/3] overflow-hidden rounded-t-2xl">
@@ -144,7 +165,7 @@ const CourseBackground = ({
                   </div>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
       )}
