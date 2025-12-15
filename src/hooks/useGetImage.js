@@ -84,7 +84,9 @@ export const useGetHappeningById = (id) => {
 
 export const useGetHappeningTypeById = (id, page = 1, limit = 6) => {
   const offset = (page - 1) * limit;
-  const key = id ? `${API_URLS.HAPPENING}/front/type/${id}?offset=${offset}&limit=${limit}` : null;
+  const key = id
+    ? `${API_URLS.HAPPENING}/front/type/${id}?offset=${offset}&limit=${limit}`
+    : null;
 
   const { data, error, isLoading } = useSWRWithLoading(
     key,
@@ -94,6 +96,38 @@ export const useGetHappeningTypeById = (id, page = 1, limit = 6) => {
 
   return {
     data: data?.data || {},
+    total: data?.meta?.total || 0,
+    isLoading,
+    error,
+  };
+};
+
+export const useGetCoursesByType = ({
+  programType,
+  name,
+  level,
+  location,
+  page = 1,
+  limit = 6,
+}) => {
+  const offset = (page - 1) * limit;
+
+  const params = new URLSearchParams();
+  if (programType) params.append("programType", programType);
+  if (name) params.append("name", name);
+  if (level) params.append("level", level);
+  if (location) params.append("location", location);
+  params.append("offset", offset);
+  params.append("limit", limit);
+
+  const key = `${API_URLS.COURSE}/front/search?${params.toString()}`;
+
+  const { data, error, isLoading } = useSWRWithLoading(key, () =>
+    hooks.getCoursesByType(Object.fromEntries(params.entries()))
+  );
+
+  return {
+    courses: data?.data || [],
     total: data?.meta?.total || 0,
     isLoading,
     error,
