@@ -85,6 +85,12 @@ const getHappeningTypeById = async (id, { offset = 0, limit = 6 } = {}) => {
   return response;
 };
 
+const getCoursesByType = async (params = {}) => {
+  const query = new URLSearchParams(params).toString();
+  return client.exec(`${API_URLS.COURSE}/front/search?${query}`, {
+    method: "get",
+  });
+};
 
 export const hooks = {
   getImagesById,
@@ -98,4 +104,5 @@ export const hooks = {
   getHappeningById,
   getHappeningTypeById,
   getStudentReviewById,
+  getCoursesByType,
 };

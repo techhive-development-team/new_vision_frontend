@@ -14,6 +14,7 @@ import RegistrationSuccess from "@/pages/students/RegistrationSuccess";
 import ScrollToTop from "./ScrollToTop";
 import ErrorPage from "@/pages/ErrorPage";
 import NotFound from "@/pages/NotFound";
+import CourseByType from "@/pages/courses/CourseByType";
 
 const NewVisionRoute = () => {
   return (
@@ -33,7 +34,7 @@ const NewVisionRoute = () => {
         element={<RegistrationSuccess />}
       />
       <Route path="/student-review/:id" element={<StudentReviewDetail />} />
-
+      <Route path="/courses/program/:type" element={<CourseByType />} />
       <Route path="/error" element={<ErrorPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

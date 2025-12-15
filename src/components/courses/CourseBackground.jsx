@@ -1,87 +1,41 @@
 import React from "react";
-import { API_URLS, imageUrl } from "../../client/url";
-import { Link } from "react-router-dom";
-import { Clock, DollarSign, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
-const container = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
+const programTypeNames = {
+  ART_DESIGN: "Art & Design",
+  CHILDRENS_CREATIVE: "Children's Creative",
+  TECHNOLOGY: "Technology",
 };
 
-const CourseBackground = ({ data, loading }) => {
+const programTypeImages = {
+  ART_DESIGN: "/images/a4.jpeg",
+  CHILDRENS_CREATIVE: "/images/a5.jpeg",
+  TECHNOLOGY: "/images/3.jpeg",
+};
+
+const CourseBackground = ({
+  data,
+  loading,
+  programType,
+  showOverview = true,
+}) => {
   if (loading) {
-    return <p className="text-center py-10 text-gray-500">Loading course...</p>;
+    return (
+      <p className="text-center py-10 text-gray-500">Loading courses...</p>
+    );
   }
 
-  const { opened = [], closed = [] } = data;
+  const { opened = [], closed = [] } = data || {};
+  const allCourses = [...opened, ...closed];
 
-  const renderCourses = (courses) => (
-    <motion.div
-      className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
-      initial="hidden"
-      animate="visible"
-      variants={container}
-    >
-      {courses.map((course) => (
-        <div
-          key={course.id}
-          className="bg-white rounded-lg overflow-hidden border border-gray-200 hover:border-gray-300 transition-colors duration-200"
-        >
-          <div className="relative w-full aspect-[16/9] overflow-hidden bg-gray-100">
-            <img
-              className="absolute inset-0 w-full h-full object-cover"
-              src={`${imageUrl}${API_URLS.COURSE}/${course.image}`}
-              alt={course.name}
-            />
-          </div>
-          <div className="p-5 space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
-              {course.name}
-              {course.level && ` (${course.level})`}
-            </h3>
-            <div className="space-y-2 text-sm text-gray-600">
-              <div className="flex items-center gap-2">
-                <Clock size={16} className="text-gray-400" />
-                <span>{course.duration}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin size={16} className="text-gray-400" />
-                <span>{course.location}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <DollarSign size={16} className="text-gray-400" />
-                {course.price != null && <span>{course.price} MMK</span>}
-              </div>
-            </div>
-            {course.expireDate && course.isOpened && (
-              <div className="bg-gray-50 border border-gray-200 rounded-md p-2">
-                <p className="text-xs text-gray-600">
-                  <strong>Deadline:</strong>{" "}
-                  {new Date(course.expireDate).toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </p>
-              </div>
-            )}
-            <div className="pt-2">
-              <Link
-                to={`/courses/${course.id}`}
-                className="px-3 py-1.5 text-sm font-medium text-gray-700 bg-new-vision-yellow border border-gray-300 rounded-md hover:bg-new-vision-yellow/80 transition-colors"
-              >
-                View Details
-              </Link>
-            </div>
-          </div>
-        </div>
-      ))}
-    </motion.div>
-  );
+  const programTypes = programType
+    ? [programType]
+    : Array.from(new Set(allCourses.map((course) => course.programType)));
 
   return (
     <div>
+      {/* Hero Section */}
       <div className="relative bg-gray-900">
         <div className="absolute inset-0">
           <img
@@ -106,12 +60,10 @@ const CourseBackground = ({ data, loading }) => {
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                <span className="text-sm">
-                  Total: {opened.length + closed.length}
-                </span>
+                <span className="text-sm">Total: {allCourses.length}</span>
               </div>
             </div>
-            <p className="text-base text-gray-200 leading-relaxed max-w-2xl">
+            <p className="text-base text-gray-200 leading-relaxed max-w-2xl mb-2">
               Explore the rich history of New Vision Art & Science Institute
               through our courses. From beginner to advanced, our programs are
               designed to enhance your skills and knowledge.
@@ -119,42 +71,80 @@ const CourseBackground = ({ data, loading }) => {
           </div>
         </div>
       </div>
-      {opened.length === 0 && closed.length === 0 && (
-        <div className="flex items-center justify-center py-24">
-          <p className="text-center text-gray-400 text-lg">
-            No courses available at the moment.
-          </p>
-        </div>
-      )}
-      {opened.length > 0 && (
+
+      {/* Program Type Cards / Overview Section */}
+      {showOverview && !programType && (
         <section className="py-12 px-6">
-          <div className="container mx-auto max-w-7xl">
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-50 mb-2">
-                Opening Courses
-              </h2>
-              <p className="text-gray-600 dark:text-gray-300">
-                These courses are currently accepting new students. Register now
-                to secure your spot.
-              </p>
+          <div className="px-6 w-11/12 md:w-4/5 mx-auto py-6">
+            <h3 className="font-semibold text-2xl text-black mb-2">
+              Overview of our study programs
+            </h3>
+            <p className="font-light text-black mb-6">
+              We offer a wide range of state-recognised and accredited
+              undergraduate and postgraduate study programmes.
+            </p>
+
+            <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              {programTypes.map((type) => (
+                <motion.div
+                  key={type}
+                  whileHover={{
+                    scale: 1.05,
+                    y: -8,
+                    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
+                  }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="relative bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer border border-gray-200 group"
+                >
+                  <div className="relative w-full aspect-[4/3] overflow-hidden rounded-t-2xl">
+                    <img
+                      src={programTypeImages[type]}
+                      alt={programTypeNames[type]}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-black/30 transition duration-300 group-hover:bg-yellow-500/10"></div>
+                  </div>
+
+                  <div className="p-6">
+                    <p className="text-gray-900 text-2xl font-bold tracking-wide mb-1">
+                      {programTypeNames[type]}
+                    </p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      <span className="font-semibold text-yellow-600">
+                        {
+                          allCourses.filter((c) => c.programType === type)
+                            .length
+                        }
+                      </span>{" "}
+                      Total Courses
+                    </p>
+                    <div className="flex justify-end mt-4">
+                      <Link
+                        to={`/courses/program/${type}`}
+                        state={{ data: allCourses }}
+                        className="text-sm font-medium text-yellow-600 flex items-center"
+                      >
+                        Explore Now
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 ml-1 transition-transform group-hover:translate-x-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"
+                          />
+                        </svg>
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-            {renderCourses(opened)}
-          </div>
-        </section>
-      )}
-      {closed.length > 0 && (
-        <section className="py-12 px-6">
-          <div className="container mx-auto max-w-7xl">
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-50 mb-2">
-                Closed Courses
-              </h2>
-              <p className="text-gray-600 dark:text-gray-300">
-                These courses have completed their registration period. Stay
-                tuned for future offerings!
-              </p>
-            </div>
-            {renderCourses(closed)}
           </div>
         </section>
       )}
