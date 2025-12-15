@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Layout from "../../components/common/Layout";
 import CourseBackground from "../../components/courses/CourseBackground";
 import Loader from "../../components/common/Loader";
 import CourseCard from "../../components/courses/CourseCard";
 import SearchCourse from "../../components/courses/SearchCourse";
+import NotFoundData from "../../components/common/NotFoundData";
 import { useGetCoursesByType } from "@/hooks/useGetImage";
 
 const getPaginationRange = (page, totalPages) => {
@@ -37,6 +38,7 @@ const CourseByType = () => {
   const [filters, setFilters] = useState({ name: "", level: "", location: "" });
   const [searchFilters, setSearchFilters] = useState({});
   const [page, setPage] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const limit = 6;
 
   const programType = type?.toUpperCase().replace(/\s+/g, "_");
@@ -44,8 +46,8 @@ const CourseByType = () => {
     filters.location === "Online"
       ? "online"
       : filters.location === "Onsite"
-      ? "onsite"
-      : undefined;
+        ? "onsite"
+        : undefined;
 
   const { courses, total, isLoading } = useGetCoursesByType({
     programType,
@@ -63,6 +65,12 @@ const CourseByType = () => {
     setSearchFilters({});
   }, [type]);
 
+  useEffect(() => {
+    if (!isLoading && !isTransitioning) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [page, isLoading, isTransitioning]);
+
   const handleSearch = () => {
     setSearchFilters({
       name: filters.name || undefined,
@@ -74,88 +82,151 @@ const CourseByType = () => {
 
   const handleReset = () => {
     setFilters({ name: "", level: "", location: "" });
-    setSearchFilters({}); 
+    setSearchFilters({});
     setPage(1);
   };
 
   const handlePageChange = (newPage) => {
-    if (newPage < 1 || newPage > totalPages) return;
+    if (newPage < 1 || newPage > totalPages || newPage === page) return;
+    setIsTransitioning(true);
     setPage(newPage);
+    setTimeout(() => setIsTransitioning(false), 300);
   };
 
-  if (isLoading) return <Loader />;
+  if (isLoading && page === 1) return <Loader />;
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
+  const container = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+    exit: { opacity: 0, transition: { duration: 0.3 } },
+  };
 
   return (
     <Layout>
-      <CourseBackground programType={type} showOverview={false} />
+      <CourseBackground />
 
       <SearchCourse
         filters={filters}
         setFilters={setFilters}
         handleSearch={handleSearch}
-        handleReset={handleReset} 
+        handleReset={handleReset}
       />
 
       <section className="py-12 px-6">
         <div className="container mx-auto max-w-7xl">
-          {type && (
-            <h2 className="text-2xl font-bold capitalize mb-6">
-              {type.replace("_", " ")}
-            </h2>
-          )}
-
-          {courses.length === 0 ? (
-            <p className="text-gray-600">No courses available.</p>
+          <div className="mb-6">
+            {type && (
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-gray-900 dark:border-white inline-block pb-1">
+                {{
+                  ART_DESIGN: "Art & Design Program",
+                  TECHNOLOGY: "Technology Program",
+                  CHILDRENS_CREATIVE: "Children's Creative Program",
+                }[type]}
+              </h2>
+            )}
+          </div>
+          {!courses.length && !isLoading ? (
+            <NotFoundData data="No courses available." />
           ) : (
-            <motion.div layout className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {courses.map((course) => (
-                <CourseCard key={course.id} course={course} />
-              ))}
-            </motion.div>
+            <>
+              <AnimatePresence mode="wait">
+                {isTransitioning && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 bg-white/50 dark:bg-black/50 backdrop-blur-sm z-40 flex items-center justify-center"
+                  >
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black dark:border-new-vision-yellow"></div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={page}
+                  className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  variants={container}
+                >
+                  {courses.map((course, index) => (
+                    <motion.div key={`${course.id}-${page}`} variants={fadeUp} custom={index}>
+                      <CourseCard course={course} />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            </>
           )}
 
           {totalPages > 1 && (
-            <div className="flex flex-col items-center gap-4 mt-8">
-              <nav className="inline-flex -space-x-px rounded-lg shadow-sm">
+            <motion.div
+              className="flex flex-col items-center gap-4 mt-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              <nav
+                aria-label="Pagination"
+                className="inline-flex -space-x-px rounded-lg shadow-sm"
+              >
                 <button
                   onClick={() => handlePageChange(page - 1)}
                   disabled={page === 1}
-                  className="px-3 py-2 border rounded-l"
+                  aria-label="Previous page"
+                  className="relative inline-flex items-center rounded-l-lg px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                 >
-                  ‹
+                  <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
                 </button>
 
-                {getPaginationRange(page, totalPages).map((p, idx) =>
-                  p === "..." ? (
-                    <span key={idx} className="px-4 py-2 border">
+                {getPaginationRange(page, totalPages).map((p, idx) => (
+                  p === '...' ? (
+                    <span
+                      key={`ellipsis-${idx}`}
+                      className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600"
+                    >
                       ...
                     </span>
                   ) : (
                     <button
                       key={p}
                       onClick={() => handlePageChange(p)}
-                      className={`px-4 py-2 border ${
-                        page === p ? "bg-new-vision-yellow font-semibold" : "bg-white"
-                      }`}
+                      aria-label={`Go to page ${p}`}
+                      aria-current={page === p ? 'page' : undefined}
+                      className={`relative inline-flex items-center px-4 py-2 text-sm font-medium border transition-all duration-200 ${page === p
+                        ? "bg-new-vision-yellow text-gray-900 border-new-vision-yellow z-10 shadow-md"
+                        : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-yellow-100 dark:hover:bg-yellow-900"
+                        }`}
                     >
                       {p}
                     </button>
                   )
-                )}
+                ))}
 
                 <button
                   onClick={() => handlePageChange(page + 1)}
                   disabled={page === totalPages}
-                  className="px-3 py-2 border rounded-r"
+                  aria-label="Next page"
+                  className="relative inline-flex items-center rounded-r-lg px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                 >
-                  ›
+                  <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                  </svg>
                 </button>
               </nav>
-
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 Page {page} of {totalPages}
               </p>
-            </div>
+            </motion.div>
           )}
         </div>
       </section>

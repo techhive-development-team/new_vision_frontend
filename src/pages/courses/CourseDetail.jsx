@@ -25,6 +25,20 @@ const slideUp = {
 };
 
 const CourseDetail = () => {
+
+  const formatTime = (time) => {
+    if (!time) return "";
+    const [hours, minutes] = time.split(":");
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? "PM" : "AM";
+    const displayHour = hour % 12 || 12;
+    return `${displayHour}:${minutes} ${ampm}`;
+  };
+
+  const formatDay = (day) => {
+    return day.charAt(0) + day.slice(1).toLowerCase();
+  };
+
   const { id } = useParams();
   const { data: course } = useGetCourseById(id);
   const [showQuiz, setShowQuiz] = useState(false);
@@ -65,50 +79,56 @@ const CourseDetail = () => {
           },
         }}
       >
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(140px,1fr))]">
           {[
             {
               icon: Clock,
               label: "Duration",
-              value: course?.duration || "N/A",
+              value: course?.duration,
             },
             {
               icon: CircleDollarSign,
               label: "Fees",
-              value: course?.price ? `${course.price} MMK` : "TBA",
+              value: course?.price ? `${course.price} MMK` : null,
             },
             {
               icon: Calendar,
               label: "Deadline",
               value: course?.expireDate
                 ? new Date(course.expireDate).toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })
-                : "Not set",
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })
+                : null,
+            }, {
+              icon: MapPin,
+              label: "Location",
+              value: {
+                online: "Online",
+                onsite: "Campus",
+              }[course?.location] || course?.location,
             },
-            ...(course?.location
-              ? [{ icon: MapPin, label: "Location", value: course.location }]
-              : []),
             {
               icon: ChartColumnStacked,
               label: "Level",
-              value: course?.level || "N/A",
+              value: course?.level,
             },
-          ].map((card, idx) => (
-            <motion.div
-              key={idx}
-              className="flex flex-col items-center justify-center p-4 bg-white rounded-lg border border-gray-200 text-center"
-              variants={fadeUp}
-            >
-              <card.icon className="w-5 h-5 text-gray-700 mb-2" />
-              <p className="text-xs text-gray-500 mb-1">{card.label}</p>
-              <p className="text-sm font-semibold text-gray-900">
-                {card.value}
-              </p>
-            </motion.div>
-          ))}
+          ]
+            .filter(card => card.value)
+            .map((card, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeUp}
+                className="flex flex-col items-center justify-center p-4 bg-white rounded-lg border border-gray-200 text-center"
+              >
+                <card.icon className="w-5 h-5 text-gray-700 mb-2" />
+                <p className="text-xs text-gray-500 mb-1">{card.label}</p>
+                <p className="text-sm font-semibold text-gray-900">
+                  {card.value}
+                </p>
+              </motion.div>
+            ))}
         </div>
       </motion.div>
       <motion.div
@@ -171,6 +191,49 @@ const CourseDetail = () => {
           </p>
         </div>
       </motion.section>
+      {course?.schedules?.length > 0 && (
+        <motion.section
+          className="max-w-5xl mx-auto mt-6 sm:mt-8 px-4 sm:px-6 pb-8 sm:pb-12"
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+        >
+          <div className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6 md:p-8">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6">
+              Class Schedule
+            </h2>
+
+            <div className="space-y-3">
+              {course.schedules.map((schedule) => (
+                <div
+                  key={schedule.id}
+                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
+                >
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="bg-blue-100 p-2.5 sm:p-3 rounded-lg flex-shrink-0">
+                      <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 text-sm sm:text-base">
+                        {formatDay(schedule.day)}
+                      </p>
+                      <p className="text-xs sm:text-sm text-gray-500">Weekly class</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-gray-700 ml-11 sm:ml-0">
+                    <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                    <span className="font-medium text-sm sm:text-base">
+                      {formatTime(schedule.startTime)} -{" "}
+                      {formatTime(schedule.endTime)}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.section>
+      )}
     </Layout>
   );
 };

@@ -72,7 +72,7 @@ const StudentReviewDetail = () => {
               </div>
             )}
             <div className="pt-4 mt-4 border-t border-gray-200">
-              <p className="text-base leading-relaxed text-gray-700 italic">
+              <p className="text-base leading-relaxed text-gray-700">
                 "{review}"
               </p>
             </div>

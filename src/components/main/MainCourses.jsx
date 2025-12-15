@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { API_URLS, imageUrl } from "../../client/url";
 import { getGridCols } from "../common/getGridCols";
 import { isEmptyArray } from "@/lib/util";
@@ -23,24 +24,26 @@ const MainCourses = ({ data, loading }) => {
 
       <div className={`grid gap-8 ${getGridCols(data.images.length)}`}>
         {data.images.map((card, index) => (
-          <div
-            key={index}
-            className="relative bg-white rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-[1.02]"
-          >
-            <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-t-xl shadow-md bg-gray-200">
-              <img
-                src={`${imageUrl}${API_URLS.IMAGE}/${card.bg_img}`}
-                alt={card.mainText || "Course image"}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </div>
+          <Link key={index} to={card.link || "/courses"} className="block">
+            <div
+              key={index}
+              className="relative bg-white rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-[1.02]"
+            >
+              <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-t-xl shadow-md bg-gray-200">
+                <img
+                  src={`${imageUrl}${API_URLS.IMAGE}/${card.bg_img}`}
+                  alt={card.mainText || "Course image"}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+              </div>
 
-            <div className="p-5">
-              <p className="text-gray-700 text-base text-center">
-                {card.mainText}
-              </p>
+              <div className="p-5">
+                <p className="text-gray-700 text-base text-center">
+                  {card.mainText}
+                </p>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
