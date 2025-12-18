@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User, CreditCard, GraduationCap, Globe, Loader2 } from "lucide-react";
+import {
+  User,
+  CreditCard,
+  GraduationCap,
+  Globe,
+  Loader2,
+  Calendar,
+  Clock,
+} from "lucide-react";
 import { studentRegistrationSchema } from "./validation";
 import { paymentOptions, schoolTypes, joinRafflesOptions } from "./type";
 import Layout from "@/components/common/Layout";
@@ -12,6 +20,19 @@ import FormSection from "@/components/student-register-components/FormSection";
 import FormField from "@/components/student-register-components/FormField";
 import NotFoundData from "@/components/common/NotFoundData";
 import Loader from "@/components/common/Loader";
+
+const formatTime = (time) => {
+  if (!time) return "";
+  const [hours, minutes] = time.split(":");
+  const hour = parseInt(hours);
+  const ampm = hour >= 12 ? "PM" : "AM";
+  const displayHour = hour % 12 || 12;
+  return `${displayHour}:${minutes} ${ampm}`;
+};
+
+const formatDay = (day) => {
+  return day.charAt(0).toUpperCase() + day.slice(1).toLowerCase();
+};
 
 const StudentRegistrationForm = () => {
   const navigate = useNavigate();
@@ -70,8 +91,7 @@ const StudentRegistrationForm = () => {
   }
 
   if (
-    (course?.expireDate &&
-    new Date(course.expireDate) < new Date()) ||
+    (course?.expireDate && new Date(course.expireDate) < new Date()) ||
     course?.isOpened === false
   ) {
     window.history.back();
@@ -122,8 +142,7 @@ const StudentRegistrationForm = () => {
   }
 
   if (
-    (course?.expireDate &&
-    new Date(course.expireDate) < new Date()) ||
+    (course?.expireDate && new Date(course.expireDate) < new Date()) ||
     course?.isOpened === false
   ) {
     window.history.back();
@@ -190,6 +209,7 @@ const StudentRegistrationForm = () => {
                           {course.price?.toLocaleString() || "N/A"} MMK
                         </span>
                       </div>
+
                       <div className="bg-gray-50 p-3 rounded-xl border text-gray-700 border-gray-300 shadow">
                         <span className="block text-xs text-gray-500">
                           Duration
@@ -201,6 +221,47 @@ const StudentRegistrationForm = () => {
                     </div>
                   </div>
                 </div>
+
+                {course?.schedules?.length > 0 && (
+                  <div className="mt-8 pt-6 border-t border-gray-200">
+                    <h4 className="text-lg font-semibold text-gray-800 mb-4">
+                      Course Schedule
+                    </h4>
+
+                    <div className="space-y-3">
+                      {course.schedules.map((schedule) => (
+                        <div
+                          key={schedule.id}
+                          className="flex flex-col sm:flex-row sm:items-center sm:justify-between
+                           gap-3 sm:gap-4 p-4 bg-gray-50 rounded-lg
+                           border border-gray-200 hover:bg-gray-100 transition-colors"
+                        >
+                          <div className="flex items-center gap-3 sm:gap-4">
+                            <div className="bg-blue-100 p-2.5 sm:p-3 rounded-lg flex-shrink-0">
+                              <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+                            </div>
+                            <div>
+                              <p className="font-semibold text-gray-900 text-sm sm:text-base">
+                                {formatDay(schedule.day)}
+                              </p>
+                              <p className="text-xs sm:text-sm text-gray-500">
+                                Weekly class
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-2 text-gray-700 ml-11 sm:ml-0">
+                            <Clock className="w-4 h-4 flex-shrink-0" />
+                            <span className="font-medium text-sm sm:text-base">
+                              {formatTime(schedule.startTime)} –{" "}
+                              {formatTime(schedule.endTime)}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </FormSection>
           )}
