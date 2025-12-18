@@ -15,8 +15,8 @@ const AboutUs = () => {
   return (
     <>
       <Layout>
-        <Congratulation data={data} loading={isLoading} />
         <MissionVision />
+        <Congratulation data={data} loading={isLoading} />
       </Layout>
     </>
   );

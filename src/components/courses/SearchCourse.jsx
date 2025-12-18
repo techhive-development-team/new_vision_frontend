@@ -1,4 +1,5 @@
 import React from "react";
+import { Search, RotateCcw } from "lucide-react";
 
 const SearchCourse = ({ filters, setFilters, handleSearch, handleReset }) => {
   const handleChange = (e) => {
@@ -6,68 +7,113 @@ const SearchCourse = ({ filters, setFilters, handleSearch, handleReset }) => {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
-    <section className="py-6 px-4">
-      <div className="container mx-auto max-w-3xl">
-        <div className="flex flex-col gap-3">
-          <div className="flex gap-3">
-            <input
-              type="text"
-              name="name"
-              value={filters.name}
-              onChange={handleChange}
-              placeholder="Course Name"
-              className="border rounded px-3 py-2 flex-1 focus:outline-none focus:ring-2 bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-white"
-            />
-            <input
-              type="text"
-              name="level"
-              value={filters.level}
-              onChange={handleChange}
-              placeholder="Level"
-              className="border rounded px-3 py-2 w-32 focus:outline-none focus:ring-2 bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-white"
-            />
-          </div>
+    <section className="relative bg-gray-900">
+      <div className="absolute inset-0">
+        <img
+          src="/images/a1.jpeg"
+          alt="Search Courses"
+          className="w-full h-full object-cover opacity-40"
+        />
+      </div>
+      <div className="relative container mx-auto px-6 py-12">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 p-6">
+            <div className="flex flex-col gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="md:col-span-2">
+                  <label htmlFor="course-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Course Name
+                  </label>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <input
+                      id="course-name"
+                      type="text"
+                      name="name"
+                      value={filters.name}
+                      onChange={handleChange}
+                      onKeyPress={handleKeyPress}
+                      placeholder="Architecture , Painting"
+                      className="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all"
+                    />
+                  </div>
+                </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex gap-4">
-              <label className="flex items-center gap-1 cursor-pointer">
-                <input
-                  type="radio"
-                  name="location"
-                  value="Onsite"
-                  checked={filters.location === "Onsite"}
-                  onChange={handleChange}
-                  className="cursor-pointer"
-                />
-                <span className="text-sm dark:text-gray-200">Campus</span>
-              </label>
-              <label className="flex items-center gap-1 cursor-pointer">
-                <input
-                  type="radio"
-                  name="location"
-                  value="Online"
-                  checked={filters.location === "Online"}
-                  onChange={handleChange}
-                  className="cursor-pointer"
-                />
-                <span className="text-sm dark:text-gray-200">Online</span>
-              </label>
-            </div>
+                <div>
+                  <label htmlFor="course-level" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Level
+                  </label>
+                  <input
+                    id="course-level"
+                    type="text"
+                    name="level"
+                    value={filters.level}
+                    onChange={handleChange}
+                    onKeyPress={handleKeyPress}
+                    placeholder="e.g., Level 1"
+                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                    Location
+                  </label>
+                  <div className="flex gap-6">
+                    <label className="flex items-center gap-2 cursor-pointer group">
+                      <input
+                        type="radio"
+                        name="location"
+                        value="Onsite"
+                        checked={filters.location === "Onsite"}
+                        onChange={handleChange}
+                        className="w-4 h-4 text-blue-600 cursor-pointer focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                      />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+                        Campus
+                      </span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer group">
+                      <input
+                        type="radio"
+                        name="location"
+                        value="Online"
+                        checked={filters.location === "Online"}
+                        onChange={handleChange}
+                        className="w-4 h-4 text-blue-600 cursor-pointer focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                      />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+                        Online
+                      </span>
+                    </label>
+                  </div>
+                </div>
 
-            <div className="flex gap-2">
-                <button
-                  onClick={handleSearch}
-                  className="px-3 py-1.5 text-sm font-medium text-gray-700 bg-new-vision-yellow border border-gray-300 rounded-md hover:bg-new-vision-yellow/80 transition-colors focus:outline-none"
-                >
-                  Search
-                </button>
-                <button
-                  onClick={handleReset}
-                  className="px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-300 border border-gray-300 rounded-md hover:bg-gray-400 transition-colors focus:outline-none"
-                >
-                  Reset
-                </button>
+                <div className="flex gap-3 w-full sm:w-auto">
+                  <button
+                    onClick={handleReset}
+                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                    Reset
+                  </button>
+                  <button
+                    onClick={handleSearch}
+                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  >
+                    <Search className="w-4 h-4" />
+                    Search
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

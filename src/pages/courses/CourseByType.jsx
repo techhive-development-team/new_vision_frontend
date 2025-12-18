@@ -108,7 +108,6 @@ const CourseByType = () => {
 
   return (
     <Layout>
-      <CourseBackground />
 
       <SearchCourse
         filters={filters}
@@ -131,7 +130,9 @@ const CourseByType = () => {
             )}
           </div>
           {!courses.length && !isLoading ? (
-            <NotFoundData data="No courses available." />
+            <div className="flex items-center justify-center min-h-screen">
+              <p className="text-center text-gray-400 text-lg">No courses available.</p>
+            </div>
           ) : (
             <>
               <AnimatePresence mode="wait">

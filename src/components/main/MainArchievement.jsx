@@ -31,7 +31,7 @@ const MainArchievement = () => {
       <div className="absolute inset-0 bg-black opacity-30 z-10" />
       <div className="relative z-20 text-white px-4 text-center">
         <h3 className="font-semibold text-3xl md:text-4xl">Our Achievements</h3>
-        <p className="w-11/12 md:w-2/3 mx-auto mt-6 leading-relaxed text-sm md:text-base text-gray-100">
+        <p className="w-11/12 md:w-2/3 mx-auto mt-6 leading-relaxed text-sm md:text-base text-gray-100 text-left">
           At New Vision Art & Science Institute, we are proud of our students'
           academic success and global recognition. Our graduates have earned
           admissions — many with scholarships and prestigious government grants
