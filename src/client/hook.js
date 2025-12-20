@@ -92,6 +92,13 @@ const getCoursesByType = async (params = {}) => {
   });
 };
 
+const getAllCoursesByType = async (programType) => {
+  const query = new URLSearchParams({ programType }).toString();
+  return client.exec(`${API_URLS.COURSE}/front/types?${query}`, {
+    method: "get",
+  });
+};
+
 export const hooks = {
   getImagesById,
   useGetCourse,
@@ -105,4 +112,5 @@ export const hooks = {
   getHappeningTypeById,
   getStudentReviewById,
   getCoursesByType,
+  getAllCoursesByType,
 };

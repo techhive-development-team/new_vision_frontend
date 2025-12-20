@@ -133,3 +133,19 @@ export const useGetCoursesByType = ({
     error,
   };
 };
+
+export const useGetAllCoursesByType = (programType) => {
+  const key = programType
+    ? `${API_URLS.COURSE}/front/types?programType=${programType}`
+    : null;
+
+  const { data, error, isLoading } = useSWRWithLoading(key, () =>
+    hooks.getAllCoursesByType(programType)
+  );
+
+  return {
+    data: data?.data || [],
+    isLoading,
+    error,
+  };
+};
