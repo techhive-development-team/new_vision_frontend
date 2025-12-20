@@ -19,7 +19,7 @@ const Courses = () => {
       <Layout>
         <CourseBackground />
         {data && (
-          <section className="py-12 px-6">
+          <section className="">
             <div className="px-6 w-11/12 md:w-4/5 mx-auto py-6">
               <h3 className="font-semibold text-2xl text-black dark:text-white mb-2">
                 Overview of our study programs
