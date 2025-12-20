@@ -10,7 +10,6 @@ const SearchCourse = ({
   type,
 }) => {
   const { data, isLoading } = useGetAllCoursesByType(type);
-  console.log(data)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
