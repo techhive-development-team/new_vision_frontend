@@ -183,7 +183,7 @@ const StudentRegistrationForm = () => {
                           : "/images/a1.jpeg"
                       }
                       alt="Course"
-                      className="w-full h-48 sm:h-full object-cover rounded-xl border"
+                      className="w-full h-64 object-cover rounded-xl border"
                     />
                   </div>
                   <div className="flex-1 flex flex-col justify-between">
