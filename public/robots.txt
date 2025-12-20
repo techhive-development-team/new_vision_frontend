@@ -1,3 +1,18 @@
+# Robots.txt for New Vision Art & Science Institute
 User-agent: *
 Allow: /
-Sitemap: https://www.newvisioninstitute.com/sitemap.xml
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*.json$
+
+# Crawl-delay for specific bots
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+# Sitemap location
+Sitemap: https://newvision-institute.com/sitemap.xml
