@@ -22,14 +22,20 @@ const HappeningDetailCard = ({ item, itemIndex }) => {
         />
       </div>
 
-      <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-          {item.title || item.name}
-        </h3>
-        <p className="text-sm text-gray-600 mb-3">
-          {truncateDescription(item.description, 10)}
-        </p>
-        <div className="flex justify-between items-center pt-2 border-t border-gray-100">
+      <div className="p-4 flex flex-col justify-between flex-1">
+        <div
+          className="overflow-hidden"
+          style={{ height: "100px" }} 
+        >
+          <h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-2">
+            {item.title || item.name}
+          </h3>
+          <p className="text-sm text-gray-600">
+            {truncateDescription(item.description, 8)}
+          </p>
+        </div>
+
+        <div className="flex justify-between items-center pt-2 border-t border-gray-100 mt-2">
           <p className="text-sm text-gray-500">Posted: {item.postedDate}</p>
           <Link
             to={`/happening/${item.id}`}

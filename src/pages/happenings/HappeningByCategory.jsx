@@ -97,7 +97,7 @@ const HappeningByCategory = () => {
   return (
     <Layout>
       <HappeningContext />
-      <div className="container mx-auto p-4 min-h-screen">
+      <div className="container mx-auto p-4 ">
         <motion.div
           className="pb-6"
           initial={{ opacity: 0, y: -20 }}
