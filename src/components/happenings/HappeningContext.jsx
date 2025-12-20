@@ -5,7 +5,7 @@ const HappeningContext = ({ data, loading }) => {
     <div className="relative bg-gray-900">
       <div className="absolute inset-0">
         <img
-          src="../../images/a1.jpeg"
+          src="../../images/happening.jpeg"
           alt="Events"
           className="w-full h-full object-cover opacity-40"
         />
