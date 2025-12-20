@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Layout from "../../components/common/Layout";
-import CourseBackground from "../../components/courses/CourseBackground";
 import Loader from "../../components/common/Loader";
 import CourseCard from "../../components/courses/CourseCard";
 import SearchCourse from "../../components/courses/SearchCourse";
-import NotFoundData from "../../components/common/NotFoundData";
 import { useGetCoursesByType } from "@/hooks/useGetImage";
 
 const getPaginationRange = (page, totalPages) => {
@@ -110,6 +108,7 @@ const CourseByType = () => {
     <Layout>
 
       <SearchCourse
+        type={programType}
         filters={filters}
         setFilters={setFilters}
         handleSearch={handleSearch}
@@ -119,17 +118,19 @@ const CourseByType = () => {
       <section className="py-12 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-6">
-            {type && (
+            {programType && (
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-gray-900 dark:border-white inline-block pb-1">
-                {{
-                  ART_DESIGN: "Art & Design Program",
-                  TECHNOLOGY: "Technology Program",
-                  CHILDRENS_CREATIVE: "Children's Creative Program",
-                }[type]}
+                {
+                  {
+                    ART_DESIGN: "Art & Design Program",
+                    TECHNOLOGY: "Technology Program",
+                    CHILDRENS_CREATIVE: "Children's Creative Program",
+                  }[programType] || "Courses"
+                }
               </h2>
             )}
           </div>
-          {!courses.length && !isLoading ? (
+          {!courses?.length && !isLoading ? (
             <div className="flex items-center justify-center min-h-screen">
               <p className="text-center text-gray-400 text-lg">No courses available.</p>
             </div>

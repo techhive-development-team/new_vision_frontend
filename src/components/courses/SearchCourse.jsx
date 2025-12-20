@@ -1,14 +1,23 @@
 import React from "react";
 import { Search, RotateCcw } from "lucide-react";
+import { useGetAllCoursesByType } from "@/hooks/useGetImage";
 
-const SearchCourse = ({ filters, setFilters, handleSearch, handleReset }) => {
+const SearchCourse = ({
+  filters,
+  setFilters,
+  handleSearch,
+  handleReset,
+  type,
+}) => {
+  const { data, isLoading } = useGetAllCoursesByType(type);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch();
     }
   };
@@ -28,38 +37,66 @@ const SearchCourse = ({ filters, setFilters, handleSearch, handleReset }) => {
             <div className="flex flex-col gap-5">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="md:col-span-2">
-                  <label htmlFor="course-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label
+                    htmlFor="course-name"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  >
                     Course Name
                   </label>
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none z-10" />
+                    <select
                       id="course-name"
-                      type="text"
                       name="name"
                       value={filters.name}
                       onChange={handleChange}
-                      onKeyPress={handleKeyPress}
-                      placeholder="Architecture , Painting"
-                      className="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all"
-                    />
+                      className="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all appearance-none cursor-pointer"
+                      disabled={isLoading}
+                    >
+                      <option value="">
+                        {isLoading ? "Loading courses..." : "Select a course"}
+                      </option>
+                      {!isLoading &&
+                        data &&
+                        data.map((course) => (
+                          <option key={course.id} value={course.name}>
+                            {course.name} {course.level && `- ${course.level}`}
+                          </option>
+                        ))}
+                    </select>
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="course-level" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label
+                    htmlFor="course-level"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  >
                     Level
                   </label>
-                  <input
+                  <select
                     id="course-level"
-                    type="text"
                     name="level"
                     value={filters.level}
                     onChange={handleChange}
-                    onKeyPress={handleKeyPress}
-                    placeholder="e.g., Level 1"
-                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all"
-                  />
+                    className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all appearance-none cursor-pointer"
+                    disabled={isLoading}
+                  >
+                    <option value="">
+                      {isLoading ? "Loading..." : "Select level"}
+                    </option>
+                    {!isLoading &&
+                      data &&
+                      [
+                        ...new Set(
+                          data.map((course) => course.level).filter(Boolean)
+                        ),
+                      ].map((level) => (
+                        <option key={level} value={level}>
+                          {level}
+                        </option>
+                      ))}
+                  </select>
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
