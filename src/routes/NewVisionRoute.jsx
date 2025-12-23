@@ -8,9 +8,9 @@ import HappeningByCategory from "../pages/happenings/HappeningByCategory";
 import HappeningDetail from "../pages/happenings/HappeningDetail";
 import Quiz from "../pages/Quiz";
 import CourseDetail from "../pages/courses/CourseDetail";
-import StudentRegistrationForm from "../pages/students/StudentRegistrationForm";
+// import StudentRegistrationForm from "../pages/students/StudentRegistrationForm";
 import StudentReviewDetail from "../pages/StudentReviewDetail";
-import RegistrationSuccess from "@/pages/students/RegistrationSuccess";
+// import RegistrationSuccess from "@/pages/students/RegistrationSuccess";
 import ErrorPage from "@/pages/ErrorPage";
 import NotFound from "@/pages/NotFound";
 import CourseByType from "@/pages/courses/CourseByType";
@@ -27,11 +27,11 @@ const NewVisionRoute = () => {
       <Route path="/happening/:id" element={<HappeningDetail />} />
       <Route path="/quiz/:id" element={<Quiz />} />
       <Route path="/courses/:id" element={<CourseDetail />} />
-      <Route path="/courses/:id/apply" element={<StudentRegistrationForm />} />
+      {/* <Route path="/courses/:id/apply" element={<StudentRegistrationForm />} />
       <Route
         path="/courses/:id/apply/success"
         element={<RegistrationSuccess />}
-      />
+      /> */}
       <Route path="/student-review/:id" element={<StudentReviewDetail />} />
       <Route path="/courses/program/:type" element={<CourseByType />} />
       <Route path="/error" element={<ErrorPage />} />

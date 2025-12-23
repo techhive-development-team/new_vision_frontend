@@ -9,10 +9,11 @@ import {
 } from "lucide-react";
 import { useGetCourseById } from "../../hooks/useGetImage";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { API_URLS, imageUrl } from "../../client/url";
+import { API_URLS, imageUrl, baseUrl } from "../../client/url";
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NotFoundData from "@/components/common/NotFoundData";
-import { ChevronLeft } from "lucide-react"; 
+import { ChevronLeft } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -26,7 +27,6 @@ const slideUp = {
 };
 
 const CourseDetail = () => {
-
   const navigate = useNavigate();
   const formatTime = (time) => {
     if (!time) return "";
@@ -44,23 +44,88 @@ const CourseDetail = () => {
   const { id } = useParams();
   const { data: course } = useGetCourseById(id);
   const [showQuiz, setShowQuiz] = useState(false);
+  const [showApplyModal, setShowApplyModal] = useState(false);
+  const [applicant, setApplicant] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    description: "",
+  });
+  const [loadingApply, setLoadingApply] = useState(false);
+  const [toast, setToast] = useState({ message: "", type: "" });
+
+  const handleApplicantChange = (e) => {
+    const { name, value } = e.target;
+    setApplicant((prev) => ({ ...prev, [name]: value }));
+  };
+
+  useEffect(() => {
+    if (toast.message) {
+      const t = setTimeout(() => setToast({ message: "", type: "" }), 3000);
+      return () => clearTimeout(t);
+    }
+  }, [toast]);
+
+  const handleApplySubmit = async (e) => {
+    e.preventDefault();
+    const { name, email, description, phone } = applicant;
+    if (!name || !email || !description || !phone) {
+      setToast({
+        message: "Please provide name, email, phone and description.",
+        type: "error",
+      });
+      return;
+    }
+
+    setLoadingApply(true);
+    setToast({ message: "", type: "" });
+
+    try {
+      await fetch(`${baseUrl}/inquiry`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...applicant, courseId: course?.id }),
+      });
+
+      setToast({
+        message: "Application submitted successfully!",
+        type: "success",
+      });
+      setShowApplyModal(false);
+      setApplicant({ name: "", email: "", phone: "", description: "" });
+    } catch (err) {
+      console.error("Error submitting application:", err);
+      setToast({ message: "Failed to submit. Try again.", type: "error" });
+    } finally {
+      setLoadingApply(false);
+    }
+  };
 
   if (!course?.name) return <NotFoundData data={"Course not found."} />;
 
   return (
     <Layout>
+      {toast.message && (
+        <div
+          className={`z-50 fixed top-20 right-5 px-4 py-3 rounded-lg shadow-lg text-white transition-all duration-500 ${
+            toast.type === "success" ? "bg-green-600" : "bg-red-600"
+          }`}
+        >
+          {toast.message}
+        </div>
+      )}
       <button
-          onClick={() => navigate(-1)}
-          className="fixed top-24 left-6 z-[9999] w-12 h-12 rounded-full
+        onClick={() => navigate(-1)}
+        className="fixed top-24 left-6 z-[9999] w-12 h-12 rounded-full
                      bg-black text-white
                      flex items-center justify-center
                      shadow-lg
                      hover:scale-110 active:scale-100
                      transition-transform"
-          aria-label="Go Back"
-        >
-          <ChevronLeft size={25} />
-        </button>
+        aria-label="Go Back"
+      >
+        <ChevronLeft size={25} />
+      </button>
       <motion.div
         className="relative w-full h-64 md:h-80 bg-gray-900"
         initial="hidden"
@@ -110,18 +175,20 @@ const CourseDetail = () => {
               label: "Deadline",
               value: course?.expireDate
                 ? new Date(course.expireDate).toLocaleDateString("en-GB", {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })
                 : null,
-            }, {
+            },
+            {
               icon: MapPin,
               label: "Location",
-              value: {
-                online: "Online",
-                onsite: "Campus",
-              }[course?.location] || course?.location,
+              value:
+                {
+                  online: "Online",
+                  onsite: "Campus",
+                }[course?.location] || course?.location,
             },
             {
               icon: ChartColumnStacked,
@@ -129,7 +196,7 @@ const CourseDetail = () => {
               value: course?.level,
             },
           ]
-            .filter(card => card.value)
+            .filter((card) => card.value)
             .map((card, idx) => (
               <motion.div
                 key={idx}
@@ -163,12 +230,12 @@ const CourseDetail = () => {
         {course?.isOpened &&
           course?.expireDate &&
           new Date(course.expireDate) >= new Date() && (
-            <Link
-              to={`/courses/${course.id}/apply`}
+            <button
+              onClick={() => setShowApplyModal(true)}
               className="px-6 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-medium"
             >
               Apply Now
-            </Link>
+            </button>
           )}
       </motion.div>
       <AnimatePresence>
@@ -231,7 +298,9 @@ const CourseDetail = () => {
                       <p className="font-semibold text-gray-900 text-sm sm:text-base">
                         {formatDay(schedule.day)}
                       </p>
-                      <p className="text-xs sm:text-sm text-gray-500">Weekly class</p>
+                      <p className="text-xs sm:text-sm text-gray-500">
+                        Weekly class
+                      </p>
                     </div>
                   </div>
 
@@ -248,6 +317,101 @@ const CourseDetail = () => {
           </div>
         </motion.section>
       )}
+      <AnimatePresence>
+        {showApplyModal && (
+          <motion.div
+            key="apply-modal"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div
+              className="absolute inset-0 bg-black/50"
+              onClick={() => setShowApplyModal(false)}
+            />
+            <motion.div
+              className="relative w-full max-w-xl bg-white rounded-lg shadow-lg p-6 z-10"
+              initial={{ y: 20 }}
+              animate={{ y: 0 }}
+              exit={{ y: 20 }}
+            >
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                Apply for Course
+              </h3>
+              <form onSubmit={handleApplySubmit} className="space-y-4">
+                <div>
+                  <label className="text-sm text-gray-700">Course</label>
+                  <input
+                    value={course?.name || ""}
+                    readOnly
+                    className="w-full px-4 py-3 bg-white text-black border border-gray-400 rounded-xl mt-1 focus:outline-none focus:ring-2 focus:ring-new-vision-yellow"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-gray-700">Your Name *</label>
+                  <input
+                    name="name"
+                    value={applicant.name}
+                    onChange={handleApplicantChange}
+                    className="w-full px-4 py-3 bg-white text-black border border-gray-400 rounded-xl mt-1 focus:outline-none focus:ring-2 focus:ring-new-vision-yellow"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-gray-700">Email *</label>
+                  <input
+                    name="email"
+                    type="email"
+                    value={applicant.email}
+                    onChange={handleApplicantChange}
+                    className="w-full px-4 py-3 bg-white text-black border border-gray-400 rounded-xl mt-1 focus:outline-none focus:ring-2 focus:ring-new-vision-yellow"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-gray-700">Phone *</label>
+                  <input
+                    name="phone"
+                    value={applicant.phone}
+                    onChange={handleApplicantChange}
+                    className="w-full px-4 py-3 bg-white text-black border border-gray-400 rounded-xl mt-1 focus:outline-none focus:ring-2 focus:ring-new-vision-yellow"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-gray-700">Description *</label>
+                  <textarea
+                    name="description"
+                    placeholder="Briefly explain why you want to join (required)"
+                    value={applicant.description}
+                    onChange={handleApplicantChange}
+                    className="w-full px-4 py-3 bg-white text-black border border-gray-400 rounded-xl mt-1 focus:outline-none focus:ring-2 focus:ring-new-vision-yellow"
+                    rows={4}
+                    required
+                  />
+                </div>
+                <div className="flex justify-end gap-3 mt-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowApplyModal(false)}
+                    className="px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-700"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-3 rounded-xl bg-new-vision-yellow text-black font-medium"
+                    disabled={loadingApply}
+                  >
+                    {loadingApply ? "Submitting..." : "Submit"}
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Layout>
   );
 };

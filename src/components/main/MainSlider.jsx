@@ -37,7 +37,7 @@ const MainSlider = ({ data, loading }) => {
               />
 
               <div className="absolute inset-0 flex items-center justify-start">
-                <div className="absolute inset-0 bg-black opacity-20"></div>
+                <div className="absolute inset-0 bg-black opacity-60"></div>
 
                 <div className="relative text-left px-6 sm:px-12 max-w-3xl">
                   <h2 className="text-new-vision-yellow text-2xl sm:text-4xl font-bold mb-4">
