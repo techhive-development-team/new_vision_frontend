@@ -6,6 +6,8 @@ import Loader from "../../components/common/Loader";
 import CourseCard from "../../components/courses/CourseCard";
 import SearchCourse from "../../components/courses/SearchCourse";
 import { useGetCoursesByType } from "@/hooks/useGetImage";
+import { useNavigate } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
 
 const getPaginationRange = (page, totalPages) => {
   const delta = 2;
@@ -14,7 +16,11 @@ const getPaginationRange = (page, totalPages) => {
   let l;
 
   for (let i = 1; i <= totalPages; i++) {
-    if (i === 1 || i === totalPages || (i >= page - delta && i <= page + delta)) {
+    if (
+      i === 1 ||
+      i === totalPages ||
+      (i >= page - delta && i <= page + delta)
+    ) {
       range.push(i);
     }
   }
@@ -32,6 +38,7 @@ const getPaginationRange = (page, totalPages) => {
 };
 
 const CourseByType = () => {
+  const navigate = useNavigate();
   const { type } = useParams();
   const [filters, setFilters] = useState({ name: "", level: "", location: "" });
   const [searchFilters, setSearchFilters] = useState({});
@@ -44,8 +51,8 @@ const CourseByType = () => {
     filters.location === "Online"
       ? "online"
       : filters.location === "Onsite"
-        ? "onsite"
-        : undefined;
+      ? "onsite"
+      : undefined;
 
   const { courses, total, isLoading } = useGetCoursesByType({
     programType,
@@ -100,13 +107,27 @@ const CourseByType = () => {
 
   const container = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+    },
     exit: { opacity: 0, transition: { duration: 0.3 } },
   };
 
   return (
     <Layout>
-
+      <button
+        onClick={() => navigate(-1)}
+        className="fixed top-24 left-6 z-[9999] w-12 h-12 rounded-full
+               bg-black text-white
+               flex items-center justify-center
+               shadow-lg
+               hover:scale-110 active:scale-100
+               transition-transform"
+        aria-label="Go Back"
+      >
+        <ChevronLeft size={25} />
+      </button>
       <SearchCourse
         type={programType}
         filters={filters}
@@ -120,19 +141,19 @@ const CourseByType = () => {
           <div className="mb-6">
             {programType && (
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-gray-900 dark:border-white inline-block pb-1">
-                {
-                  {
-                    ART_DESIGN: "Art & Design Program",
-                    TECHNOLOGY: "Technology Program",
-                    CHILDRENS_CREATIVE: "Children's Creative Program",
-                  }[programType] || "Courses"
-                }
+                {{
+                  ART_DESIGN: "Art & Design Program",
+                  TECHNOLOGY: "Technology Program",
+                  CHILDRENS_CREATIVE: "Children's Creative Program",
+                }[programType] || "Courses"}
               </h2>
             )}
           </div>
           {!courses?.length && !isLoading ? (
             <div className="flex items-center justify-center min-h-screen">
-              <p className="text-center text-gray-400 text-lg">No courses available.</p>
+              <p className="text-center text-gray-400 text-lg">
+                No courses available.
+              </p>
             </div>
           ) : (
             <>
@@ -159,7 +180,12 @@ const CourseByType = () => {
                   variants={container}
                 >
                   {courses.map((course, index) => (
-                    <motion.div key={`${course.id}-${page}`} variants={fadeUp} custom={index}>
+                    <motion.div
+                      key={`${course.id}-${page}`}
+                      variants={fadeUp}
+                      custom={index}
+                      className="transform transition-transform duration-300 hover:scale-105 hover:shadow-lg rounded-lg"
+                    >
                       <CourseCard course={course} />
                     </motion.div>
                   ))}
@@ -185,13 +211,21 @@ const CourseByType = () => {
                   aria-label="Previous page"
                   className="relative inline-flex items-center rounded-l-lg px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                 >
-                  <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                  <svg
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 </button>
 
-                {getPaginationRange(page, totalPages).map((p, idx) => (
-                  p === '...' ? (
+                {getPaginationRange(page, totalPages).map((p, idx) =>
+                  p === "..." ? (
                     <span
                       key={`ellipsis-${idx}`}
                       className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600"
@@ -203,16 +237,17 @@ const CourseByType = () => {
                       key={p}
                       onClick={() => handlePageChange(p)}
                       aria-label={`Go to page ${p}`}
-                      aria-current={page === p ? 'page' : undefined}
-                      className={`relative inline-flex items-center px-4 py-2 text-sm font-medium border transition-all duration-200 ${page === p
-                        ? "bg-new-vision-yellow text-gray-900 border-new-vision-yellow z-10 shadow-md"
-                        : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-yellow-100 dark:hover:bg-yellow-900"
-                        }`}
+                      aria-current={page === p ? "page" : undefined}
+                      className={`relative inline-flex items-center px-4 py-2 text-sm font-medium border transition-all duration-200 ${
+                        page === p
+                          ? "bg-new-vision-yellow text-gray-900 border-new-vision-yellow z-10 shadow-md"
+                          : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-yellow-100 dark:hover:bg-yellow-900"
+                      }`}
                     >
                       {p}
                     </button>
                   )
-                ))}
+                )}
 
                 <button
                   onClick={() => handlePageChange(page + 1)}
@@ -220,8 +255,16 @@ const CourseByType = () => {
                   aria-label="Next page"
                   className="relative inline-flex items-center rounded-r-lg px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                 >
-                  <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                  <svg
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 </button>
               </nav>

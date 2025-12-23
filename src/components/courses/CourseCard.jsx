@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Clock, DollarSign, MapPin } from "lucide-react";
+import { Clock, Calendar, MapPin } from "lucide-react";
 import { imageUrl, API_URLS } from "../../client/url";
 
 const formatPrice = (value) => {
@@ -12,7 +12,9 @@ const formatPrice = (value) => {
 };
 
 const CourseCard = ({ course }) => {
-  const imageSrc = course.image ? `${imageUrl}${API_URLS.COURSE}/${course.image}` : "/images/a1.jpeg";
+  const imageSrc = course.image
+    ? `${imageUrl}${API_URLS.COURSE}/${course.image}`
+    : "/images/a1.jpeg";
 
   return (
     <Link
@@ -22,7 +24,7 @@ const CourseCard = ({ course }) => {
       <div className="w-full aspect-[20/9] overflow-hidden bg-gray-100">
         <img
           src={imageSrc}
-          alt={course.name || 'Course image'}
+          alt={course.name || "Course image"}
           className="w-full h-full object-cover"
         />
       </div>
@@ -35,17 +37,22 @@ const CourseCard = ({ course }) => {
         <div className="space-y-2 text-sm text-gray-600 mb-3">
           <div className="flex items-center gap-2">
             <Clock size={16} />
-            <span>{course.duration || 'N/A'}</span>
+            <span>{course.duration || "N/A"}</span>
           </div>
           <div className="flex items-center gap-2">
             <MapPin size={16} />
-            <span>{{ online: "Online", onsite: "Campus" }[course.location]}</span>
+            <span>
+              {{ online: "Online", onsite: "Campus" }[course.location]}
+            </span>
           </div>
-          {course.price &&
+          {course.expireDate && (
             <div className="flex items-center gap-2">
-              <DollarSign size={16} /> <span>{formatPrice(course.price)} MMK</span>
+              <Calendar size={16} />
+              <span>
+                {new Date(course.expireDate).toISOString().split("T")[0]}
+              </span>
             </div>
-          }
+          )}
         </div>
 
         <div className="flex justify-end pt-2 border-t border-gray-100">

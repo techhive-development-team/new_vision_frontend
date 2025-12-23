@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Layout from "../../components/common/Layout";
 import HappeningDetailCard from "../../components/happenings/HappeningDetailCard";
@@ -8,9 +8,11 @@ import { API_URLS, imageUrl } from "../../client/url";
 import Loader from "@/components/common/Loader";
 import HappeningContext from "@/components/happenings/HappeningContext";
 import NotFoundData from "@/components/common/NotFoundData";
+import { ChevronLeft } from "lucide-react";
 
 const HappeningByCategory = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const limit = 6;
@@ -52,9 +54,9 @@ const HappeningByCategory = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
     },
-    exit: { opacity: 0, transition: { duration: 0.3 } }
+    exit: { opacity: 0, transition: { duration: 0.3 } },
   };
 
   const handlePageChange = (newPage) => {
@@ -74,7 +76,11 @@ const HappeningByCategory = () => {
     let l;
 
     for (let i = 1; i <= totalPages; i++) {
-      if (i === 1 || i === totalPages || (i >= page - delta && i <= page + delta)) {
+      if (
+        i === 1 ||
+        i === totalPages ||
+        (i >= page - delta && i <= page + delta)
+      ) {
         range.push(i);
       }
     }
@@ -84,7 +90,7 @@ const HappeningByCategory = () => {
         if (i - l === 2) {
           rangeWithDots.push(l + 1);
         } else if (i - l !== 1) {
-          rangeWithDots.push('...');
+          rangeWithDots.push("...");
         }
       }
       rangeWithDots.push(i);
@@ -96,6 +102,21 @@ const HappeningByCategory = () => {
 
   return (
     <Layout>
+      <button
+        onClick={() => navigate(-1)}
+        className="fixed top-[100px] left-4 z-50
+             flex items-center justify-center
+             w-12 h-12
+             rounded-full
+             bg-black
+             text-white
+             shadow-xl
+             hover:scale-110 active:scale-100
+             transition-transform"
+      >
+        <ChevronLeft size={25} className="text-white" />
+      </button>
+
       <HappeningContext />
       <div className="container mx-auto p-4 ">
         <motion.div
@@ -111,7 +132,7 @@ const HappeningByCategory = () => {
               </h1>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-              {total} {total === 1 ? 'happening' : 'happenings'} found
+              {total} {total === 1 ? "happening" : "happenings"} found
             </p>
           </div>
         </motion.div>
@@ -174,13 +195,21 @@ const HappeningByCategory = () => {
                 aria-label="Previous page"
                 className="relative inline-flex items-center rounded-l-lg px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
               >
-                <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                <svg
+                  className="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </button>
 
-              {getPaginationRange().map((p, idx) => (
-                p === '...' ? (
+              {getPaginationRange().map((p, idx) =>
+                p === "..." ? (
                   <span
                     key={`ellipsis-${idx}`}
                     className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600"
@@ -192,24 +221,33 @@ const HappeningByCategory = () => {
                     key={p}
                     onClick={() => handlePageChange(p)}
                     aria-label={`Go to page ${p}`}
-                    aria-current={page === p ? 'page' : undefined}
-                    className={`relative inline-flex items-center px-4 py-2 text-sm font-medium border transition-all duration-200 ${page === p
+                    aria-current={page === p ? "page" : undefined}
+                    className={`relative inline-flex items-center px-4 py-2 text-sm font-medium border transition-all duration-200 ${
+                      page === p
                         ? "bg-new-vision-yellow text-gray-900 border-new-vision-yellow z-10 shadow-md"
                         : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-yellow-100 dark:hover:bg-yellow-900"
-                      }`}
+                    }`}
                   >
                     {p}
                   </button>
                 )
-              ))}
+              )}
               <button
                 onClick={handleNext}
                 disabled={page === totalPages}
                 aria-label="Next page"
                 className="relative inline-flex items-center rounded-r-lg px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
               >
-                <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                <svg
+                  className="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </button>
             </nav>

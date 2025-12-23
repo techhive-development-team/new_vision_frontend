@@ -20,6 +20,7 @@ import FormSection from "@/components/student-register-components/FormSection";
 import FormField from "@/components/student-register-components/FormField";
 import NotFoundData from "@/components/common/NotFoundData";
 import Loader from "@/components/common/Loader";
+import { ChevronLeft } from "lucide-react"; 
 
 const formatTime = (time) => {
   if (!time) return "";
@@ -158,6 +159,18 @@ const StudentRegistrationForm = () => {
 
   return (
     <Layout>
+      <button
+    onClick={() => navigate(-1)}
+    className="fixed top-24 left-6 z-[9999] w-12 h-12 rounded-full
+               bg-black text-white
+               flex items-center justify-center
+               shadow-lg
+               hover:scale-105 active:scale-95
+               transition-transform"
+    aria-label="Go Back"
+  >
+    <ChevronLeft size={25} />
+  </button>
       <div className="my-0 md:my-6 max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg">
         <div className="mb-8">
           <h4 className="text-3xl font-bold text-gray-800 mb-2">

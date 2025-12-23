@@ -6,7 +6,7 @@ import React, {
   useRef,
 } from "react";
 import Layout from "../../components/common/Layout";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useGetHappeningById } from "../../hooks/useGetImage";
 import { API_URLS, imageUrl } from "../../client/url";
 import Loader from "@/components/common/Loader";
@@ -98,8 +98,8 @@ const LazyImage = ({
 
 const HappeningDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data: happening } = useGetHappeningById(id);
-
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -140,8 +140,7 @@ const HappeningDetail = () => {
   const albumImageUrls = useMemo(
     () =>
       happening?.album?.images?.map(
-        (img) =>
-          `${imageUrl}${API_URLS.HAPPENING}/${img.image}`
+        (img) => `${imageUrl}${API_URLS.HAPPENING}/${img.image}`
       ) || [],
     [happening?.album?.images]
   );
@@ -219,6 +218,21 @@ const HappeningDetail = () => {
 
   return (
     <Layout>
+      <button
+        onClick={() => navigate(-1)}
+        className="fixed top-[100px] left-4 z-50
+             flex items-center justify-center
+             w-12 h-12
+             rounded-full
+             bg-black
+             text-white
+             shadow-xl
+             hover:scale-110 active:scale-100
+             transition-transform"
+      >
+        <ChevronLeft size={25} className="text-white" />
+      </button>
+
       {/* Hero Image with fixed aspect ratio */}
       <div className="w-full aspect-[20/9] overflow-hidden relative bg-gray-100 dark:bg-gray-800">
         <LazyImage
@@ -240,18 +254,18 @@ const HappeningDetail = () => {
 
         {/* YouTube Video Section */}
         {happening.embeddedLink && (
-        <div className="mb-8">
-          <div className="w-full aspect-video rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800">
-            <iframe
-              src={happening.embeddedLink}
-              title="YouTube video"
-              className="w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+          <div className="mb-8">
+            <div className="w-full aspect-video rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800">
+              <iframe
+                src={happening.embeddedLink}
+                title="YouTube video"
+                className="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
           </div>
-        </div>
-         )} 
+        )}
 
         {happening.album?.images?.length > 0 && (
           <>

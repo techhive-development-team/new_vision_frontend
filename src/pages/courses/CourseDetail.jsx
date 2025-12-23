@@ -8,10 +8,11 @@ import {
   MapPin,
 } from "lucide-react";
 import { useGetCourseById } from "../../hooks/useGetImage";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { API_URLS, imageUrl } from "../../client/url";
 import { motion, AnimatePresence } from "framer-motion";
 import NotFoundData from "@/components/common/NotFoundData";
+import { ChevronLeft } from "lucide-react"; 
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -26,6 +27,7 @@ const slideUp = {
 
 const CourseDetail = () => {
 
+  const navigate = useNavigate();
   const formatTime = (time) => {
     if (!time) return "";
     const [hours, minutes] = time.split(":");
@@ -47,6 +49,18 @@ const CourseDetail = () => {
 
   return (
     <Layout>
+      <button
+          onClick={() => navigate(-1)}
+          className="fixed top-24 left-6 z-[9999] w-12 h-12 rounded-full
+                     bg-black text-white
+                     flex items-center justify-center
+                     shadow-lg
+                     hover:scale-110 active:scale-100
+                     transition-transform"
+          aria-label="Go Back"
+        >
+          <ChevronLeft size={25} />
+        </button>
       <motion.div
         className="relative w-full h-64 md:h-80 bg-gray-900"
         initial="hidden"
