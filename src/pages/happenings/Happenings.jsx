@@ -25,6 +25,7 @@ const Happenings = () => {
             : "/images/a1.jpeg",
           description: item.description,
           postedDate: new Date(item.createdAt).toLocaleDateString(),
+          isPinned: item.isPinned,
         };
 
         if (groupIndex !== -1) {
@@ -39,6 +40,9 @@ const Happenings = () => {
         return acc;
       }, [])
     : [];
+  events.forEach((group) => {
+    group.items.sort((a, b) => (b.isPinned ? 1 : 0) - (a.isPinned ? 1 : 0));
+  });
 
   if (!events?.length) {
     return (

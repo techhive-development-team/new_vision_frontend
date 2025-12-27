@@ -39,6 +39,8 @@ const HappeningByCategory = () => {
   const happenings = data?.Happening || [];
   const typeName = data?.typeName || "Happenings";
 
+    const sortedHappenings = [...happenings].sort((a, b) => (b.isPinned ? 1 : 0) - (a.isPinned ? 1 : 0));
+    
   if (!happenings.length && !isLoading) {
     return <NotFoundData data="No happenings found for this category." />;
   }
@@ -157,7 +159,7 @@ const HappeningByCategory = () => {
             exit="exit"
             variants={container}
           >
-            {happenings.map((item, index) => (
+            {sortedHappenings.map((item, index) => (
               <motion.div
                 key={`${item.id}-${page}`}
                 variants={fadeUp}

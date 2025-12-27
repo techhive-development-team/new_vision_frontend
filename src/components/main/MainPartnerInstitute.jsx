@@ -27,7 +27,7 @@ const PartnerCard = ({ bg_img, logo_img, name, location, foundedDate }) => {
               className="absolute inset-0 w-full h-full object-contain rounded-xl"
             />
           </div>
-          <p className="text-2xl font-semibold">{name}</p>
+          <p className="text-lg md:text-2xl font-semibold">{name}</p>
         </div>
         <h3 className="text-base font-light">{location}</h3>
         <div className="flex items-center space-x-4 my-2">
